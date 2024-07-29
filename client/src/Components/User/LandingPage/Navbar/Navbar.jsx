@@ -7,10 +7,13 @@ import {
   FaSearch,
   FaBars,
   FaCaretDown,
+  FaCaretUp,
   FaTimes
 } from "react-icons/fa";
 function Navbar() {
     const [showNavbar,setNavbar] = useState(false)
+    const [ShowFeatures,SetShowFeatures] = useState(false)
+    const [ShowCourses,SetShowCourses] = useState(false)
   return (
     <>
       <nav className="max-w-full bg-bgNavbar h-14 text-white flex items-center justify-between px-8 lg:px-14">
@@ -107,11 +110,75 @@ function Navbar() {
         <ul>
             <li className="my-2.5" >Home</li>
             <li className="my-2.5" >News</li>
-            <li className="my-2.5 relative flex group justify-between" >
+            <li className="my-2.5 relative flex group justify-between items-center" onClick={()=>{
+              SetShowFeatures(!ShowFeatures)
+            }} >
             Features
-            <FaCaretDown size={11} className="text-red-600"/>
+            {
+              ShowFeatures ? <FaCaretUp size={11} className="text-red-600"/> :
+              <FaCaretDown size={11} className="text-red-600"/>
+            }
+            
             </li>
-            <li className="my-2.5" >Courses</li>
+            {
+              ShowFeatures ? <>
+              <li className="py-1 px-4 my-2 font-light">
+                About
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Contact
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Our Team
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Courses
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Error
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              </> : ''
+            }
+            <li className="my-2.5 relative flex group justify-between items-center" onClick={()=>{
+            SetShowCourses(!ShowCourses)
+            }}>
+            Courses
+            {
+              ShowCourses ? <FaCaretUp size={11} className="text-red-600"/> :
+              <FaCaretDown size={11} className="text-red-600"/>
+            }
+            </li>
+            {
+              ShowCourses ? <>
+               <li className="py-1 px-4 my-2 font-light">
+                About
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Contact
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Our Team
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Courses
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              <li className="py-1 px-4 my-2 font-light">
+                Error
+              </li>
+              <div className="h-[.5px] bg-gray-500 mx-4"></div>
+              </>
+               :
+              ""
+            }
             <li className="my-2.5" >About</li>
             <li className="my-2.5" >Our Team</li>
             <li className="my-2.5" >Contact</li>

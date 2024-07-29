@@ -4,7 +4,7 @@ import ImageTwo from '../../../../Assets/HeroSectionImages/Image.jpg'
 function HeroSection() {
     let [Current , SetCurrent] = useState(0)
     let Images= [ImageOne,ImageTwo]
-
+    //Images Slider function
     const next = () => {
         SetCurrent((prevCurrent) => (prevCurrent + 1) % Images.length)
     }
