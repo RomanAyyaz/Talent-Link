@@ -13,7 +13,7 @@ function Navbar() {
     const [showNavbar,setNavbar] = useState(false)
   return (
     <>
-      <nav className="w-screen bg-bgNavbar h-14 text-white flex items-center justify-between px-8 lg:px-14">
+      <nav className="max-w-full bg-bgNavbar h-14 text-white flex items-center justify-between px-8 lg:px-14">
         <h1 className="font-bold text-2xl">EDULOGY</h1>
         <ul className="hidden lg:flex w-[650px] items-center justify-between font-medium cursor-pointer">
           <li>Home</li>

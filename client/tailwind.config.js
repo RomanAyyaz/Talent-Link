@@ -8,7 +8,8 @@ module.exports = {
       colors:{
         bgNavbar:'#202E3B',
         bgMenu:'#134B70',
-        MobilePhoneNavbg:"#1F2024"
+        MobilePhoneNavbg:"#1F2024",
+        HeroButtonOne:'#E03B11'
       }
     },
   },
