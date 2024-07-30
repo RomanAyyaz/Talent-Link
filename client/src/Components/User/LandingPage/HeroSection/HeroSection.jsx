@@ -17,7 +17,7 @@ function HeroSection() {
     },[Current])
   return (
     <div className=' max-w-full md:h-auto'>
-        <img src={Images[Current]} alt="HeroPage" className='max-w-full h-[500px]  md:h-full object-cover' />
+        <img src={Images[Current]} alt="HeroPage" className='w-full h-[500px] lg:h-[650px]  md:h-full object-cover' />
         <div className='absolute top-64 w-full px-4 py-3 text-white'>
             <p className='m-2 text-xl'>We believe in </p>
             {
@@ -33,6 +33,16 @@ function HeroSection() {
             <p className='inline-block mx-2 lg:mx-4' >or</p>
             <button className='rounded-md bg-HeroButtonOne py-1 px-3 lg:py-2 lg:px-5'>Demo Test</button>
         </div>
+        <div className='absolute top-[580px] lg:top-[680px] left-3'>
+         <div className='flex items-center justify-center gap-2'>
+    {Images.map((_, i) => (
+        <div
+            key={i}
+            className={`transition-all w-2 h-2 bg-white rounded-full ${Current === i ? 'p-1' : 'bg-opacity-50'}`}
+        />
+    ))}
+</div>
+</div>
     </div>
   )
 }
