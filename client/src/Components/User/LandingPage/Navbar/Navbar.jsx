@@ -68,25 +68,25 @@ function Navbar() {
           <li>Contact</li>
         </ul>
         <div className="hidden lg:flex w-36 h-6 items-center text-base justify-between cursor-pointer">
-          <div className="hover:bg-blue-500 relative text-base p-1 group flex items-center justify-center">
+          <div className="hover:bg-facebook relative text-base p-1 group flex items-center justify-center">
             <FaFacebookF />
             <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
               Facebook
             </div>
           </div>
-          <div className="hover:bg-blue-500 relative text-base p-1 group flex items-center justify-center">
+          <div className="hover:bg-twitter relative text-base p-1 group flex items-center justify-center">
             <FaTwitter />
             <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
               Twitter
             </div>
           </div>
-          <div className="hover:bg-red-500 relative text-base p-1 group flex items-center justify-center">
+          <div className="hover:bg-instagram relative text-base p-1 group flex items-center justify-center">
             <FaInstagram />
             <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
               Instagram
             </div>
           </div>
-          <div className="hover:bg-red-500 relative text-base p-1 group flex items-center justify-center">
+          <div className="hover:bg-youtube relative text-base p-1 group flex items-center justify-center">
             <FaYoutube />
             <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
               Youtube
