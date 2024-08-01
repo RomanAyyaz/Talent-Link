@@ -14,7 +14,8 @@ module.exports = {
         facebook:'	#1877F2',
         twitter:'#1DA1F2',
         instagram:'#FCAF45',
-        youtube:'	#FF0000'
+        youtube:'	#FF0000',
+        bgotherLink:"#F7F9F9",
       }
     },
   },
