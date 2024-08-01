@@ -6,6 +6,7 @@ import PopularCourses from './PopularCourses/PopularCourses'
 import Fotter from '../Fotter/Fotter'
 import OtherLinks from './OtherLinks/OtherLinks'
 import LatestNews from './LatestNews/LatestNews'
+import SkillLists from './SkillsList/SkillLists'
 function LandingPage() {
   return (
     <>
@@ -13,6 +14,7 @@ function LandingPage() {
         <HeroSection/>
         <CoursesList/>
         <PopularCourses/>
+        <SkillLists/>
         <LatestNews/>
         <OtherLinks/>
         <Fotter/>

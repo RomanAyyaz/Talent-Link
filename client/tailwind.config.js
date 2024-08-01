@@ -16,6 +16,8 @@ module.exports = {
         instagram:'#FCAF45',
         youtube:'	#FF0000',
         bgotherLink:"#F7F9F9",
+        bgSkills:"#F9F9F9",
+        bgwhite:'#FFFFFF'
       }
     },
   },
