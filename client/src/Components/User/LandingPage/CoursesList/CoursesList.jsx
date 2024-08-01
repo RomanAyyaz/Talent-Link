@@ -28,7 +28,7 @@ function CoursesList() {
             <h1 className='my-6 text-2xl font-medium md:hidden mt-14'>Build your library for your career and personal growth</h1>
             <h1 className='hidden md:block text-2xl font-normal mt-14'>Build your library for your career</h1>
             <h1 className='hidden md:block text-2xl font-normal' >and personal growth</h1>
-            <p className='text-sm mt-8 cursor-pointer'>VIEW COURSES <BsArrowRight size={15} className='inline-block'/></p>
+            <p className='text-sm mt-8 cursor-pointer hover:text-HeroButtonOne'>VIEW COURSES <BsArrowRight size={15} className='inline-block'/></p>
             <div className='bg-gray-500 h-[1px] mt-1 w-[120px]'></div>
         </div>
         <div className='mt-14 px-5 lg:flex lg:gap-3 lg:flex-wrap lg:justify-center lg:w-3/5'>

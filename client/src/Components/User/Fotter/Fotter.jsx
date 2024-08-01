@@ -7,7 +7,7 @@ import {
  } from "react-icons/fa";
 function Fotter() {
   return (
-    <div className='bg-bgFooter mt-2 py-8'>
+    <div className='bg-bgFooter py-8'>
         <div className='flex flex-wrap justify-center items-center px-3 py-1'>
             <div className='group flex items-center hover:cursor-pointer hover:bg-facebook hover:text-white h-6 px-1'>
                 <FaFacebookF size={14} />
