@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CountUp from 'react-countup';
-import FeatureImage from '../../../../Assets/WebsiteInfoImages/FeatureImage.jpeg';
+import FeatureImage from '../../../../Assets/WebsiteInfoImages/FeatureImage.jpg';
 import WebsiteInfoImages from './WebsiteInfoImages';
 
 function WebsiteInfo() { 
@@ -40,32 +40,38 @@ function WebsiteInfo() {
           ))}
         </div>
         <div className='w-full lg:w-1/2 mt-6 lg:mt-0 lg:ml-6 space-y-8'>
-          <div className='text-center lg:text-left'>
-            <h2 className='text-4xl font-bold text-orange-600'>
+          <div className='flex '>
+            <h2 className='text-4xl font-bold text-orange-600 mr-4'>
               {inView && <CountUp end={45} suffix="+" />}
             </h2>
-            <h3 className='text-xl font-semibold'>Best & Most Involved Teachers</h3>
-            <p className='mt-2 text-gray-600'>
-              Key features are the ability to develop relationships with their students, patient, caring, and kind personality, knowledge of learners. Engaging students in learning.
-            </p>
+            <div>
+              <h3 className='text-xl text-left font-semibold'>Best & Most Involved Teachers</h3>
+              <p className='mt-2  text-left text-gray-600'>
+                Key features are the ability to develop relationships with their students, patient, caring, and kind personality, knowledge of learners. Engaging students in learning.
+              </p>
+            </div>
           </div>
-          <div className='text-center lg:text-left'>
-            <h2 className='text-4xl font-bold text-orange-600'>
-            {inView && <CountUp end={1200} duration={2.5} formattingFn={(value) => `${(value / 1000).toFixed(1)}k`} />}
+          <div className='flex '>
+            <h2 className='text-4xl font-bold text-orange-600 mr-4'>
+              {inView && <CountUp end={1200} duration={2.5} formattingFn={(value) => `${(value / 1000).toFixed(1)}k`} />}
             </h2>
-            <h3 className='text-xl font-semibold'>Large selection of courses</h3>
-            <p className='mt-2 text-gray-600'>
-              Explore a variety of fresh topics. Find the right instructor for you. Learn on your schedule.
-            </p>
+            <div>
+              <h3 className='text-xl text-left font-semibold'>Large selection of courses</h3>
+              <p className='mt-2 text-left text-gray-600'>
+                Explore a variety of fresh topics. Find the right instructor for you. Learn on your schedule.
+              </p>
+            </div>
           </div>
-          <div className='text-center lg:text-left'>
-            <h2 className='text-4xl font-bold text-orange-600'>
+          <div className='flex'>
+            <h2 className='text-4xl text-left font-bold text-orange-600 mr-4'>
               {inView && <CountUp end={24} duration={2.5} />}
             </h2>
-            <h3 className='text-xl font-semibold'>High-Quality Course Categories</h3>
-            <p className='mt-2 text-gray-600'>
-              For many years, we have been helping people of all interests and ages learn and we have more positive reviews than anyone else.
-            </p>
+            <div className='ml-7'>
+              <h3 className='text-xl text-left font-semibold'>High-Quality Course Categories</h3>
+              <p className='mt-2 text-left text-gray-600'>
+                For many years, we have been helping people of all interests and ages learn and we have more positive reviews than anyone else.
+              </p>
+            </div>
           </div>
         </div>
       </div>
