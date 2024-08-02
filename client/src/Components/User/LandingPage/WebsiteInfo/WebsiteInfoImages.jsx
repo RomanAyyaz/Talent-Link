@@ -10,5 +10,4 @@ function WebsiteInfoImages({ data }) {
         </div>
     )
 }
-
 export default WebsiteInfoImages

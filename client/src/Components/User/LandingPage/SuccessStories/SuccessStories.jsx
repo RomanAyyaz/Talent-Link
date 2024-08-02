@@ -10,7 +10,6 @@ function SuccessStories (){
       ]
   return (
     <div className="flex flex-col lg:flex-row items-center lg:items-start bg-white p-6 md:p-12 rounded-lg shadow-lg">
-      
       <div className="w-full lg:w-1/2 mt-6 lg:mt-0 lg:ml-6 space-y-8">
         <div className="text-center lg:text-left">
           <p className="uppercase tracking-wider text-sm font-semibold text-gray-500">Get inspired by our success stories</p>

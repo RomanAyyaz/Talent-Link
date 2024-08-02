@@ -32,8 +32,8 @@ function WebsiteInfo() {
   ];
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-100'>
-      <div ref={sectionRef} className='flex flex-col lg:flex-row items-center lg:items-start bg-white p-6 md:p-12 rounded-lg shadow-lg'>
+    <div className='flex items-center justify-center  bg-gray-100'>
+      <div ref={sectionRef} className='flex flex-col lg:flex-row items-center lg:items-start bg-white p-6 md:p-12'>
         <div className='relative w-full lg:w-1/2 hidden lg:block'>
           {websiteinfoData.map((values, index) => (
             <WebsiteInfoImages data={values} key={index} />
