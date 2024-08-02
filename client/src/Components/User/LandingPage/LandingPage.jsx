@@ -7,6 +7,8 @@ import Fotter from '../Fotter/Fotter'
 import OtherLinks from './OtherLinks/OtherLinks'
 import LatestNews from './LatestNews/LatestNews'
 import SkillLists from './SkillsList/SkillLists'
+import WebsiteInfo from './WebsiteInfo/WebsiteInfo'
+import SuccessStories from './SuccessStories/SuccessStories'
 function LandingPage() {
   return (
     <>
@@ -14,6 +16,8 @@ function LandingPage() {
         <HeroSection/>
         <CoursesList/>
         <PopularCourses/>
+        <WebsiteInfo/>
+        <SuccessStories/>
         <SkillLists/>
         <LatestNews/>
         <OtherLinks/>
