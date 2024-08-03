@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Field, Form, ErrorMessage, Formik } from "formik";
+import {SignupApi} from './LoginApis'
+import {useMutation} from '@tanstack/react-query'
 import * as yup from 'yup'
 function Login() {
   let [Account, SetAccount] = useState("signin");
@@ -30,10 +32,20 @@ function Login() {
     password:yup.string().required('Password Required'),
     confirmpassword: yup.string().required('Confirm Password Required'),
   })
+  //Api Calling for Signup 
+  let SignUpMutation = useMutation({
+    mutationFn:SignupApi,
+    onSuccess:()=>{
+        console.log('User Signed up SuccessFully')
+    },
+    onError:()=>{
+        console.log('Some error in User Signup')
+    }
+  })
   let onSubmitSignup = (values,onSubmitProps)=>{
     onSubmitProps.resetForm(true)
     onSubmitProps.setSubmitting(false)
-    console.log(values)
+    SignUpMutation.mutate(values)
   }
   return (
     <>

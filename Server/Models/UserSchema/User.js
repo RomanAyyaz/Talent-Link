@@ -24,7 +24,11 @@ const UserSchema = new mongoose.Schema({
     isverfied:{
         type:Boolean,
         default:false
-    }      
+    },
+    type:{
+        type:String,
+        default:'student'
+    }     
 },{timestamps:true})
 
 UserSchema.pre('save', async function(next){
