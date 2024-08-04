@@ -3,11 +3,11 @@ const bcryptjs = require('bcryptjs')
 const UserSignin = async (req,res)=>{
     try {
         let {email,password} = req.body
-        let userData = User.find({email:email})
-        let UserPassword = bcryptjs.compare(password,userData.password)
+        let userData = await User.findOne({email:email})
         if(!userData){
             res.status(400).json({Message:'UserEmail does not exits'})
         }
+        let UserPassword = await bcryptjs.compare(password,userData.password)
         if(!UserPassword){
             res.status(400).json({Message:'Invalid password'})
         }

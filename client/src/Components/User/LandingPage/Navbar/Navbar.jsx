@@ -4,12 +4,13 @@ import {
   FaYoutube,
   FaInstagram,
   FaTwitter,
-  FaSearch,
+  FaUser,
   FaBars,
   FaCaretDown,
   FaCaretUp,
   FaTimes
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 function Navbar() {
     const [showNavbar,setNavbar] = useState(false)
     const [ShowFeatures,SetShowFeatures] = useState(false)
@@ -92,7 +93,9 @@ function Navbar() {
               Youtube
             </div>
           </div>
-          <FaSearch />
+          <Link  to='/login'>
+          <FaUser />
+          </Link>
         </div>
       </nav>
       <div className="lg:hidden bg-bgMenu w-screen h-10 text-white px-8 flex items-center" onClick={()=>{

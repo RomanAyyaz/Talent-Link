@@ -16,4 +16,4 @@ app.listen(port,()=>{
 })
 
 //Routes for Api
-app.use('/',UserRoute)
+app.use('/user',UserRoute)
