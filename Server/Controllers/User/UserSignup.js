@@ -12,12 +12,11 @@ const UserSignup = async (req,res)=>{
             fullname,
             email,
             password,
-            confirmpassword,
             otp
         })
         await NewUser.save()
 
-        //Generating Email
+    //Generating Email
     const emails = email;
       let config = {
         service: 'gmail',

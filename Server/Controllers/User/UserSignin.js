@@ -5,14 +5,14 @@ const UserSignin = async (req,res)=>{
         let {email,password} = req.body
         let userData = await User.findOne({email:email})
         if(!userData){
-            res.status(400).json({Message:'UserEmail does not exits'})
+            res.status(404).json({Message:'UserEmail does not exits'})
         }
         let UserPassword = await bcryptjs.compare(password,userData.password)
         if(!UserPassword){
-            res.status(400).json({Message:'Invalid password'})
+            res.status(404).json({Message:'Invalid password'})
         }
-        if(userData && UserPassword ){
-            res.status(201).json({Message:'User logged in SuccessFully',userData})
+        if(userData && UserPassword && userData.isverfied){
+            res.status(200).json({Message:'User logged in SuccessFully',userData})
         }
     } catch (error) {
         res.status(500).json({error:error})
