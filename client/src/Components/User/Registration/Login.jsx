@@ -3,8 +3,12 @@ import { Field, Form, ErrorMessage, Formik } from "formik";
 import { SignupApi, SigninApi, OtpVerificationApi } from './LoginApis';
 import { useMutation } from '@tanstack/react-query';
 import * as yup from 'yup';
+import { useUserStore } from "../../../Store/UserStore";
 
 function Login() {
+  //Importing User states from userStore to set user 
+  const {user,setUser} = useUserStore()
+
   let [Account, SetAccount] = useState("signin");
 
   //State for Setting email
@@ -28,11 +32,11 @@ function Login() {
     email: yup.string().email().required('Email Required'),
     password: yup.string().required('Password Required'),
   });
-
   //Api Calling for Signin
   let SigninMutation = useMutation({
     mutationFn: SigninApi,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUser(data.userData)
       console.log('User Signed in Successfully');
     },
     onError: (error) => {

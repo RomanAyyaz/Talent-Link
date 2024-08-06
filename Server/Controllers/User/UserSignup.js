@@ -4,7 +4,7 @@ const Mailgen = require('mailgen');
 const User  = require('../../Models/UserSchema/User')
 const UserSignup = async (req,res)=>{
     try {
-        let {fullname , email , password ,confirmpassword } = req.body;
+        let {fullname , email , password } = req.body;
         //Generating otp
         let otp = Math.floor(Math.random()*10000)
         //Creating new User

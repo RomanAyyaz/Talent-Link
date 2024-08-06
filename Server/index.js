@@ -4,11 +4,13 @@ const app = express()
 const port = process.env.PORT || 8000;
 const cors = require('cors')
 const UserRoute = require('./Routes/User/UserRoute')
+const cookieParser = require('cookie-parser');
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser())
 
 //Starting the Server
 app.listen(port,()=>{
