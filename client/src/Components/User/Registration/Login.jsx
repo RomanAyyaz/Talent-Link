@@ -4,11 +4,16 @@ import { SignupApi, SigninApi, OtpVerificationApi } from './LoginApis';
 import { useMutation } from '@tanstack/react-query';
 import * as yup from 'yup';
 import { useUserStore } from "../../../Store/UserStore";
-
+import {useNavigate} from 'react-router-dom'
+import { toast ,Bounce} from 'react-toastify';
 function Login() {
+  //Navigation 
+  let navigate = useNavigate()
+
   //Importing User states from userStore to set user 
   const {user,setUser} = useUserStore()
 
+  //State for setting the Account type
   let [Account, SetAccount] = useState("signin");
 
   //State for Setting email
@@ -37,9 +42,21 @@ function Login() {
     mutationFn: SigninApi,
     onSuccess: (data) => {
       setUser(data.userData)
+      navigate('/')
+      toast.success('User Logged in Successfully',{
+        position: "top-center",
+        autoClose: 3000,
+        transition: Bounce,
+      })
       console.log('User Signed in Successfully');
     },
     onError: (error) => {
+      const errorMessage = error.message || 'An unknown error occurred';
+      toast.error(errorMessage,{
+        position: "top-center",
+        autoClose: 3000,
+        transition: Bounce,
+      })
       console.log('Some Error in Signing', error.message);
     }
   });

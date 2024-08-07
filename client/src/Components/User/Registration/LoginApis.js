@@ -25,7 +25,8 @@ export let SigninApi = async (values)=>{
         body: JSON.stringify(values)
     })
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
       }
       return response.json();
 }
