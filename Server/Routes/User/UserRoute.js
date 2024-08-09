@@ -4,7 +4,7 @@ const {UserSignup} = require('../../Controllers/User/UserSignup')
 const {UserSignin} = require('../../Controllers/User/UserSignin')
 const {OtpVerification} = require('../../Controllers/User/OtpVerification')
 const {OtpSent} = require('../../Controllers/User/OtpSent')
-
+const {ChangePassword} = require('../../Controllers/User/PassswordChange')
 
 
 
@@ -19,6 +19,9 @@ Router.post('/otpVerification',OtpVerification)
 
 //Route to send Otp for password change
 Router.put('/otpsent',OtpSent)
+
+//Route for password change 
+Router.put('/ChangePassword',ChangePassword)
 
 module.exports = Router
 
