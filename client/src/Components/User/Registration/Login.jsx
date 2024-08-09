@@ -4,7 +4,7 @@ import { SignupApi, SigninApi, OtpVerificationApi } from './LoginApis';
 import { useMutation } from '@tanstack/react-query';
 import * as yup from 'yup';
 import { useUserStore } from "../../../Store/UserStore";
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { toast ,Bounce} from 'react-toastify';
 function Login() {
   //Navigation 
@@ -152,9 +152,11 @@ function Login() {
                     <ErrorMessage name="password" component="div" className="text-red-500 text-sm text-start" />
                   </div>
                   <br />
+                  <Link to='/changepassword' >
                   <p className="text-primary font-light text-start hover:cursor-pointer text-HeroButtonOne">
                     Forgot Password?
                   </p>
+                  </Link>
                   <p className="text-start mt-5">
                     Don't have an account?{" "}
                     <span
