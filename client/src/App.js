@@ -5,17 +5,19 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import ChangePassword from './Components/User/Registration/ChangePassword';
+import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoard';
 function App() {
   return (
     <div className="App">
-      <ToastContainer/>
+      <InstructorDashBoard/>
+      {/* <ToastContainer/>
       <BrowserRouter>
       <Routes>
       <Route path='/' element ={<LandingPage/>}/>
       <Route path='/login' element ={<Login/>}/>
       <Route path='/changepassword' element = {<ChangePassword/>}/>
       </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
 
     </div>
   );

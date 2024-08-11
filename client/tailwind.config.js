@@ -17,7 +17,10 @@ module.exports = {
         youtube:'	#FF0000',
         bgotherLink:"#F7F9F9",
         bgSkills:"#F9F9F9",
-        bgwhite:'#FFFFFF'
+        bgwhite:'#FFFFFF',
+        bgInstSidebar:"#EEEEEF",
+        InstructorPrimary:'#6A73FA',
+        bgsidebarInst:'#EEEEF0'
       }
     },
   },
