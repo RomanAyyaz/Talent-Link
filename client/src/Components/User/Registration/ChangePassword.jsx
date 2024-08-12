@@ -103,7 +103,7 @@ function ChangePassword() {
     {visibility === 'email'?
     <div className="flex justify-center items-center w-full h-screen bg-gray-100">
     <div className="py-12 px-6 flex flex-col text-start bg-white rounded-lg shadow-lg lg:w-1/3 w-full">
-      <h1 className="font-bold text-3xl text-center mb-6 text-gray-800">Edulogy</h1>
+      <h1 className="font-bold text-3xl text-center mb-6 text-gray-800 tracking-widest">EDUMIN</h1>
       <p className="text-neutral-500 text-sm mb-6 text-center lg:text-left">
         Enter the email address associated with your account, and we will send you an OTP to change your password.
       </p>
@@ -117,11 +117,11 @@ function ChangePassword() {
               <Field
                 type="email"
                 name="useremail"
-                className="p-3 border rounded-lg w-full mt-1 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 border rounded-lg w-full mt-1 mb-4 focus:outline-none focus:border-InstructorPrimary"
               />
-              <ErrorMessage name="useremail" component="div" className="text-red-500 text-sm mb-4" />
+              {/* <ErrorMessage name="useremail" component="div" className="text-red-500 text-sm mb-4" /> */}
               <button
-                className="p-3 bg-HeroButtonOne mt-2 w-full text-white rounded-lg transition-colors duration-300 hover:bg-blue-600 disabled:opacity-50 lg:w-52 lg:mx-auto"
+                className="p-3 bg-InstructorPrimary mt-2 w-full text-white rounded-lg transition-colors duration-300 hover:bg-buttonHover  lg:w-52 lg:mx-auto"
                 type="submit"
                 disabled={formik.isSubmitting || !formik.isValid}
               >
@@ -178,43 +178,46 @@ function ChangePassword() {
 </div>
 
       :
-      <div className="max-w-full lg:w-[500px] lg:m-auto lg:mt-8 lg:shadow-4xl shadow-2xl m-3 pt-10">
+      <div className="min-h-screen flex justify-center items-center bg-bgSignin">
+      <div className="w-[450px] lg:mt-8 lg:shadow-4xl shadow-2xl m-3 py-4 bg-bgwhite rounded-md">
       <h1 className="text-xl font-bold lg:text-3xl">Change Password</h1>
-      <p className="my-5 text-neutral-500">Please set a new password</p>
+      <p className="mt-3 text-neutral-500">Please set a new password</p>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
         {(formik) => {
           return (
             <Form className="flex justify-start flex-col px-3 py-6 lg:px-8 ">
-              <label className="text-start font-medium" htmlFor="newpassword">
-                New Password
-              </label>
-              <br />
-              <div className="text-start w-full">
+               <label
+                      className="text-start font-medium text-sm"
+                      htmlFor="newpassword"
+                    >
+                      New Password
+                    </label>
+              <div className="text-start w-full mt-2">
                 <Field
-                  className="border p-3.5 w-full"
+                  className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
                   name="newpassword"
                   type="password"
                   placeholder="New Password"
                 />
-                <ErrorMessage name="newpassword" component="div" className="text-red-500 text-sm text-start" />
+                {/* <ErrorMessage name="newpassword" component="div" className="text-red-500 text-sm text-start" /> */}
               </div>
-              <br />
-              <label className="text-start font-medium" htmlFor="confirmpassword">
-                Confirm Password
-              </label>
-              <br />
-              <div className="text-start w-full">
+              <label
+                      className="text-start font-medium text-sm mt-3"
+                      htmlFor="confirmpassword"
+                    >
+                      Confirm Password
+                    </label>
+              <div className="text-start w-full mt-2">
                 <Field
-                  className="border p-3.5 w-full"
+                  className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
                   name="confirmpassword"
                   type="password"
                   placeholder="Confirm Password"
                 />
-                <ErrorMessage name="confirmpassword" component="div" className="text-red-500 text-sm text-start" />
+                {/* <ErrorMessage name="confirmpassword" component="div" className="text-red-500 text-sm text-start" /> */}
               </div>
-              <br />
               <button
-                className="text-white mt-5 bg-HeroButtonOne w-32 h-14"
+                className="text-white rounded-md mt-5 bg-InstructorPrimary w-full p-2 hover:bg-buttonHover duration-300"
                 type="submit" disabled={!formik.isValid || formik.isSubmitting}
               >
                 Change
@@ -223,6 +226,7 @@ function ChangePassword() {
           );
         }}
       </Formik>
+    </div>
     </div>
        }
     </>

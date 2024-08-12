@@ -176,10 +176,10 @@ function Navbar() {
           </div>
           {
             Courses &&  <ul className="text-sm font-normal px-10 py-2 duration-300">
-            <li className="my-2 cursor-pointer">All Courses</li>
-            <li className="my-2 cursor-pointer">Add Courses</li>
-            <li className="my-2 cursor-pointer">Edit Courses</li>
-            <li className="my-2 cursor-pointer">About Courses</li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">All Courses</li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">Add Courses</li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">Edit Courses</li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">About Courses</li>
             </ul> 
           }
           <div
@@ -208,10 +208,10 @@ function Navbar() {
           </div>
           {
             Students &&  <ul className="text-sm font-normal px-10 py-2 duration-300300">
-            <li className="my-2 cursor-pointer">All Students </li>
-            <li className="my-2 cursor-pointer">Add Students </li>
-            <li className="my-2 cursor-pointer">Edit Students </li>
-            <li className="my-2 cursor-pointer">About Students </li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">All Students </li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">Add Students </li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">Edit Students </li>
+            <li className="my-2 cursor-pointer hover:text-InstructorPrimary">About Students </li>
             </ul> 
           }
         </div>

@@ -8,6 +8,7 @@ module.exports = {
       colors:{
         bgNavbar:'#202E3B',
         bgMenu:'#134B70',
+        bgSignin:'#F5F5F5',
         MobilePhoneNavbg:"#1F2024",
         HeroButtonOne:'#E03B11',
         bgFooter:"#EFF1F2",
@@ -20,7 +21,8 @@ module.exports = {
         bgwhite:'#FFFFFF',
         bgInstSidebar:"#EEEEEF",
         InstructorPrimary:'#6A73FA',
-        bgsidebarInst:'#EEEEF0'
+        bgsidebarInst:'#EEEEF0',
+        buttonHover:'#3945F8'
       }
     },
   },

@@ -9,15 +9,15 @@ import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoa
 function App() {
   return (
     <div className="App">
-      <InstructorDashBoard/>
-      {/* <ToastContainer/>
+      {/* <InstructorDashBoard/> */}
+      <ToastContainer/>
       <BrowserRouter>
       <Routes>
       <Route path='/' element ={<LandingPage/>}/>
       <Route path='/login' element ={<Login/>}/>
       <Route path='/changepassword' element = {<ChangePassword/>}/>
       </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
 
     </div>
   );
