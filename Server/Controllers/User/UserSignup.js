@@ -1,7 +1,7 @@
 require('dotenv').config()
 const nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
-const User  = require('../../Models/UserSchema/User')
+const User  = require('../../Models/UserModels/User')
 const UserSignup = async (req,res)=>{
     try {
         let {fullname , email , password } = req.body;

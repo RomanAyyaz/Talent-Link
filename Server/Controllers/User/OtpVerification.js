@@ -1,4 +1,4 @@
-const User = require('../../Models/UserSchema/User')
+const User = require('../../Models/UserModels/User')
 const OtpVerification = async (req, res) => {
     const { email, otp } = req.body;
     try {

@@ -1,5 +1,5 @@
 require('dotenv').config()
-const User = require('../../Models/UserSchema/User')
+const User = require('../../Models/UserModels/User')
 const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const UserSignin = async (req, res) => {

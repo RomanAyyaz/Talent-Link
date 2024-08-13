@@ -1,4 +1,4 @@
-const User = require('../../Models/UserSchema/User')
+const User = require('../../Models/UserModels/User')
 const bcryptjs = require('bcryptjs')
 const ChangePassword = async (req,res)=>{
    let {email,password} = req.body

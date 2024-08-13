@@ -169,7 +169,7 @@ function Login() {
                       </p>
                     </Link>
                     <button
-                      className="text-white rounded-md mt-5 bg-InstructorPrimary w-full p-2 hover:bg-buttonHover duration-300"
+                      className="text-white rounded-md mt-5 bg-InstructorPrimary w-full p-2 hover:bg-buttonHover cursor-pointer duration-300"
                       type="submit"
                       disabled={!formik.isValid || formik.isSubmitting}
                     >
@@ -250,7 +250,7 @@ function Login() {
         </div>
       ) : (
         <div className="min-h-screen flex justify-center items-center bg-bgSignin">
-          <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4  rounded-md bg-bgwhite">
+          <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4 rounded-md bg-bgwhite">
             <h1 className="text-2xl font-extrabold tracking-widest">EDUMIN</h1>
             <p className="my-2 font-semibold">Sign up your account </p>
             <Formik
@@ -273,7 +273,7 @@ function Login() {
                         className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
                         name="fullname"
                         type="text"
-                        placeholder="Enter Full Name"
+                        placeholder="Full Name"
                       />
                       {/* <ErrorMessage
                         name="fullname"
