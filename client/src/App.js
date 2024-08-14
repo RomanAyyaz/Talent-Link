@@ -6,18 +6,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import ChangePassword from './Components/User/Registration/ChangePassword';
 import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoard';
+import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
 function App() {
   return (
     <div className="App">
-      {/* <InstructorDashBoard/> */}
-      <ToastContainer/>
+      <BrowserRouter>
+      <InstructorDashBoard/>
+      {/* <Routes>
+      <Route path='/addCourse' element ={<AddCourse/>}/>  
+      </Routes> */}
+      </BrowserRouter>
+      {/* <ToastContainer/>
       <BrowserRouter>
       <Routes>
       <Route path='/' element ={<LandingPage/>}/>
       <Route path='/login' element ={<Login/>}/>
       <Route path='/changepassword' element = {<ChangePassword/>}/>
       </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
 
     </div>
   );
