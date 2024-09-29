@@ -8,7 +8,7 @@ const UserRoute = require('./Routes/User/UserRoute')
 const InstructorRoute = require('./Routes/Instructor/InstructorRoute')
 const cookieParser = require('cookie-parser');
 
-// Middleware
+// Middlewares
 app.use(express.static(path.resolve("./public")))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

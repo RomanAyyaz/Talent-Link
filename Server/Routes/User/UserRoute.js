@@ -1,11 +1,11 @@
 const express = require('express')
 const Router = express.Router()
-const {UserSignup} = require('../../Controllers/User/UserSignup')
-const {UserSignin} = require('../../Controllers/User/UserSignin')
-const {OtpVerification} = require('../../Controllers/User/OtpVerification')
-const {OtpSent} = require('../../Controllers/User/OtpSent')
-const {ChangePassword} = require('../../Controllers/User/PassswordChange')
-
+const {UserSignup} = require('../../Controllers/UserAuthentication/UserSignup')
+const {UserSignin} = require('../../Controllers/UserAuthentication/UserSignin')
+const {OtpVerification} = require('../../Controllers/UserAuthentication/OtpVerification')
+const {OtpSent} = require('../../Controllers/UserAuthentication/OtpSent')
+const {ChangePassword} = require('../../Controllers/UserAuthentication/PassswordChange')
+const {AddResume} = require('../../Controllers/ResumeBuilder/AddResume')
 
 
 //Route to add User
@@ -22,6 +22,11 @@ Router.put('/otpsent',OtpSent)
 
 //Route for password change 
 Router.put('/ChangePassword',ChangePassword)
+
+//Route for Adding new Resume
+Router.post('/Resume',AddResume)
+
+
 
 module.exports = Router
 

@@ -1,5 +1,17 @@
 const mongoose = require('mongoose')
 
+const LessonSchema = mongoose.Schema({
+    title:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    videoUrl:{
+        type:String,
+        required:true
+    }
+})
+
 const CourseSchema = mongoose.Schema({
     title:{
         type:String,
@@ -19,6 +31,7 @@ const CourseSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    lessond:[LessonSchema],
     duration:{
         type:String,
         required:true

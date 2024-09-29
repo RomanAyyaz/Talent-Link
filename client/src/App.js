@@ -7,15 +7,17 @@ import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import ChangePassword from './Components/User/Registration/ChangePassword';
 import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoard';
 import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
+import Resume from './Components/ResumeBuilder/Resume';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-      <InstructorDashBoard/>
+      <Resume/>
+      {/* <BrowserRouter> */}
+      {/* <InstructorDashBoard/> */}
       {/* <Routes>
       <Route path='/addCourse' element ={<AddCourse/>}/>  
       </Routes> */}
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
       {/* <ToastContainer/>
       <BrowserRouter>
       <Routes>
