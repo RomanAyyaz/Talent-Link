@@ -8,10 +8,12 @@ import ChangePassword from './Components/User/Registration/ChangePassword';
 import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoard';
 import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
 import Resume from './Components/ResumeBuilder/Resume';
+import EditResume from './Components/ResumeBuilder/ResumeComponents/EditResume';
 function App() {
   return (
     <div className="App">
-      <Resume/>
+      {/* <Resume/> */}
+      <EditResume/>
       {/* <BrowserRouter> */}
       {/* <InstructorDashBoard/> */}
       {/* <Routes>
