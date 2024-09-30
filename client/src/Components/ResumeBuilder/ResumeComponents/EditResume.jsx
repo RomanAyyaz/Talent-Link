@@ -13,7 +13,7 @@ function EditResume() {
     <ResumeInfoContext.Provider value={{resumeInfo,SetResumeInfo}}>
         <div className='w-full flex px-5 mt-5'>
         {/* Resume form Section */}
-        <div className='w-1/2'><FormSection/></div>
+        <div className='w-1/2 mr-5'><FormSection/></div>
         {/* Resume preview Section */}
         <div className='w-1/2'><ResumePreview/></div>
     </div>

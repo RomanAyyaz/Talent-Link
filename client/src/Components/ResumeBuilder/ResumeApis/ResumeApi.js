@@ -1,4 +1,3 @@
-
 //Api for Adding Resume
 export const AddResumeApi = async (data) =>{
     let response = await fetch('http://localhost:8000/user/Resume',{
