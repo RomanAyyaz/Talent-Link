@@ -19,14 +19,15 @@ function Summery() {
         <h2 className='font-bold text-lg'>Summery</h2>
         <p>Add Summery for job title </p>
         <div className='mt-3 flex justify-between items-center'>
-            <h2 className='font-bold'>Add Summery</h2>
+            <h2 className='font-semiboldx'>Add Summery</h2>
             <button type='button' className='border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600
             hover:bg-gray-100 hover:text-black' onClick={()=>{
                 generateSummeryFromAi()
             }} >Generate From AI</button>
         </div>
         <form action="">
-            <textarea name="summery"  rows='3' id="" className='border rounded-md w-full mt-2'></textarea>
+            <textarea name="summery"  rows='5' id=""
+            className = " p-1 w-full text-sm border rounded-md mt-2 focus:border-purple-500 focus:outline-none" ></textarea>
         </form>
         <div className='flex justify-end w-full mt-3'>
                         <button className='text-white px-2.5 py-1 rounded-md bg-purple-600'>Save</button>

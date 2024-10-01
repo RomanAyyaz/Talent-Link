@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import PersonalDetailForm from './ResumeForms/PersonalDetailForm'
 import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
 import Summery from './ResumeForms/Summery';
+import ExperienceForm from './ResumeForms/ExperienceForm';
+import EducationForm from './ResumeForms/EducationForm';
+import SkiilsForm from './ResumeForms/SkiilsForm';
 function FormSection() {
   const [activeFormIndex,setActiveFormIndex] = useState(1)
   return (
@@ -20,10 +23,11 @@ function FormSection() {
       {/* Summary */}
       {activeFormIndex == 2 ? <Summery/> :null}
       {/* Experience */}
-
+      {activeFormIndex == 3 ? <ExperienceForm/> :null}
       {/* Education  */}
-
+      {activeFormIndex == 4 ? <EducationForm/> :null}
       {/* Skills */}
+      {activeFormIndex == 5 ? <SkiilsForm/> :null}
     </div>
   )
 }
