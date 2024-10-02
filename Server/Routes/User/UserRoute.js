@@ -6,6 +6,7 @@ const {OtpVerification} = require('../../Controllers/UserAuthentication/OtpVerif
 const {OtpSent} = require('../../Controllers/UserAuthentication/OtpSent')
 const {ChangePassword} = require('../../Controllers/UserAuthentication/PassswordChange')
 const {AddResume} = require('../../Controllers/ResumeBuilder/AddResume')
+const { addPersonalDetails } = require('../../Controllers/ResumeBuilder/AddPersonalDetails')
 
 
 //Route to add User
@@ -26,7 +27,8 @@ Router.put('/ChangePassword',ChangePassword)
 //Route for Adding new Resume
 Router.post('/Resume',AddResume)
 
-
+//Route for adding Personal details to resume
+Router.put('/Resume/:id/personaldetail',addPersonalDetails)
 
 module.exports = Router
 

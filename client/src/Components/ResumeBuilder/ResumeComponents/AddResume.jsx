@@ -15,11 +15,11 @@ function AddResume() {
     //Api Calling for Resume Title
     const AddResumeMutation = useMutation({
       mutationFn:AddResumeApi,
-      onSuccess:(data)=>{
-        const newResumeId = data.data._id
-        setResumeId(newResumeId)
-        navigate(`/resume/${newResumeId}/edit`)
-        console.log('title submitted successfully')
+      onSuccess: (data) => {
+        const newResumeId = data.data._id;
+        setResumeId(newResumeId);
+        navigate(`/resume/${newResumeId}/edit`);
+        console.log('title submitted successfully');
       },
       onError:()=>{
         console.log('Some error in title submision')

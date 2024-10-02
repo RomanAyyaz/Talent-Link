@@ -1,13 +1,41 @@
 import React, { useContext } from 'react'
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext'
 import {Field , Form , Formik} from "formik"
+import { useParams } from 'react-router-dom'
+import {useMutation} from '@tanstack/react-query'
+import { addPersonalDetailsApi } from '../../ResumeApis/ResumeApi'
 function PersonalDetailForm() {
    const {resumeInfo,SetResumeInfo} = useContext(ResumeInfoContext)
+   //Use param hook
+   let {id} = useParams()
+
+   //Formik Structure 
+
+   const initialValues = {
+        firstName:'', lastName : '' , jobTitle: '' , address: '' , phone : '' , email :''
+   }
+
+   //Api Calling 
+   const addPersonalDetailsMutation = useMutation({
+    mutationFn:addPersonalDetailsApi,
+    onSuccess:()=>{
+        console.log('Data Added Successfully')
+    },
+    onError:()=>{
+        console.log('Some error in submitting data in personal details')
+    }
+   })
+
+   const onSubmit = (values,onSubmitProps)=>{
+    onSubmitProps.resetForm()
+    console.log(values)
+    addPersonalDetailsMutation.mutate({values,id})
+   }
    return (
     <div className='text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10'>
         <h2 className='font-bold text-lg'>Personal Details</h2>
         <p>Getting started with basic information</p>
-        <Formik>
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {()=>{
                 return (
                     <Form className='mt-2'>
@@ -32,7 +60,7 @@ function PersonalDetailForm() {
                         <div className='flex gap-2 w-full mt-2'>
                             <div className='w-1/2'>
                             <label htmlFor="phone" className='font-semibold text-sm'>Phone</label><br />
-                            <Field name='phone' className='border mt-0.5 w-full text-sm rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='Enter Phone' />
+                            <Field name='phone' type = 'number' className='border mt-0.5 w-full text-sm rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='Enter Phone' />
                             </div>
                             <div className='w-1/2'>
                             <label htmlFor="email" className='font-semibold text-sm'>Email</label><br />
@@ -40,7 +68,7 @@ function PersonalDetailForm() {
                             </div>
                         </div>
                         <div className='flex justify-end w-full mt-3'>
-                        <button className='text-white px-2.5 py-1 rounded-md bg-purple-600'>Save</button>
+                        <button className='text-white px-2.5 py-1 rounded-md bg-purple-600' type='submit'>Save</button>
                         </div>
                     </Form>
                 )
