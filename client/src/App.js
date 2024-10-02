@@ -9,11 +9,18 @@ import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoa
 import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
 import Resume from './Components/ResumeBuilder/Resume';
 import EditResume from './Components/ResumeBuilder/ResumeComponents/EditResume';
+import AddResume from './Components/ResumeBuilder/ResumeComponents/AddResume';
 function App() {
   return (
     <div className="App">
       {/* <Resume/> */}
-      <EditResume/>
+
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element=   {<Resume/>}/>
+        <Route path='/resume/:id/edit' element = {<EditResume/>} />
+      </Routes>
+      </BrowserRouter>
       {/* <BrowserRouter> */}
       {/* <InstructorDashBoard/> */}
       {/* <Routes>

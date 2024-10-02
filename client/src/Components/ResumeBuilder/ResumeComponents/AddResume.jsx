@@ -2,14 +2,23 @@ import { useMutation } from '@tanstack/react-query';
 import React,{useState} from 'react'
 import { BsPlusSquare } from 'react-icons/bs'
 import { AddResumeApi } from '../ResumeApis/ResumeApi';
+import { useResumeIdStore } from '../../../Store/ResumeIdStore';
+import { useNavigate } from 'react-router-dom';
 function AddResume() {
+    const navigate = useNavigate()
+
     const [isOpen, setIsOpen] = useState(false);
     const [Title,setTitle] = useState()
+
+    const {resumeId,setResumeId} = useResumeIdStore()
 
     //Api Calling for Resume Title
     const AddResumeMutation = useMutation({
       mutationFn:AddResumeApi,
-      onSuccess:()=>{
+      onSuccess:(data)=>{
+        const newResumeId = data.data._id
+        setResumeId(newResumeId)
+        navigate(`/resume/${newResumeId}/edit`)
         console.log('title submitted successfully')
       },
       onError:()=>{
