@@ -1,10 +1,21 @@
 import React, { useContext , useState } from 'react'
 import { AIChatSession } from '../../../../Service/AiModel'
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext'
+import { useParams } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { addSummeryApi } from '../../ResumeApis/ResumeApi';
 
 function Summery() {
     const {resumeInfo} = useContext(ResumeInfoContext)
     const [aiGeneratedSummeryList,setAiGenerateSummeryList]=useState();
+
+    //Extracting id from utl 
+    let {id} = useParams()
+
+    // State for summery 
+    const [summery,setSummery] = useState()
+
+    //Generate Summery from Ai
     const prompt="Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
     const generateSummeryFromAi = async ()=>{
         const PROMPT = prompt.replace('{jobTitle}',resumeInfo.jobTitle)
@@ -12,7 +23,27 @@ function Summery() {
         console.log(JSON.parse(result.response.text()))
         setAiGenerateSummeryList(JSON.parse(result.response.text()))
     }
-    console.log(aiGeneratedSummeryList)
+
+    //Data for the Api 
+    const values = {summery:summery,id:id}
+    //Api Calling for Adding summery 
+
+    const addSummeryMutation = useMutation({
+        mutationFn:addSummeryApi,
+        onSuccess:()=>{
+            console.log('Summery added successfully')
+        },
+        onError:()=>{
+            console.log("Error in adding summery")
+        }
+    })
+
+    //Form submiting method
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+        addSummeryMutation.mutate(values)
+        setSummery('')
+    }
   return (
     <div>
         <div className='text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10'>
@@ -25,15 +56,19 @@ function Summery() {
                 generateSummeryFromAi()
             }} >Generate From AI</button>
         </div>
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
             <textarea name="summery"  rows='5' id=""
-            className = " p-1 w-full text-sm border rounded-md mt-2 focus:border-purple-500 focus:outline-none" ></textarea>
+            value={summery}
+            className = " p-1 w-full text-sm border rounded-md mt-2 focus:border-purple-500 focus:outline-none"
+            onChange={(e)=>{
+                setSummery(e.target.value)
+            }} ></textarea>
+            <div className='flex justify-end w-full mt-3'>
+            <button className='text-white px-2.5 py-1 rounded-md bg-purple-600' type='submit'>Save</button>
+        </div>
         </form>
-        <div className='flex justify-end w-full mt-3'>
-                        <button className='text-white px-2.5 py-1 rounded-md bg-purple-600'>Save</button>
         </div>
-        </div>
-        {aiGeneratedSummeryList&& <div className='my-5'>
+        {/* {aiGeneratedSummeryList&& <div className='my-5'>
             <h2 className='font-bold text-lg'>Suggestions</h2>
             {aiGeneratedSummeryList.map((item,index)=>(
                 <div key={index} 
@@ -42,7 +77,7 @@ function Summery() {
                     <p>{item.summary}</p>
                 </div>
             ))}
-        </div>}
+        </div>} */}
     </div>
   )
 }

@@ -7,7 +7,8 @@ const {OtpSent} = require('../../Controllers/UserAuthentication/OtpSent')
 const {ChangePassword} = require('../../Controllers/UserAuthentication/PassswordChange')
 const {AddResume} = require('../../Controllers/ResumeBuilder/AddResume')
 const { addPersonalDetails } = require('../../Controllers/ResumeBuilder/AddPersonalDetails')
-
+const { addSummery } = require('../../Controllers/ResumeBuilder/AddSummery')
+const { addExperience } = require('../../Controllers/ResumeBuilder/AddExperience')
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -29,6 +30,12 @@ Router.post('/Resume',AddResume)
 
 //Route for adding Personal details to resume
 Router.put('/Resume/:id/personaldetail',addPersonalDetails)
+
+//Route for adding Summery to resume
+Router.put('/Resume/:id/summery',addSummery)
+
+//Route for adding Experience to resume
+Router.put('/Resume/:id/experience',addExperience)
 
 module.exports = Router
 

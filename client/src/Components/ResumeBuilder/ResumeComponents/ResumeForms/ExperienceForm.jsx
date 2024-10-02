@@ -1,14 +1,32 @@
 import React from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
+import { useParams } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { AddExperienceApi } from '../../ResumeApis/ResumeApi';
 
 function ExperienceForm() {
+  //Extracting id from utl 
+  let {id} = useParams()
+
+  //Formik Structure 
   const initialValues = {
     experience: [{ positionTitle: '', companyName: '', state: '', city: '', startDate: '', endDate: '', workSummery:'' }]
   };
 
+  //Api calling 
+  const addExperienceApi = useMutation({
+    mutationFn:AddExperienceApi,
+    onSuccess:()=>{
+      console.log("Experience Added Successfully")
+    },
+    onError:()=>{
+      console.log("Some error in adding the experience")
+    }
+  })
   const onSubmit = (values , onSubmitProps) => {
     onSubmitProps.resetForm()
     onSubmitProps.setSubmitting(false);
+    addExperienceApi.mutate({values,id})
     console.log(values);
   };
 

@@ -22,7 +22,22 @@ const ResumeSchema = new mongoose.Schema({
     },
     email:{
         type:String
-    }
+    },
+    summery:{
+        type:String
+    },
+    experience:[
+        {
+            title:String,
+            companyName:String,
+            city:String,
+            state:String,
+            startDate:String,
+            endDate:String,
+            currentlyWorking:String,
+            workSummery: String
+        }
+    ]
 },{timestamps:true})
 
 const Resume = mongoose.model("Resume",ResumeSchema)

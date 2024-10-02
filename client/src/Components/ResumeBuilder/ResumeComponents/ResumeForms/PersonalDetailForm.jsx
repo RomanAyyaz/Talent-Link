@@ -6,7 +6,8 @@ import {useMutation} from '@tanstack/react-query'
 import { addPersonalDetailsApi } from '../../ResumeApis/ResumeApi'
 function PersonalDetailForm() {
    const {resumeInfo,SetResumeInfo} = useContext(ResumeInfoContext)
-   //Use param hook
+
+   //Use param hook for extracting id from the url 
    let {id} = useParams()
 
    //Formik Structure 
