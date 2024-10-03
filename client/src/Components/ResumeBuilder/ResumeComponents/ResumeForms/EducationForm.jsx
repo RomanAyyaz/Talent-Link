@@ -1,14 +1,32 @@
 import React from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
+import { AddEducationApi } from '../../ResumeApis/ResumeApi';
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 function EducationForm() {
+  //Extracting id from utl 
+  let {id} = useParams()
+
   const initialValues = {
     education: [{ universityName: '', degree: '', major: '', startDate: '', endDate: '', description:'' }]
   };
-
+  
+  //Api calling 
+  const addEducationMutation = useMutation({
+    mutationFn:AddEducationApi,
+    onSuccess:()=>{
+      console.log("Education Added Successfully")
+    },
+    onError:()=>{
+      console.log("Some error in adding the education")
+    }
+  })
+  
   const onSubmit = (values , onSubmitProps) => {
     onSubmitProps.resetForm()
     onSubmitProps.setSubmitting(false);
+    addEducationMutation.mutate({values,id})
     console.log(values);
   };
 

@@ -14,7 +14,7 @@ function ExperienceForm() {
   };
 
   //Api calling 
-  const addExperienceApi = useMutation({
+  const addExperienceMutation = useMutation({
     mutationFn:AddExperienceApi,
     onSuccess:()=>{
       console.log("Experience Added Successfully")
@@ -26,7 +26,7 @@ function ExperienceForm() {
   const onSubmit = (values , onSubmitProps) => {
     onSubmitProps.resetForm()
     onSubmitProps.setSubmitting(false);
-    addExperienceApi.mutate({values,id})
+    addExperienceMutation.mutate({values,id})
     console.log(values);
   };
 

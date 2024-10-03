@@ -1,20 +1,39 @@
 import React from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import ReactStars from 'react-rating-stars-component';
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { AddSkillsApi } from '../../ResumeApis/ResumeApi';
 
 function SkillsForm() {
+  //Extracting id from utl 
+  let {id} = useParams()
+
   const initialValues = {
     skills: [{ name: '', rating: 0 }],
+  };
+
+  //Api calling 
+  const addSkillsMutation = useMutation({
+    mutationFn:AddSkillsApi,
+    onSuccess:()=>{
+      console.log("Skills Added Successfully")
+    },
+    onError:()=>{
+      console.log("Some error in adding the Skills")
+    }
+  })
+
+  //Function to update the rating
+  const ratingChanged = (index, newRating, setFieldValue) => {
+    setFieldValue(`skills[${index}].rating`, newRating); 
   };
 
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.resetForm();
     onSubmitProps.setSubmitting(false);
+    addSkillsMutation.mutate({values,id})
     console.log(values);
-  };
-  //Function to update the rating
-  const ratingChanged = (index, newRating, setFieldValue) => {
-    setFieldValue(`skills[${index}].rating`, newRating); 
   };
 
   return (

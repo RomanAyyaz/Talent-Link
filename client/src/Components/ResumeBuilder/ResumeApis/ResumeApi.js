@@ -63,3 +63,35 @@ export const AddExperienceApi = async ({values,id}) =>{
       }
       return response.json();
 }
+
+//Api for adding Education 
+export const AddEducationApi = async ({values,id}) =>{
+    let response = await fetch (`http://localhost:8000/user/Resume/${id}/education`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(values)
+    })
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
+      }
+      return response.json();
+}
+
+//Api for adding Skills
+export const AddSkillsApi = async ({values,id}) =>{
+    let response = await fetch (`http://localhost:8000/user/Resume/${id}/skills`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(values)
+    })
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
+      }
+      return response.json();
+}

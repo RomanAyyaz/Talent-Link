@@ -37,6 +37,22 @@ const ResumeSchema = new mongoose.Schema({
             currentlyWorking:String,
             workSummery: String
         }
+    ],
+    education:[
+        {
+            universityName:String,
+            startDate:String,
+            endDate:String,
+            degree:String,
+            major:String,
+            description:String
+        }
+    ],
+    skills:[
+        {
+            name:String,
+            rating:Number
+        }
     ]
 },{timestamps:true})
 

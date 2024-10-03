@@ -9,6 +9,8 @@ const {AddResume} = require('../../Controllers/ResumeBuilder/AddResume')
 const { addPersonalDetails } = require('../../Controllers/ResumeBuilder/AddPersonalDetails')
 const { addSummery } = require('../../Controllers/ResumeBuilder/AddSummery')
 const { addExperience } = require('../../Controllers/ResumeBuilder/AddExperience')
+const { addEducation } = require('../../Controllers/ResumeBuilder/AddEducation')
+const { addSkills } = require('../../Controllers/ResumeBuilder/AddSkills')
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -37,5 +39,10 @@ Router.put('/Resume/:id/summery',addSummery)
 //Route for adding Experience to resume
 Router.put('/Resume/:id/experience',addExperience)
 
+//Route for adding Education to resume
+Router.put('/Resume/:id/education',addEducation)
+
+//Route for adding Skills to resume
+Router.put('/Resume/:id/skills',addSkills)
 module.exports = Router
 
