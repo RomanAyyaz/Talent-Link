@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addSummeryApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi';
 
 function Summery() {
-    const {resumeInfo} = useContext(ResumeInfoContext)
+    const {resumeInfo ,  SetResumeInfo} = useContext(ResumeInfoContext)
     const [aiGeneratedSummeryList,setAiGenerateSummeryList]=useState();
     const queryClient = useQueryClient()
     //Extracting id from utl 
@@ -70,6 +70,10 @@ function Summery() {
             className = " p-1 w-full text-sm border rounded-md mt-2 focus:border-purple-500 focus:outline-none"
             onChange={(e)=>{
                 setSummery(e.target.value)
+                SetResumeInfo(prev => ({
+                    ...prev,
+                    summery: e.target.value
+                }))
             }} ></textarea>
             <div className='flex justify-end w-full mt-3'>
             <button className='text-white px-2.5 py-1 rounded-md bg-purple-600' type='submit'>Save</button>

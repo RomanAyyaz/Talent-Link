@@ -15,12 +15,12 @@ function ProfessionalExp({ resumeInfo }) {
 
       {resumeInfo.experience.map((experience, index) => (
         <div key={index} className="my-5">
-          <h3 className="font-bold text-sm" style={{color:resumeInfo.themeColor}}>{experience.title}</h3>
+          <h3 className="font-bold text-sm" style={{color:resumeInfo.themeColor}}>{experience.positionTitle}</h3>
           <h2 className='mt-1 text-xs flex justify-between'>
             {experience.companyName}, {experience.city}, {experience.state}
             <span>{experience.startDate} {experience.currentlyWorking ? ' - Present' : ` - ${experience.endDate}`}</span>
           </h2>
-          <p className="my-2 text-sm">{experience.workSummery}</p>
+          <p className="my-2 text-sm">{experience.jobDescription}</p>
         </div>
       ))}
     </div>

@@ -10,14 +10,14 @@ export default{
     experience:[
         {
             id:1,
-            title:'Full Stack Developer',
+            positionTitle:'Full Stack Developer',
             companyName:'Amazon',
             city:'New York',
             state:'NY',
             startDate:'Jan 2021',
             endDate:'',
             currentlyWorking:true,
-            workSummery:' Designed, developed, and maintained full-stack applications using React and Node.js.\n'+
+            jobDescription:' Designed, developed, and maintained full-stack applications using React and Node.js.\n'+
             '• Implemented responsive user interfaces with React, ensuring seamless user experiences across\n'+
             'various devices and browsers.\n'+
             '• Maintaining the React Native in-house organization application.'+

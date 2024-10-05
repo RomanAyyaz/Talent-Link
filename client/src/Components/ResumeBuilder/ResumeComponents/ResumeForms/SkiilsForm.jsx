@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import ReactStars from 'react-rating-stars-component';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { AddSkillsApi } from '../../ResumeApis/ResumeApi';
+import { AddSkillsApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi';
+import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext';
 
 function SkillsForm() {
   //Extracting id from utl 
   let {id} = useParams()
 
+  const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
+
+  const queryClient = useQueryClient();
+  //Api calling for getting the data of that specific resume
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["resumes", id],
+    queryFn: () => getDataOfResumeApi(id),
+  });
   const initialValues = {
-    skills: [{ name: '', rating: 0 }],
+    skills:
+      data.data?.skills?.length > 0
+        ? data.data?.skills.map((skill) => ({
+            name: skill.name || "",
+            rating: skill.rating || 0,
+          }))
+        : [
+            {
+              name: "",
+              rating: 0,
+            },
+          ],
   };
+  
 
   //Api calling 
   const addSkillsMutation = useMutation({
     mutationFn:AddSkillsApi,
     onSuccess:()=>{
+      queryClient.invalidateQueries("resumes");
       console.log("Skills Added Successfully")
     },
     onError:()=>{
@@ -26,13 +48,19 @@ function SkillsForm() {
 
   //Function to update the rating
   const ratingChanged = (index, newRating, setFieldValue) => {
-    setFieldValue(`skills[${index}].rating`, newRating); 
+    setFieldValue(`skills[${index}].rating`, newRating);
+    SetResumeInfo((prev) => {
+      const newSkills = [...prev.skills];
+      newSkills[index].rating = newRating;
+      return { ...prev, skills: newSkills };
+    });
   };
-
+  
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.resetForm();
     onSubmitProps.setSubmitting(false);
     addSkillsMutation.mutate({values,id})
+
     console.log(values);
   };
 
@@ -55,6 +83,16 @@ function SkillsForm() {
                             <label htmlFor={`skills[${index}].name`} className='font-semibold text-sm'>Name</label><br />
                             <Field
                               name={`skills[${index}].name`}
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                setFieldValue(`skills[${index}].name`, value);
+                                SetResumeInfo((prev) => {
+                                  const newSkills = [...prev.skills];
+                                  newSkills[index].name = value;
+                                  return { ...prev, skills: newSkills };
+                                });
+                              }}
+                              
                               className='text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none'
                               placeholder='Enter skill name'
                             />

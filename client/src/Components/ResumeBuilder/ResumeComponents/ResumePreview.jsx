@@ -8,7 +8,6 @@ import Education from './ResumePreviewCompoents/Education'
 import Skills from './ResumePreviewCompoents/Skills'
 function ResumePreview() {
     const {resumeInfo} = useContext(ResumeInfoContext)
-    console.log('r',resumeInfo)
   return (
     <div className='text-start shadow-lg p-14 h-full border-t-[20px]' style={{borderColor:resumeInfo.themeColor}}>
         {/* Personal Details */}

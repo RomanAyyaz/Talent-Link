@@ -1,100 +1,275 @@
-import React from 'react';
-import { Formik, Field, Form, FieldArray } from 'formik';
-import { AddEducationApi } from '../../ResumeApis/ResumeApi';
-import { useMutation } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Formik, Field, Form, FieldArray } from "formik";
+import {
+  AddEducationApi,
+  getDataOfResumeApi,
+} from "../../ResumeApis/ResumeApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { ResumeInfoContext } from "../../../../Context/ResumeInfoContext";
 
 function EducationForm() {
-  //Extracting id from utl 
-  let {id} = useParams()
+  //Extracting id from utl
+  let { id } = useParams();
+  
+  const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
 
+  const queryClient = useQueryClient();
+  //Api calling for getting the data of that specific resume
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["resumes", id],
+    queryFn: () => getDataOfResumeApi(id),
+  });
   const initialValues = {
-    education: [{ universityName: '', degree: '', major: '', startDate: '', endDate: '', description:'' }]
+    education:
+      data.data?.education?.length > 0
+        ? data.data?.education.map((edu) => ({
+            universityName: edu.universityName || "",
+            degree: edu.degree || "",
+            major: edu.major || "",
+            startDate: edu.startDate || "",
+            endDate: edu.endDate || "",
+            description: edu.description || "",
+          }))
+        : [
+            {
+              universityName: "",
+              degree: "",
+              major: "",
+              startDate: "",
+              endDate: "",
+              description: "",
+            },
+          ],
   };
-  
-  //Api calling 
+
+  //Api calling
   const addEducationMutation = useMutation({
-    mutationFn:AddEducationApi,
-    onSuccess:()=>{
-      console.log("Education Added Successfully")
+    mutationFn: AddEducationApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries("resumes");
+      console.log("Education Added Successfully");
     },
-    onError:()=>{
-      console.log("Some error in adding the education")
-    }
-  })
-  
-  const onSubmit = (values , onSubmitProps) => {
-    onSubmitProps.resetForm()
+    onError: () => {
+      console.log("Some error in adding the education");
+    },
+  });
+
+  const onSubmit = (values, onSubmitProps) => {
+    onSubmitProps.resetForm();
     onSubmitProps.setSubmitting(false);
-    addEducationMutation.mutate({values,id})
+    addEducationMutation.mutate({ values, id });
+    SetResumeInfo((prevInfo) => ({
+      ...prevInfo,
+      education: values.education,
+    }));
     console.log(values);
   };
 
   return (
     <div>
-      <div className='text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10'>
-        <h2 className='font-bold text-lg'>Education</h2>
+      <div className="text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10">
+        <h2 className="font-bold text-lg">Education</h2>
         <p>Add Your education details</p>
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({values }) => (
-            <Form className='border border-gray-400 rounded-md mt-3 p-1.5'>
+          {({ values , setFieldValue  }) => (
+            <Form className="border border-gray-400 rounded-md mt-3 p-1.5">
               <FieldArray name="education">
                 {({ push, remove }) => (
-                  <div className=''>
+                  <div className="">
                     {values.education.map((education, index) => (
-                      <div key={index} className='mt-2'>
-                        <h4 className='font-bold'>Education {index + 1}</h4>
-                        <div className='flex w-full mt-1'>
-                          <div className='w-full'>
-                            <label htmlFor="universityName" className='font-semibold text-sm'>University Name</label><br />
-                            <Field name={`education[${index}].universityName`} className='text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='' />
+                      <div key={index} className="mt-2">
+                        <h4 className="font-bold">Education {index + 1}</h4>
+                        <div className="flex w-full mt-1">
+                          <div className="w-full">
+                            <label
+                              htmlFor="universityName"
+                              className="font-semibold text-sm"
+                            >
+                              University Name
+                            </label>
+                            <br />
+                            <Field
+                              name={`education[${index}].universityName`}
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                setFieldValue(
+                                  `education.${index}.universityName`,
+                                  value
+                                );
+                                SetResumeInfo((prev) => {
+                                  const newEducation = [...prev.education];
+                                  newEducation[index].universityName = value;
+                                  return { ...prev, education: newEducation };
+                                });
+                              }}
+                              className="text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none"
+                              placeholder=""
+                            />
                           </div>
                         </div>
-                        <div className='flex gap-2 w-full mt-1'>
-                          <div className='w-1/2'>
-                            <label htmlFor="degree" className='font-semibold text-sm'>Degree</label><br />
-                            <Field name={`education[${index}].degree`} className=' text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='' />
+                        <div className="flex gap-2 w-full mt-1">
+                          <div className="w-1/2">
+                            <label
+                              htmlFor="degree"
+                              className="font-semibold text-sm"
+                            >
+                              Degree
+                            </label>
+                            <br />
+                            <Field
+                              name={`education[${index}].degree`}
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                setFieldValue(`education.${index}.degree`, value);
+                                SetResumeInfo((prev) => {
+                                  const newEducation = [...prev.education];
+                                  newEducation[index].degree = value;
+                                  return { ...prev, education: newEducation };
+                                });
+                              }}
+                              
+                              className=" text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none"
+                              placeholder=""
+                            />
                           </div>
-                          <div className='w-1/2'>
-                            <label htmlFor="major" className='font-semibold text-sm'>Major</label><br />
-                            <Field name={`education[${index}].major`} className=' text-sm border mt-0.5  w-full rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='' />
+                          <div className="w-1/2">
+                            <label
+                              htmlFor="major"
+                              className="font-semibold text-sm"
+                            >
+                              Major
+                            </label>
+                            <br />
+                            <Field
+                              name={`education[${index}].major`}
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                setFieldValue(`education.${index}.major`, value);
+                                SetResumeInfo((prev) => {
+                                  const newEducation = [...prev.education];
+                                  newEducation[index].major = value;
+                                  return { ...prev, education: newEducation };
+                                });
+                              }}
+                              
+                              className=" text-sm border mt-0.5  w-full rounded-md p-1 focus:border-purple-500 focus:outline-none"
+                              placeholder=""
+                            />
                           </div>
                         </div>
-                        <div className='flex gap-2 w-full mt-1'>
-                          <div className='w-1/2'>
-                            <label htmlFor="startDate" className='font-semibold text-sm'>Start Date</label><br />
-                            <Field name={`experience[${index}].startDate`} type= 'date' className='text-sm  border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='' />
+                        <div className="flex gap-2 w-full mt-1">
+                          <div className="w-1/2">
+                            <label
+                              htmlFor="startDate"
+                              className="font-semibold text-sm"
+                            >
+                              Start Date
+                            </label>
+                            <br />
+                            <Field
+                              name={`experience[${index}].startDate`}
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                setFieldValue(`education.${index}.startDate`, value);
+                                SetResumeInfo((prev) => {
+                                  const newEducation = [...prev.education];
+                                  newEducation[index].startDate = value;
+                                  return { ...prev, education: newEducation };
+                                });
+                              }}
+                              
+                              type="date"
+                              className="text-sm  border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none"
+                              placeholder=""
+                            />
                           </div>
-                          <div className='w-1/2'>
-                            <label htmlFor="endDate" className='font-semibold text-sm'>End Date</label><br />
-                            <Field name={`experience[${index}].endDate`} type= 'date' className=' text-sm border mt-0.5  w-full rounded-md p-1 focus:border-purple-500 focus:outline-none' placeholder='' />
+                          <div className="w-1/2">
+                            <label
+                              htmlFor="endDate"
+                              className="font-semibold text-sm"
+                            >
+                              End Date
+                            </label>
+                            <br />
+                            <Field
+                              name={`experience[${index}].endDate`}
+                              onChange={(e) => {
+                                const { value } = e.target;
+                                setFieldValue(`education.${index}.endDate`, value);
+                                SetResumeInfo((prev) => {
+                                  const newEducation = [...prev.education];
+                                  newEducation[index].endDate = value;
+                                  return { ...prev, education: newEducation };
+                                });
+                              }}
+                              
+                              type="date"
+                              className=" text-sm border mt-0.5  w-full rounded-md p-1 focus:border-purple-500 focus:outline-none"
+                              placeholder=""
+                            />
                           </div>
                         </div>
-                        <h2 className='mt-2 font-semibold'>Description</h2>
-                        <Field as="textarea"
-                               id=""
-                               name ={`education[${index}].description`}
-                               rows="5" 
-                               className = " p-1 w-full text-sm border rounded-md mt-1 focus:border-purple-500 focus:outline-none" />
-                        <div>
-                        </div>
+                        <h2 className="mt-2 font-semibold">Description</h2>
+                        <Field
+                          as="textarea"
+                          id=""
+                          onChange={(e) => {
+                            const { value } = e.target;
+                            setFieldValue(`education.${index}.description`, value);
+                            SetResumeInfo((prev) => {
+                              const newEducation = [...prev.education];
+                              newEducation[index].description = value;
+                              return { ...prev, education: newEducation };
+                            });
+                          }}
+                          
+                          name={`education[${index}].description`}
+                          rows="5"
+                          className=" p-1 w-full text-sm border rounded-md mt-1 focus:border-purple-500 focus:outline-none"
+                        />
+                        <div></div>
                         {/* container for buttons */}
-                        <div className='flex gap-3 items-center my-4'>
-                        <button type="button" className='border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600 
-                        hover:bg-gray-100 hover:text-black' onClick={() => push({ universityName: '', degree: '', major: '', startDate: '', endDate: '' ,description:''})}>
+                        <div className="flex gap-3 items-center my-4">
+                          <button
+                            type="button"
+                            className="border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600 
+                        hover:bg-gray-100 hover:text-black"
+                            onClick={() =>
+                              push({
+                                universityName: "",
+                                degree: "",
+                                major: "",
+                                startDate: "",
+                                endDate: "",
+                                description: "",
+                              })
+                            }
+                          >
                             Add More Education
                           </button>
-                          <button type="button" className='border border-purple-600 px-2 py-1 bg-white rounded-md
-                          hover:bg-gray-100 hover:text-black text-purple-600' onClick={() => remove(index)}>Remove</button>
+                          <button
+                            type="button"
+                            className="border border-purple-600 px-2 py-1 bg-white rounded-md
+                          hover:bg-gray-100 hover:text-black text-purple-600"
+                            onClick={() => remove(index)}
+                          >
+                            Remove
+                          </button>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
               </FieldArray>
-              <div className='flex justify-end w-full mt-3 px-4'>
-            <button type='submit' className='text-white px-2.5 py-1 rounded-md bg-purple-600'>Save</button>
-        </div>
+              <div className="flex justify-end w-full mt-3 px-4">
+                <button
+                  type="submit"
+                  className="text-white px-2.5 py-1 rounded-md bg-purple-600"
+                >
+                  Save
+                </button>
+              </div>
             </Form>
           )}
         </Formik>
