@@ -2,18 +2,25 @@ import React, { useContext , useState } from 'react'
 import { AIChatSession } from '../../../../Service/AiModel'
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext'
 import { useParams } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { addSummeryApi } from '../../ResumeApis/ResumeApi';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addSummeryApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi';
 
 function Summery() {
     const {resumeInfo} = useContext(ResumeInfoContext)
     const [aiGeneratedSummeryList,setAiGenerateSummeryList]=useState();
-
+    const queryClient = useQueryClient()
     //Extracting id from utl 
     let {id} = useParams()
 
+     //Api calling for getting the data of that specific resume 
+     const {data,isLoading,error} = useQuery({
+        queryKey:['resumes',id],
+        queryFn:()=> getDataOfResumeApi(id)
+       })
+    const resumeData = data?.data || {}
+
     // State for summery 
-    const [summery,setSummery] = useState()
+    const [summery,setSummery] = useState(resumeData.summery)
 
     //Generate Summery from Ai
     const prompt="Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
@@ -31,6 +38,7 @@ function Summery() {
     const addSummeryMutation = useMutation({
         mutationFn:addSummeryApi,
         onSuccess:()=>{
+            queryClient.invalidateQueries('resumes')
             console.log('Summery added successfully')
         },
         onError:()=>{

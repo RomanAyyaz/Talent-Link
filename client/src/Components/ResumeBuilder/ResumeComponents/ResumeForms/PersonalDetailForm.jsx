@@ -2,24 +2,36 @@ import React, { useContext } from 'react'
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext'
 import {Field , Form , Formik} from "formik"
 import { useParams } from 'react-router-dom'
-import {useMutation} from '@tanstack/react-query'
-import { addPersonalDetailsApi } from '../../ResumeApis/ResumeApi'
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
+import { addPersonalDetailsApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi'
 function PersonalDetailForm() {
    const {resumeInfo,SetResumeInfo} = useContext(ResumeInfoContext)
 
+   const queryClient = useQueryClient()
    //Use param hook for extracting id from the url 
    let {id} = useParams()
+    //Api calling for getting the data of that specific resume 
+    const {data,isLoading,error} = useQuery({
+        queryKey:['resumes',id],
+        queryFn:()=> getDataOfResumeApi(id)
+       })
 
+       const resumeData = data?.data || {}
    //Formik Structure 
-
    const initialValues = {
-        firstName:'', lastName : '' , jobTitle: '' , address: '' , phone : '' , email :''
+        firstName: resumeData.firstName || '' , 
+        lastName : resumeData.lastName || '' , 
+        jobTitle: resumeData.jobTitle || '' , 
+        address: resumeData.address || '' , 
+        phone : resumeData.phone || '' , 
+        email :resumeData.email || ''
    }
 
-   //Api Calling 
+   //Api Calling for adding personal details
    const addPersonalDetailsMutation = useMutation({
     mutationFn:addPersonalDetailsApi,
     onSuccess:()=>{
+        queryClient.invalidateQueries('resumes')
         console.log('Data Added Successfully')
     },
     onError:()=>{
@@ -32,6 +44,10 @@ function PersonalDetailForm() {
     console.log(values)
     addPersonalDetailsMutation.mutate({values,id})
    }
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
    return (
     <div className='text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10'>
         <h2 className='font-bold text-lg'>Personal Details</h2>

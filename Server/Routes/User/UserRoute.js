@@ -11,6 +11,7 @@ const { addSummery } = require('../../Controllers/ResumeBuilder/AddSummery')
 const { addExperience } = require('../../Controllers/ResumeBuilder/AddExperience')
 const { addEducation } = require('../../Controllers/ResumeBuilder/AddEducation')
 const { addSkills } = require('../../Controllers/ResumeBuilder/AddSkills')
+const { getResume } = require('../../Controllers/ResumeBuilder/GetResumeData')
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -44,5 +45,9 @@ Router.put('/Resume/:id/education',addEducation)
 
 //Route for adding Skills to resume
 Router.put('/Resume/:id/skills',addSkills)
+
+//Route for getting the to resume
+Router.get('/Resume/:id',getResume)
+
 module.exports = Router
 

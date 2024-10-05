@@ -95,3 +95,13 @@ export const AddSkillsApi = async ({values,id}) =>{
       }
       return response.json();
 }
+
+//Api for getting the data of specific Resume
+
+export const getDataOfResumeApi = async (id)=>{
+    const response = await fetch (`http://localhost:8000/user/Resume/${id}`,{
+        method:'GET'
+    }) 
+    const data = await response.json();
+    return data;
+}
