@@ -122,3 +122,16 @@ export const getDataOfResumeApi = async (id)=>{
     const data = await response.json();
     return data;
 }
+
+//Api for getting all the resumes 
+
+export const getAllResumes = async () =>{
+    let response = await fetch (`http://localhost:8000/user/Resume`,{
+        method:'GET',
+    })
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
+      }
+      return response.json();
+}
