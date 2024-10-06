@@ -9,22 +9,22 @@ import {
 import { ResumeInfoContext } from "../../../../Context/ResumeInfoContext";
 
 function ExperienceForm() {
-  //Extracting id from url
+  // Extracting id from url
   let { id } = useParams();
-
   const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
-
   const queryClient = useQueryClient();
-  //Api calling for getting the data of that specific resume
+
+  // Api calling for getting the data of that specific resume
   const { data, isLoading, error } = useQuery({
     queryKey: ["resumes", id],
     queryFn: () => getDataOfResumeApi(id),
   });
-  //Formik Structure
+
+  // Formik Structure
   const initialValues = {
     experience:
-      data.data?.experience?.length > 0
-        ? data.data?.experience.map((exp) => ({
+      data?.data?.experience?.length > 0
+        ? data.data.experience.map((exp) => ({
             positionTitle: exp.positionTitle || "",
             companyName: exp.companyName || "",
             state: exp.state || "",
@@ -46,7 +46,7 @@ function ExperienceForm() {
           ],
   };
 
-  //Api calling
+  // Api calling
   const addExperienceMutation = useMutation({
     mutationFn: AddExperienceApi,
     onSuccess: () => {
@@ -57,12 +57,13 @@ function ExperienceForm() {
       console.log("Some error in adding the experience");
     },
   });
+
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.resetForm();
     onSubmitProps.setSubmitting(false);
     addExperienceMutation.mutate({ values, id });
-    SetResumeInfo((prevInfo) => ({
-      ...prevInfo,
+    SetResumeInfo((prev) => ({
+      ...prev,
       experience: values.experience,
     }));
     console.log(values);
@@ -78,7 +79,7 @@ function ExperienceForm() {
             <Form className="border border-gray-400 rounded-md mt-3 p-1.5">
               <FieldArray name="experience">
                 {({ push, remove }) => (
-                  <div className="">
+                  <div>
                     {values.experience.map((experience, index) => (
                       <div key={index} className="mt-2">
                         <h4 className="font-bold">Experience {index + 1}</h4>
@@ -90,7 +91,6 @@ function ExperienceForm() {
                             >
                               Position Title
                             </label>
-                            <br />
                             <Field
                               name={`experience.${index}.positionTitle`}
                               onChange={(e) => {
@@ -100,8 +100,13 @@ function ExperienceForm() {
                                   value
                                 );
                                 SetResumeInfo((prev) => {
-                                  const newExperience = [...prev.experience];
-                                  newExperience[index].positionTitle = value;
+                                  const newExperience = [
+                                    ...(prev.experience || []),
+                                  ];
+                                  newExperience[index] = {
+                                    ...newExperience[index],
+                                    positionTitle: value,
+                                  };
                                   return { ...prev, experience: newExperience };
                                 });
                               }}
@@ -116,7 +121,6 @@ function ExperienceForm() {
                             >
                               Company Name
                             </label>
-                            <br />
                             <Field
                               name={`experience.${index}.companyName`}
                               onChange={(e) => {
@@ -126,8 +130,13 @@ function ExperienceForm() {
                                   value
                                 );
                                 SetResumeInfo((prev) => {
-                                  const newExperience = [...prev.experience];
-                                  newExperience[index].companyName = value;
+                                  const newExperience = [
+                                    ...(prev.experience || []),
+                                  ];
+                                  newExperience[index] = {
+                                    ...newExperience[index],
+                                    companyName: value,
+                                  };
                                   return { ...prev, experience: newExperience };
                                 });
                               }}
@@ -144,7 +153,6 @@ function ExperienceForm() {
                             >
                               City
                             </label>
-                            <br />
                             <Field
                               name={`experience.${index}.city`}
                               onChange={(e) => {
@@ -154,8 +162,13 @@ function ExperienceForm() {
                                   value
                                 );
                                 SetResumeInfo((prev) => {
-                                  const newExperience = [...prev.experience];
-                                  newExperience[index].city = value;
+                                  const newExperience = [
+                                    ...(prev.experience || []),
+                                  ];
+                                  newExperience[index] = {
+                                    ...newExperience[index],
+                                    city: value,
+                                  };
                                   return { ...prev, experience: newExperience };
                                 });
                               }}
@@ -170,7 +183,6 @@ function ExperienceForm() {
                             >
                               State
                             </label>
-                            <br />
                             <Field
                               name={`experience.${index}.state`}
                               onChange={(e) => {
@@ -180,8 +192,13 @@ function ExperienceForm() {
                                   value
                                 );
                                 SetResumeInfo((prev) => {
-                                  const newExperience = [...prev.experience];
-                                  newExperience[index].state = value;
+                                  const newExperience = [
+                                    ...(prev.experience || []),
+                                  ];
+                                  newExperience[index] = {
+                                    ...newExperience[index],
+                                    state: value,
+                                  };
                                   return { ...prev, experience: newExperience };
                                 });
                               }}
@@ -198,7 +215,6 @@ function ExperienceForm() {
                             >
                               Start Date
                             </label>
-                            <br />
                             <Field
                               name={`experience.${index}.startDate`}
                               onChange={(e) => {
@@ -208,8 +224,13 @@ function ExperienceForm() {
                                   value
                                 );
                                 SetResumeInfo((prev) => {
-                                  const newExperience = [...prev.experience];
-                                  newExperience[index].startDate = value;
+                                  const newExperience = [
+                                    ...(prev.experience || []),
+                                  ];
+                                  newExperience[index] = {
+                                    ...newExperience[index],
+                                    startDate: value,
+                                  };
                                   return { ...prev, experience: newExperience };
                                 });
                               }}
@@ -224,7 +245,6 @@ function ExperienceForm() {
                             >
                               End Date
                             </label>
-                            <br />
                             <Field
                               name={`experience.${index}.endDate`}
                               onChange={(e) => {
@@ -234,8 +254,13 @@ function ExperienceForm() {
                                   value
                                 );
                                 SetResumeInfo((prev) => {
-                                  const newExperience = [...prev.experience];
-                                  newExperience[index].endDate = value;
+                                  const newExperience = [
+                                    ...(prev.experience || []),
+                                  ];
+                                  newExperience[index] = {
+                                    ...newExperience[index],
+                                    endDate: value,
+                                  };
                                   return { ...prev, experience: newExperience };
                                 });
                               }}
@@ -244,33 +269,35 @@ function ExperienceForm() {
                             />
                           </div>
                         </div>
-                        <h2 className="mt-2 font-semibold">Summery</h2>
+                        <h2 className="mt-2 font-semibold">Summary</h2>
                         <Field
-                          name={`experience.${index}.jobDescription`}
+                          name={`experience.${index}.workSummery`}
                           onChange={(e) => {
                             const { value } = e.target;
                             setFieldValue(
-                              `experience.${index}.jobDescription`,
+                              `experience.${index}.workSummery`,
                               value
                             );
                             SetResumeInfo((prev) => {
-                              const newExperience = [...prev.experience];
-                              newExperience[index].jobDescription = value;
+                              const newExperience = [
+                                ...(prev.experience || []),
+                              ];
+                              newExperience[index] = {
+                                ...newExperience[index],
+                                workSummery: value,
+                              };
                               return { ...prev, experience: newExperience };
                             });
                           }}
                           as="textarea"
                           rows="5"
                           className="border mt-0.5 w-full text-sm rounded-md p-1 focus:border-purple-500 focus:outline-none"
-                          placeholder="Job Description"
+                          placeholder="Work Summary"
                         />
-                        <div></div>
-                        {/* container for buttons */}
                         <div className="flex gap-3 items-center my-4">
                           <button
                             type="button"
-                            className="border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600 
-                        hover:bg-gray-100 hover:text-black"
+                            className="border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600 hover:bg-gray-100 hover:text-black"
                             onClick={() =>
                               push({
                                 positionTitle: "",
@@ -287,8 +314,7 @@ function ExperienceForm() {
                           </button>
                           <button
                             type="button"
-                            className="border border-purple-600 px-2 py-1 bg-white rounded-md
-                          hover:bg-gray-100 hover:text-black text-purple-600"
+                            className="border border-purple-600 px-2 py-1 bg-white rounded-md hover:bg-gray-100 hover:text-black text-purple-600"
                             onClick={() => remove(index)}
                           >
                             Remove

@@ -8,7 +8,7 @@ function Education({resumeInfo}) {
         Education
       </h2>
       <hr style={{ borderColor: resumeInfo.themeColor }} />
-      {/* {resumeInfo.education.map((education, index) => (
+      { resumeInfo.education && resumeInfo.education.length > 0 && resumeInfo.education.map((education, index) => (
         <div key={index} className="my-5">
           <h3 className="font-bold text-sm" style={{color:resumeInfo.themeColor}}>{education.universityName}</h3>
           <h2 className='text-xs flex justify-between mt-1'>
@@ -17,7 +17,7 @@ function Education({resumeInfo}) {
           </h2>
           <p className='my-2 text-xs'>{education.description}</p>
         </div>
-      ))} */}
+      ))}
     </div>
     </div>
   )

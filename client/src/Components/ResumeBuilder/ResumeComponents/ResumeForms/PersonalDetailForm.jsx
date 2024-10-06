@@ -11,8 +11,10 @@ function PersonalDetailForm() {
   const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
 
   const queryClient = useQueryClient();
+
   //Use param hook for extracting id from the url
   let { id } = useParams();
+  
   //Api calling for getting the data of that specific resume
   const { data, isLoading, error } = useQuery({
     queryKey: ["resumes", id],

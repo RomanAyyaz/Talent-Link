@@ -33,7 +33,7 @@ export default{
             startDate:'May 2019',
             endDate:'Jan 2021',
             currentlyWorking:false,
-            workSummery:' Designed, developed, and maintained full-stack applications using React and Node.js.'+
+            jobDescription:' Designed, developed, and maintained full-stack applications using React and Node.js.'+
             '• Implemented responsive user interfaces with React, ensuring seamless user experiences across'+
             'various devices and browsers.'+
             '• Maintaining the React Native in-house organization application.'+

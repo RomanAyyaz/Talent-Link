@@ -7,17 +7,18 @@ import { AddSkillsApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi';
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext';
 
 function SkillsForm() {
-  //Extracting id from utl 
-  let {id} = useParams()
+  // Extracting id from URL 
+  let { id } = useParams();
 
   const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
-
   const queryClient = useQueryClient();
-  //Api calling for getting the data of that specific resume
+
+  // API call for getting the data of that specific resume
   const { data, isLoading, error } = useQuery({
     queryKey: ["resumes", id],
     queryFn: () => getDataOfResumeApi(id),
   });
+
   const initialValues = {
     skills:
       data.data?.skills?.length > 0
@@ -32,35 +33,35 @@ function SkillsForm() {
             },
           ],
   };
-  
 
-  //Api calling 
+  // API call 
   const addSkillsMutation = useMutation({
-    mutationFn:AddSkillsApi,
-    onSuccess:()=>{
+    mutationFn: AddSkillsApi,
+    onSuccess: () => {
       queryClient.invalidateQueries("resumes");
-      console.log("Skills Added Successfully")
+      console.log("Skills Added Successfully");
     },
-    onError:()=>{
-      console.log("Some error in adding the Skills")
-    }
-  })
+    onError: () => {
+      console.log("Some error in adding the Skills");
+    },
+  });
 
-  //Function to update the rating
+  // Function to update the rating
   const ratingChanged = (index, newRating, setFieldValue) => {
     setFieldValue(`skills[${index}].rating`, newRating);
     SetResumeInfo((prev) => {
       const newSkills = [...prev.skills];
-      newSkills[index].rating = newRating;
+      if (newSkills[index]) {
+        newSkills[index].rating = newRating;
+      }
       return { ...prev, skills: newSkills };
     });
   };
-  
+
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.resetForm();
     onSubmitProps.setSubmitting(false);
-    addSkillsMutation.mutate({values,id})
-
+    addSkillsMutation.mutate({ values, id });
     console.log(values);
   };
 
@@ -77,7 +78,6 @@ function SkillsForm() {
                   <div>
                     {values.skills.map((skill, index) => (
                       <div key={index} className='mt-2'>
-                        {/* <h4 className='font-bold'>Skill {index + 1}</h4> */}
                         <div className='flex gap-2 justify-between w-full mt-1'>
                           <div className='w-1/2'>
                             <label htmlFor={`skills[${index}].name`} className='font-semibold text-sm'>Name</label><br />
@@ -88,11 +88,12 @@ function SkillsForm() {
                                 setFieldValue(`skills[${index}].name`, value);
                                 SetResumeInfo((prev) => {
                                   const newSkills = [...prev.skills];
-                                  newSkills[index].name = value;
+                                  if (newSkills[index]) {
+                                    newSkills[index].name = value;
+                                  }
                                   return { ...prev, skills: newSkills };
                                 });
                               }}
-                              
                               className='text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none'
                               placeholder='Enter skill name'
                             />
@@ -100,7 +101,7 @@ function SkillsForm() {
 
                           {/* Rating Part */}
                           <div className='w-3/12'>
-                            <label htmlFor="rating" className='font-semibold text-sm'>Rating</label><br />
+                            <label htmlFor={`skills[${index}].rating`} className='font-semibold text-sm'>Rating</label><br />
                             <ReactStars
                               count={5}
                               value={skill.rating}

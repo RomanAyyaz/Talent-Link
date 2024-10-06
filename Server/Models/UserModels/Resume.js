@@ -26,6 +26,10 @@ const ResumeSchema = new mongoose.Schema({
     summery:{
         type:String
     },
+    themeColor:{
+        type:String,
+        default:'#ff6666'
+    },
     experience:[
         {
             positionTitle:String,
