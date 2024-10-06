@@ -20,7 +20,7 @@ function ProfessionalExp({ resumeInfo }) {
             {experience.companyName}, {experience.city}, {experience.state}
             <span>{experience.startDate} {experience.currentlyWorking ? ' - Present' : ` - ${experience.endDate}`}</span>
           </h2>
-          <p className="my-2 text-sm">{experience.jobDescription}</p>
+          <p className="my-2 text-sm">{experience.workSummery}</p>
         </div>
       ))}
     </div>
