@@ -14,7 +14,7 @@ function SkillsForm() {
   const queryClient = useQueryClient();
 
   // API call for getting the data of that specific resume
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["resumes", id],
     queryFn: () => getDataOfResumeApi(id),
   });
@@ -100,7 +100,7 @@ function SkillsForm() {
                           </div>
 
                           {/* Rating Part */}
-                          <div className='w-3/12'>
+                          <div className='w-2/5 lg:w-3/12'>
                             <label htmlFor={`skills[${index}].rating`} className='font-semibold text-sm'>Rating</label><br />
                             <ReactStars
                               count={5}

@@ -15,7 +15,7 @@ function Education({resumeInfo}) {
             {education.degree} in {education.major}
             <span>{education.startDate} - {education.endDate}</span>
           </h2>
-          <p className='my-2 text-xs'>{education.description}</p>
+          <p className='my-2 text-sm'>{education.description}</p>
         </div>
       ))}
     </div>

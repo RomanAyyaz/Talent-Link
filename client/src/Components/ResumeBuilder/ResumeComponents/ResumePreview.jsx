@@ -9,7 +9,7 @@ import Skills from './ResumePreviewCompoents/Skills'
 function ResumePreview() {
     const {resumeInfo} = useContext(ResumeInfoContext)
   return (
-    <div className='text-start shadow-lg p-14 h-full border-t-[20px]' style={{borderColor:resumeInfo.themeColor}}>
+    <div className='text-start shadow-lg p-8 lg:p-14 h-full border-t-[20px]' style={{borderColor:resumeInfo.themeColor}}>
         {/* Personal Details */}
         <PersonalDetail resumeInfo= {resumeInfo}/>
         {/* Summary */}

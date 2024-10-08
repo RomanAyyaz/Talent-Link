@@ -28,11 +28,11 @@ function EditResume() {
   console.log(resumeInfo)
   return (
     <ResumeInfoContext.Provider value={{resumeInfo,SetResumeInfo}}>
-        <div className='w-full flex px-5 mt-5'>
+        <div className='w-full flex flex-col lg:flex-row px-5 mt-5'>
         {/* Resume form Section */}
-        <div className='w-1/2 mr-5'><FormSection/></div>
+        <div className=' w-full mb-4 lg:mb-0 lg:w-1/2 mr-5'><FormSection/></div>
         {/* Resume preview Section */}
-        <div className='w-1/2'><ResumePreview/></div>
+        <div className='w-full lg:w-1/2'><ResumePreview/></div>
     </div>
     </ResumeInfoContext.Provider>
   )
