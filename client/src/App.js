@@ -10,6 +10,7 @@ import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
 import Resume from './Components/ResumeBuilder/Resume';
 import EditResume from './Components/ResumeBuilder/ResumeComponents/EditResume';
 import AddResume from './Components/ResumeBuilder/ResumeComponents/AddResume';
+import ViewResume from './Components/ResumeBuilder/ResumeComponents/ViewResume';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path='/' element=   {<Resume/>}/>
         <Route path='/resume/:id/edit' element = {<EditResume/>} />
+        <Route path='/resume/:id/view' element = {<ViewResume/>} />
       </Routes>
       </BrowserRouter>
       {/* <BrowserRouter> */}

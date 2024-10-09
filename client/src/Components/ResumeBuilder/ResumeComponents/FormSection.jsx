@@ -5,7 +5,7 @@ import Summery from './ResumeForms/Summery';
 import ExperienceForm from './ResumeForms/ExperienceForm';
 import EducationForm from './ResumeForms/EducationForm';
 import SkiilsForm from './ResumeForms/SkiilsForm';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ChangeThemeApi } from '../ResumeApis/ResumeApi';
 
@@ -99,7 +99,7 @@ function FormSection() {
               <HiOutlineArrowNarrowLeft size={25} />
             </button>
           )}
-          {activeFormIndex < 5 && (
+          {activeFormIndex < 6 && (
             <button
               className="bg-purple-600 text-white px-4 py-1 rounded-md"
               onClick={() => {
@@ -122,6 +122,8 @@ function FormSection() {
       {activeFormIndex === 4 ? <EducationForm /> : null}
       {/* Skills */}
       {activeFormIndex === 5 ? <SkiilsForm /> : null}
+      {/* View Resume  */}
+      {activeFormIndex == 6 ? <Navigate to={`/resume/${id}/view`} /> : null }
     </div>
   );
 }
