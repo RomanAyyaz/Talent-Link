@@ -135,3 +135,13 @@ export const getAllResumes = async () =>{
       }
       return response.json();
 }
+
+//Api for deleting the resume  
+
+export const deleteResumes = async (id) =>{
+    let response = await fetch (`http://localhost:8000/user/Resume/${id}`,{
+        method:'DELETE',
+    })
+    const data = await response.json();
+    return data;
+}

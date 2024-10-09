@@ -3,7 +3,6 @@ import FormSection from './FormSection'
 import ResumePreview from './ResumePreview'
 import { ResumeInfoContext } from '../../../Context/ResumeInfoContext'
 import { useEffect } from 'react'
-import dummy from "../ResumeData/DummyData"
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { getDataOfResumeApi } from '../ResumeApis/ResumeApi'

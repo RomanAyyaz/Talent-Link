@@ -14,6 +14,7 @@ const { addSkills } = require('../../Controllers/ResumeBuilder/AddSkills')
 const { getResume } = require('../../Controllers/ResumeBuilder/GetResumeData')
 const { themeChange } = require('../../Controllers/ResumeBuilder/ThemeChange')
 const { getAllResumes } = require('../../Controllers/ResumeBuilder/GetAllResumesData')
+const { deleteResume } = require('../../Controllers/ResumeBuilder/DeleteResume')
 
 
 //Route to add User
@@ -57,5 +58,9 @@ Router.get('/Resume/:id',getResume)
 
 //Route for getting all the resumes 
 Router.get('/Resume',getAllResumes)
+
+//Route for Deleting the Resume
+Router.delete('/Resume/:id',deleteResume)
+
 module.exports = Router
 
