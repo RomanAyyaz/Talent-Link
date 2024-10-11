@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 import { ResumeInfoContext } from "../../../../Context/ResumeInfoContext";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik} from "formik";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addPersonalDetailsApi,
   getDataOfResumeApi,
 } from "../../ResumeApis/ResumeApi";
-function PersonalDetailForm() {
+import * as yup from 'yup'
+
+function PersonalDetailForm( { onSuccess }) {
   const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
 
   const queryClient = useQueryClient();
@@ -31,13 +33,22 @@ function PersonalDetailForm() {
     phone: resumeData.phone || "",
     email: resumeData.email || "",
   };
-
+  //Defining validation Schema 
+  const validationSchema = yup.object({
+    firstName:yup.string().required("Required"),
+    lastName:yup.string().required("Required"),
+    jobTitle:yup.string().required("Required"),
+    address:yup.string().required("Required"),
+    phone:yup.string().required("Required"),
+    email:yup.string().email().required('Required')
+  })
   //Api Calling for adding personal details
   const addPersonalDetailsMutation = useMutation({
     mutationFn: addPersonalDetailsApi,
     onSuccess: () => {
       queryClient.invalidateQueries("resumes");
       console.log("Data Added Successfully");
+      onSuccess(); 
     },
     onError: () => {
       console.log("Some error in submitting data in personal details");
@@ -45,6 +56,7 @@ function PersonalDetailForm() {
   });
 
   const onSubmit = (values, onSubmitProps) => {
+    onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
     console.log(values);
     SetResumeInfo(prev => ({ ...prev, ...values }));
@@ -58,8 +70,8 @@ function PersonalDetailForm() {
     <div className="text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10">
       <h2 className="font-bold text-lg">Personal Details</h2>
       <p>Getting started with basic information</p>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        {({setFieldValue}) => {
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+        {({setFieldValue , isValid, isSubmitting}) => {
           return (
             <Form className="mt-2">
               <div className="flex gap-2 w-full">
@@ -159,8 +171,9 @@ function PersonalDetailForm() {
               </div>
               <div className="flex justify-end w-full mt-3">
                 <button
-                  className="text-white px-2.5 py-1 rounded-md bg-purple-600"
+                  className={`text-white px-2.5 py-1 ${isSubmitting || !isValid ? " bg-purple-300": ' bg-purple-600'} rounded-md`}
                   type="submit"
+                  disabled = {!isValid || isSubmitting}
                 >
                   Save
                 </button>

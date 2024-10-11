@@ -17,6 +17,10 @@ function FormSection() {
    // Extracting id from the URL
    let { id } = useParams();
 
+   const handleNext = () => {
+    setActiveFormIndex(prevIndex => prevIndex + 1);
+  }; 
+  
   const openModal = () => {
     setIsOpen(true);
   };
@@ -113,7 +117,7 @@ function FormSection() {
       </div>
 
       {/* Personal Details */}
-      {activeFormIndex === 1 ? <PersonalDetailForm /> : null}
+      {activeFormIndex === 1 ? <PersonalDetailForm  onSuccess={handleNext} /> : null}
       {/* Summary */}
       {activeFormIndex === 2 ? <Summery /> : null}
       {/* Experience */}
