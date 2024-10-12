@@ -5,8 +5,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { AddSkillsApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi';
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext';
-
-function SkillsForm() {
+import * as yup from 'yup'
+function SkillsForm({onSuccess}) {
   // Extracting id from URL 
   let { id } = useParams();
 
@@ -33,12 +33,21 @@ function SkillsForm() {
             },
           ],
   };
-
+  //ValidationSchema
+  const validationSchema = yup.object().shape({
+    skills: yup.array().of(
+      yup.object().shape({
+        name: yup.string().required('Name is required'),
+        rating: yup.string().required('Rating is required'),
+      })
+    )
+  });
   // API call 
   const addSkillsMutation = useMutation({
     mutationFn: AddSkillsApi,
     onSuccess: () => {
       queryClient.invalidateQueries("resumes");
+      onSuccess();
       console.log("Skills Added Successfully");
     },
     onError: () => {
@@ -70,8 +79,8 @@ function SkillsForm() {
       <div className='text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10'>
         <h2 className='font-bold text-lg'>Skills</h2>
         <p>Add Your Top Professional Key Skills</p>
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({ values, setFieldValue }) => (
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+          {({ values, setFieldValue , isValid , isSubmitting }) => (
             <Form className='border border-gray-400 rounded-md mt-3 p-1.5'>
               <FieldArray name="skills">
                 {({ push, remove }) => (
@@ -135,7 +144,7 @@ function SkillsForm() {
                 )}
               </FieldArray>
               <div className='flex justify-end w-full mt-3 px-4'>
-                <button type='submit' className='text-white px-2.5 py-1 rounded-md bg-purple-600'>
+                <button type='submit' className={`text-white ${isSubmitting || !isValid ? " bg-purple-300": ' bg-purple-600'}  px-2.5 py-1 rounded-md`}>
                   Save
                 </button>
               </div>

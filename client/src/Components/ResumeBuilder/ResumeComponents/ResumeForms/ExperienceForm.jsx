@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Formik, Field, Form, FieldArray } from "formik";
+import { Formik, Field, Form, FieldArray, ErrorMessage } from "formik";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -7,8 +7,9 @@ import {
   getDataOfResumeApi,
 } from "../../ResumeApis/ResumeApi";
 import { ResumeInfoContext } from "../../../../Context/ResumeInfoContext";
+import * as yup from 'yup'
 
-function ExperienceForm() {
+function ExperienceForm({ onSuccess }) {
   // Extracting id from url
   let { id } = useParams();
   const { resumeInfo, SetResumeInfo } = useContext(ResumeInfoContext);
@@ -45,13 +46,28 @@ function ExperienceForm() {
             },
           ],
   };
-
+  //Validation Schema 
+  const validationSchema = yup.object().shape({
+    experience: yup.array().of(
+      yup.object().shape({
+        positionTitle: yup.string().required('Position Title is required'),
+        companyName: yup.string().required('Company Name is required'),
+        state: yup.string().required('State is required'),
+        city: yup.string().required('City is required'),
+        startDate: yup.string().required('Start Date is required'),
+        endDate: yup.string().required('End Date is required'),
+        workSummery: yup.string().required('Work Summary is required'),
+      })
+    )
+  });
+  
   // Api calling
   const addExperienceMutation = useMutation({
     mutationFn: AddExperienceApi,
     onSuccess: () => {
       queryClient.invalidateQueries("resumes");
       console.log("Experience Added Successfully");
+      onSuccess ()
     },
     onError: () => {
       console.log("Some error in adding the experience");
@@ -74,8 +90,8 @@ function ExperienceForm() {
       <div className="text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10">
         <h2 className="font-bold text-lg">Professional Experience</h2>
         <p>Add Your previous job Experience</p>
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({ values, setFieldValue }) => (
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+          {({ values, setFieldValue ,isValid , isSubmitting }) => (
             <Form className="border border-gray-400 rounded-md mt-3 p-1.5">
               <FieldArray name="experience">
                 {({ push, remove }) => (
@@ -298,6 +314,7 @@ function ExperienceForm() {
                           <button
                             type="button"
                             className="border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600 hover:bg-gray-100 hover:text-black"
+                            
                             onClick={() =>
                               push({
                                 positionTitle: "",
@@ -328,7 +345,7 @@ function ExperienceForm() {
               <div className="flex justify-end w-full mt-3 px-4">
                 <button
                   type="submit"
-                  className="text-white px-2.5 py-1 rounded-md bg-purple-600"
+                  className={`text-white px-2.5 py-1 rounded-md ${isSubmitting || !isValid ? " bg-purple-300": ' bg-purple-600'}`}
                 >
                   Save
                 </button>

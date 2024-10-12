@@ -4,8 +4,8 @@ import { AddEducationApi, getDataOfResumeApi } from "../../ResumeApis/ResumeApi"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { ResumeInfoContext } from "../../../../Context/ResumeInfoContext";
-
-function EducationForm() {
+import * as yup from 'yup'
+function EducationForm({onSuccess}) {
   // Extracting id from the URL
   let { id } = useParams();
   
@@ -40,12 +40,25 @@ function EducationForm() {
           },
         ],
   };
-
+  //validation Schema
+  const validationSchema = yup.object().shape({
+    education: yup.array().of(
+      yup.object().shape({
+        universityName: yup.string().required('University is required'),
+        degree: yup.string().required('Degree is required'),
+        major: yup.string().required('major required'),
+        startDate: yup.string().required('Start Date is required'),
+        endDate: yup.string().required('End Date is required'),
+        description: yup.string().required('Description is required'),
+      })
+    )
+  });
   // Mutation for adding education
   const addEducationMutation = useMutation({
     mutationFn: AddEducationApi,
     onSuccess: () => {
       queryClient.invalidateQueries("resumes");
+      onSuccess();
       console.log("Education Added Successfully");
     },
     onError: () => {
@@ -73,8 +86,8 @@ function EducationForm() {
       <div className="text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10">
         <h2 className="font-bold text-lg">Education</h2>
         <p>Add Your education details</p>
-        <Formik initialValues={initialValues} onSubmit={onSubmit}>
-          {({ values, setFieldValue }) => (
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+          {({ values, setFieldValue , isValid , isSubmitting }) => (
             <Form className="border border-gray-400 rounded-md mt-3 p-1.5">
               <FieldArray name="education">
                 {({ push, remove }) => (
@@ -228,7 +241,8 @@ function EducationForm() {
               </FieldArray>
               <button
                 type="submit"
-                className="mt-2 bg-purple-600 text-white px-4 py-2 rounded-md"
+                className={`mt-2  ${isSubmitting || !isValid ? " bg-purple-300": ' bg-purple-600'} text-white px-4 py-2 rounded-md`}
+                disabled= {!isValid || isSubmitting}
               >
                 Submit
               </button>

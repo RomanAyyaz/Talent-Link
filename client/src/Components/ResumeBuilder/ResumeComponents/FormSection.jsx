@@ -103,7 +103,7 @@ function FormSection() {
               <HiOutlineArrowNarrowLeft size={25} />
             </button>
           )}
-          {activeFormIndex < 6 && (
+          {activeFormIndex < 5 && (
             <button
               className="bg-purple-600 text-white px-4 py-1 rounded-md"
               onClick={() => {
@@ -121,11 +121,11 @@ function FormSection() {
       {/* Summary */}
       {activeFormIndex === 2 ? <Summery /> : null}
       {/* Experience */}
-      {activeFormIndex === 3 ? <ExperienceForm /> : null}
+      {activeFormIndex === 3 ? <ExperienceForm  onSuccess={handleNext} /> : null}
       {/* Education */}
-      {activeFormIndex === 4 ? <EducationForm /> : null}
+      {activeFormIndex === 4 ? <EducationForm onSuccess={handleNext} /> : null}
       {/* Skills */}
-      {activeFormIndex === 5 ? <SkiilsForm /> : null}
+      {activeFormIndex === 5 ? <SkiilsForm onSuccess= {handleNext}  /> : null}
       {/* View Resume  */}
       {activeFormIndex == 6 ? <Navigate to={`/resume/${id}/view`} /> : null }
     </div>
