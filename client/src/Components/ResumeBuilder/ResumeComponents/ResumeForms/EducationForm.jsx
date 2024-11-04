@@ -17,7 +17,6 @@ function EducationForm({onSuccess}) {
     queryKey: ["resumes", id],
     queryFn: () => getDataOfResumeApi(id),
   });
-
   // Initial values setup with default structure to avoid undefined errors
   const initialValues = {
     education: Array.isArray(resumeInfo.education) && resumeInfo.education.length > 0

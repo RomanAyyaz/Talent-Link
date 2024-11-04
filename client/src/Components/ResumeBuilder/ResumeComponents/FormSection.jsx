@@ -8,6 +8,7 @@ import SkiilsForm from './ResumeForms/SkiilsForm';
 import { Navigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ChangeThemeApi } from '../ResumeApis/ResumeApi';
+import CertificationForm from './ResumeForms/CertificationForm';
 
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -103,7 +104,7 @@ function FormSection() {
               <HiOutlineArrowNarrowLeft size={25} />
             </button>
           )}
-          {activeFormIndex < 5 && (
+          {activeFormIndex < 6 && (
             <button
               className="bg-purple-600 text-white px-4 py-1 rounded-md"
               onClick={() => {
@@ -124,10 +125,12 @@ function FormSection() {
       {activeFormIndex === 3 ? <ExperienceForm  onSuccess={handleNext} /> : null}
       {/* Education */}
       {activeFormIndex === 4 ? <EducationForm onSuccess={handleNext} /> : null}
+      {/* Certification */}
+      {activeFormIndex === 5 ? <CertificationForm onSuccess = {handleNext}/> : null}
       {/* Skills */}
-      {activeFormIndex === 5 ? <SkiilsForm onSuccess= {handleNext}  /> : null}
+      {activeFormIndex === 6 ? <SkiilsForm onSuccess= {handleNext}  /> : null}
       {/* View Resume  */}
-      {activeFormIndex == 6 ? <Navigate to={`/resume/${id}/view`} /> : null }
+      {activeFormIndex == 7 ? <Navigate to={`/resume/${id}/view`} /> : null }
     </div>
   );
 }
