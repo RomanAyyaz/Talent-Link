@@ -157,8 +157,8 @@ export const getDataOfResumeApi = async (id)=>{
 
 //Api for getting all the resumes 
 
-export const getAllResumes = async () =>{
-    let response = await fetch (`http://localhost:8000/user/Resume`,{
+export const getAllResumes = async (userId) =>{
+    let response = await fetch (`http://localhost:8000/user/Resume?userId=${userId}`,{
         method:'GET',
     })
     if (!response.ok) {

@@ -42,7 +42,7 @@ function Login() {
     mutationFn: SigninApi,
     onSuccess: (data) => {
       setUser(data.userData);
-      navigate("/");
+      navigate("/landingPage");
       toast.success("User Logged in Successfully", {
         position: "top-center",
         autoClose: 3000,
@@ -163,7 +163,7 @@ function Login() {
                       />
                       {/* <ErrorMessage name="password" component="div" className="text-red-500 text-sm text-start" /> */}
                     </div>
-                    <Link to="/changepassword">
+                    <Link to="/changePassword">
                       <p className="text-primary text-sm font-normal mt-2.5 text-end hover:cursor-pointer text-InstructorPrimary">
                         Forgot Password?
                       </p>

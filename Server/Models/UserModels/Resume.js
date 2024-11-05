@@ -69,7 +69,12 @@ const ResumeSchema = new mongoose.Schema({
             name:String,
             rating:Number
         }
-    ]
+    ],
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    }
 },{timestamps:true})
 
 const Resume = mongoose.model("Resume",ResumeSchema)

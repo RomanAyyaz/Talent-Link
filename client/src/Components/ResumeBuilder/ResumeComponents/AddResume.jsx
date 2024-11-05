@@ -4,9 +4,11 @@ import { BsPlusSquare } from 'react-icons/bs';
 import { AddResumeApi } from '../ResumeApis/ResumeApi';
 import { useResumeIdStore } from '../../../Store/ResumeIdStore';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../../Store/UserStore';
 
 function AddResume() {
   const navigate = useNavigate();
+  const {user} = useUserStore();
 
   const [isOpen, setIsOpen] = useState(false);
   const [Title, setTitle] = useState('');
@@ -69,7 +71,7 @@ function AddResume() {
               <button
                 className="bg-purple-600 text-white px-3 py-2 rounded-md"
                 onClick={() => {
-                  AddResumeMutation.mutate({ title: Title });
+                  AddResumeMutation.mutate({ title: Title , userId:user._id });
                 }}
               >
                 Create

@@ -4,7 +4,6 @@ import {
   FaYoutube,
   FaInstagram,
   FaTwitter,
-  FaUser,
   FaBars,
   FaCaretDown,
   FaCaretUp,
@@ -18,9 +17,11 @@ function Navbar() {
   return (
     <>
       <nav className="max-w-full bg-bgNavbar h-14 text-white flex items-center justify-between px-8 lg:px-14">
-        <h1 className="font-bold text-2xl">EDULOGY</h1>
+        <h1 className="font-bold text-lg">TALENT-LINK</h1>
         <ul className="hidden lg:flex min-w-[650px] items-center justify-between font-medium cursor-pointer">
+          <Link to={'/landingpage'}>
           <li>Home</li>
+          </Link>
           <li>News</li>
           <li className="relative group flex items-center">
             Features
@@ -65,7 +66,9 @@ function Navbar() {
             </ul>
           </li>
           <li>About</li>
-          <li>Our Team</li>
+          <Link to={'/ResumeBuilder'}>
+          <li>Resume</li>
+          </Link>
           <li>Contact</li>
         </ul>
         <div className="hidden lg:flex w-36 h-6 items-center text-base justify-between cursor-pointer">
@@ -93,9 +96,6 @@ function Navbar() {
               Youtube
             </div>
           </div>
-          <Link  to='/login'>
-          <FaUser />
-          </Link>
         </div>
       </nav>
       <div className="lg:hidden bg-bgMenu w-screen h-10 text-white px-8 flex items-center" onClick={()=>{

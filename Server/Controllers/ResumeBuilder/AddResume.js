@@ -1,9 +1,10 @@
 const Resume = require('../../Models/UserModels/Resume')
 const AddResume = async (req,res)=>{
     try {
-    let {title} = req.body
+    let {title,userId} = req.body
     let data = new Resume({
-    title:title
+    title:title,
+    user:userId
     })
     await data.save()
     return res.status(201).json({data:data,message:"Resume Title added successfully"})
