@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { Formik, Field, Form, FieldArray } from "formik";
 import { useParams } from 'react-router-dom';
-import { addCertificationApi, getDataOfResumeApi } from '../../ResumeApis/ResumeApi';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addProjectApi } from '../../ResumeApis/ResumeApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext';
-function CertificationForm({onSuccess}) {
+function ProjectForm({onSuccess}) {
   // Extracting id from the URL
   let { id } = useParams();
 
@@ -14,29 +14,29 @@ function CertificationForm({onSuccess}) {
 
   //Formik Structure
   const initialValues = {
-    certification: Array.isArray(resumeInfo.certification) && resumeInfo.certification.length > 0
-      ? resumeInfo.certification.map(cer => ({
-          certificationName: cer.certificationName || "",
-          certificationSummery: cer.certificationSummery || "",
+    project: Array.isArray(resumeInfo.project) && resumeInfo.project.length > 0
+      ? resumeInfo.project.map(pro => ({
+          projectName: pro.projectName || "",
+          projectDescription: pro.projectDescription || "",
         }))
       : [
           {
-            certificationName: '',
-            certificationSummery: ''
+            projectName: '',
+            projectDescription: ''
           }
         ]
   }
   
    // Mutation for adding education
-   const addCertificationMutation = useMutation({
-    mutationFn: addCertificationApi,
+   const addProjectMutation = useMutation({
+    mutationFn: addProjectApi,
     onSuccess: () => {
       queryClient.invalidateQueries("resumes");
       onSuccess();
-      console.log("Education Added Successfully");
+      console.log("Project Added Successfully");
     },
     onError: () => {
-      console.log("Some error in adding the education");
+      console.log("Some error in adding the Project");
     },
   });
 
@@ -44,10 +44,10 @@ function CertificationForm({onSuccess}) {
   const onSubmit = (values,onSubmitProps)=>{
     onSubmitProps.resetForm();
     onSubmitProps.setSubmitting(false);
-    addCertificationMutation.mutate({ values, id });
+    addProjectMutation.mutate({ values, id });
     SetResumeInfo((prevInfo) => ({
       ...prevInfo,
-      certification: values.certification,
+      project: values.project,
     }));
     console.log(values);
   }
@@ -55,30 +55,30 @@ function CertificationForm({onSuccess}) {
   return (
     <div>
       <div className="text-start px-3.5 py-4 shadow-lg rounded-lg border-t-4 border-t-purple-600 mt-10">
-        <h2 className="font-bold text-lg">Certification</h2>
-        <p>Add Your Certifications</p>
+        <h2 className="font-bold text-lg">Project</h2>
+        <p>Add Your Projects</p>
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
           {({ values, setFieldValue , isValid , isSubmitting }) => (
             <Form className="border border-gray-400 rounded-md mt-3 p-1.5">
-              <FieldArray name="certification">
+              <FieldArray name="project">
                 {({ push, remove }) => (
                   <div>
-                    {values.certification.map((certification, index) => (
+                    {values.project.map((project, index) => (
                       <div key={index} className="mt-2">
-                        <h4 className="font-bold">Certification {index + 1}</h4>
+                        <h4 className="font-bold">Project {index + 1}</h4>
                         <div className="flex w-full mt-1">
                           <div className="w-full">
-                            <label htmlFor={`certification[${index}].certificationName`} className="font-semibold text-sm">Certification Name</label>
+                            <label htmlFor={`project[${index}].projectName`} className="font-semibold text-sm">Project Name</label>
                             <br />
                             <Field
-                              name={`certification[${index}].certificationName`}
+                              name={`project[${index}].projectName`}
                               onChange={(e) => {
                                 const { value } = e.target;
-                                setFieldValue(`certification[${index}].certificationName`, value);
+                                setFieldValue(`project[${index}].projectName`, value);
                                 SetResumeInfo((prev) => {
-                                  const newCertification = [...prev.certification];
-                                  newCertification[index] = { ...newCertification[index], certificationName: value };
-                                  return { ...prev, certification: newCertification };
+                                  const newProject = [...prev.project];
+                                  newProject[index] = { ...newProject[index], projectName: value };
+                                  return { ...prev, project: newProject };
                                 });
                               }}
                               className="text-sm border mt-0.5 w-full rounded-md p-1 focus:border-purple-500 focus:outline-none"
@@ -89,14 +89,14 @@ function CertificationForm({onSuccess}) {
                         <h2 className="mt-2 font-semibold">Description</h2>
                         <Field
                           as="textarea"
-                          name={`certification[${index}].certificationSummery`}
+                          name={`project[${index}].projectDescription`}
                           onChange={(e) => {
                             const { value } = e.target;
-                            setFieldValue(`certification[${index}].certificationSummery`, value);
+                            setFieldValue(`project[${index}].projectDescription`, value);
                             SetResumeInfo((prev) => {
-                              const newCertification = [...prev.certification];
-                              newCertification[index] = { ...newCertification[index], certificationSummery: value };
-                              return { ...prev, certification: newCertification };
+                              const newDescription = [...prev.project];
+                              newDescription[index] = { ...newDescription[index], projectDescription: value };
+                              return { ...prev, project: newDescription };
                             });
                           }}
                           rows="5"
@@ -108,8 +108,8 @@ function CertificationForm({onSuccess}) {
                             className="border border-purple-600 px-2 py-1 bg-white rounded-md text-purple-600 hover:bg-gray-100 hover:text-black"
                             onClick={() =>
                               push({
-                                certificationName: "",
-                                certificationSummery: "",
+                                projectName: "",
+                                projectDescription: "",
                               })
                             }
                           >
@@ -144,5 +144,4 @@ function CertificationForm({onSuccess}) {
     </div>
   )
 }
-
-export default CertificationForm
+export default ProjectForm

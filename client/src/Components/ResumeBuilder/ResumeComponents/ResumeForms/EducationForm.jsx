@@ -238,13 +238,15 @@ function EducationForm({onSuccess}) {
                   </div>
                 )}
               </FieldArray>
+              <div className="flex justify-end w-full mt-3 px-4">
               <button
                 type="submit"
-                className={`mt-2  ${isSubmitting || !isValid ? " bg-purple-300": ' bg-purple-600'} text-white px-4 py-2 rounded-md`}
+                className={`${isSubmitting || !isValid ? " bg-purple-300": ' bg-purple-600'} text-white px-2.5 py-1 rounded-md `}
                 disabled= {!isValid || isSubmitting}
               >
-                Submit
+                Save
               </button>
+              </div>
             </Form>
           )}
         </Formik>

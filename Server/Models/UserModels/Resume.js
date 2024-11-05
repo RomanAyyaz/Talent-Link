@@ -52,6 +52,12 @@ const ResumeSchema = new mongoose.Schema({
             description:String
         }
     ],
+    project:[
+        {
+            projectName:String,
+            projectDescription:String
+        }
+    ],
     certification:[
         {
             certificationName:String,

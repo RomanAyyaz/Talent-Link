@@ -7,6 +7,7 @@ import ProfessionalExp from './ResumePreviewCompoents/ProfessionalExp'
 import Education from './ResumePreviewCompoents/Education'
 import Skills from './ResumePreviewCompoents/Skills'
 import Certification from './ResumePreviewCompoents/Certification'
+import Project from './ResumePreviewCompoents/Project'
 function ResumePreview() {
     const {resumeInfo} = useContext(ResumeInfoContext)
     if (!resumeInfo || !resumeInfo.themeColor) {
@@ -18,10 +19,12 @@ function ResumePreview() {
         <PersonalDetail resumeInfo= {resumeInfo}/>
         {/* Summary */}
         <Summary resumeInfo= {resumeInfo} />
-        {/* Professional Experience */}
-        <ProfessionalExp resumeInfo= {resumeInfo}/>
         {/* Education */}
         <Education resumeInfo={resumeInfo}/>
+        {/* Professional Experience */}
+        <ProfessionalExp resumeInfo= {resumeInfo}/>
+        {/* Projects */}
+        <Project resumeInfo={resumeInfo}/>
         {/* Certifications */}
         <Certification resumeInfo = {resumeInfo} />
         {/* Skills */}

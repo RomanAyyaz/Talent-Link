@@ -98,6 +98,22 @@ export const AddEducationApi = async ({values,id}) =>{
 }
 
 //Api for adding Certification
+export const addProjectApi = async ({values,id}) =>{
+    let response = await fetch (`http://localhost:8000/user/Resume/${id}/project`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(values)
+    })
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
+      }
+      return response.json();
+}
+
+//Api for adding Certification
 export const addCertificationApi = async ({values,id}) =>{
     let response = await fetch (`http://localhost:8000/user/Resume/${id}/certification`,{
         method:'PUT',

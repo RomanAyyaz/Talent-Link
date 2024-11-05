@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import PersonalDetailForm from './ResumeForms/PersonalDetailForm';
-import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
-import Summery from './ResumeForms/Summery';
-import ExperienceForm from './ResumeForms/ExperienceForm';
-import EducationForm from './ResumeForms/EducationForm';
-import SkiilsForm from './ResumeForms/SkiilsForm';
-import { Navigate, useParams } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ChangeThemeApi } from '../ResumeApis/ResumeApi';
-import CertificationForm from './ResumeForms/CertificationForm';
+import React, { useState } from "react";
+import PersonalDetailForm from "./ResumeForms/PersonalDetailForm";
+import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import Summery from "./ResumeForms/Summery";
+import ExperienceForm from "./ResumeForms/ExperienceForm";
+import EducationForm from "./ResumeForms/EducationForm";
+import SkiilsForm from "./ResumeForms/SkiilsForm";
+import { Navigate, useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ChangeThemeApi } from "../ResumeApis/ResumeApi";
+import CertificationForm from "./ResumeForms/CertificationForm";
+import ProjectForm from "./ResumeForms/ProjectForm";
 
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
 
   const queryClient = useQueryClient();
-   // Extracting id from the URL
-   let { id } = useParams();
+  // Extracting id from the URL
+  let { id } = useParams();
 
-   const handleNext = () => {
-    setActiveFormIndex(prevIndex => prevIndex + 1);
-  }; 
-  
+  const handleNext = () => {
+    setActiveFormIndex((prevIndex) => prevIndex + 1);
+  };
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -48,7 +49,7 @@ function FormSection() {
     "#1ABC9C", // Turquoise Green
   ];
 
-  //Api calling for theme change 
+  //Api calling for theme change
   const changeThemeMutation = useMutation({
     mutationFn: ChangeThemeApi,
     onSuccess: () => {
@@ -82,12 +83,16 @@ function FormSection() {
               </button>
             </div>
             <div className="mt-4 flex flex-wrap gap-4">
-              {resumeColors.map((key,index)=>{
+              {resumeColors.map((key, index) => {
                 return (
-                  <div className='w-6 h-6 rounded-full cursor-pointer' style={{backgroundColor:key}}
-                  onClick={() => changeThemeMutation.mutate({ themeColor: key , id })}
-  ></div>
-                )
+                  <div
+                    className="w-6 h-6 rounded-full cursor-pointer"
+                    style={{ backgroundColor: key }}
+                    onClick={() =>
+                      changeThemeMutation.mutate({ themeColor: key, id })
+                    }
+                  ></div>
+                );
               })}
             </div>
           </div>
@@ -104,7 +109,7 @@ function FormSection() {
               <HiOutlineArrowNarrowLeft size={25} />
             </button>
           )}
-          {activeFormIndex < 6 && (
+          {activeFormIndex < 7 && (
             <button
               className="bg-purple-600 text-white px-4 py-1 rounded-md"
               onClick={() => {
@@ -118,19 +123,25 @@ function FormSection() {
       </div>
 
       {/* Personal Details */}
-      {activeFormIndex === 1 ? <PersonalDetailForm  onSuccess={handleNext} /> : null}
+      {activeFormIndex === 1 ? (
+        <PersonalDetailForm onSuccess={handleNext} />
+      ) : null}
       {/* Summary */}
       {activeFormIndex === 2 ? <Summery /> : null}
-      {/* Experience */}
-      {activeFormIndex === 3 ? <ExperienceForm  onSuccess={handleNext} /> : null}
       {/* Education */}
-      {activeFormIndex === 4 ? <EducationForm onSuccess={handleNext} /> : null}
+      {activeFormIndex === 3 ? <EducationForm onSuccess={handleNext} /> : null}
+      {/* Experience */}
+      {activeFormIndex === 4 ? <ExperienceForm onSuccess={handleNext} /> : null}
+      {/* Project */}
+      {activeFormIndex === 5 ? <ProjectForm onSuccess={handleNext} /> : null}
       {/* Certification */}
-      {activeFormIndex === 5 ? <CertificationForm onSuccess = {handleNext}/> : null}
+      {activeFormIndex === 6 ? (
+        <CertificationForm onSuccess={handleNext} />
+      ) : null}
       {/* Skills */}
-      {activeFormIndex === 6 ? <SkiilsForm onSuccess= {handleNext}  /> : null}
+      {activeFormIndex === 7 ? <SkiilsForm onSuccess={handleNext} /> : null}
       {/* View Resume  */}
-      {activeFormIndex == 7 ? <Navigate to={`/resume/${id}/view`} /> : null }
+      {activeFormIndex == 8 ? <Navigate to={`/resume/${id}/view`} /> : null}
     </div>
   );
 }

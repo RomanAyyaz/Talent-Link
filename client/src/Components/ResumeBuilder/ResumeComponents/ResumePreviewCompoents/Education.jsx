@@ -1,6 +1,10 @@
 import React from "react";
 
 function Education({ resumeInfo }) {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  };
   return (
     <div>
       <div className="my-6">
@@ -24,7 +28,7 @@ function Education({ resumeInfo }) {
               <h2 className="text-xs flex justify-between mt-1">
                 {education.degree} in {education.major}
                 <span>
-                  {education.startDate} - {education.endDate}
+                {formatDate(education.startDate)} - {formatDate(education.endDate)}
                 </span>
               </h2>
               <p className="my-2 text-sm">{education.description}</p>
