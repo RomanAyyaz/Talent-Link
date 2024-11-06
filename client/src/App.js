@@ -10,6 +10,7 @@ import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
 import Resume from './Components/ResumeBuilder/Resume';
 import EditResume from './Components/ResumeBuilder/ResumeComponents/EditResume';
 import ViewResume from './Components/ResumeBuilder/ResumeComponents/ViewResume';
+import CompanyRegistration from './Components/Company/Company-Registration/CompanyRegistration';
 
 function App() {
   return (
@@ -23,12 +24,15 @@ function App() {
       <ToastContainer />
       <BrowserRouter>
         <Routes>
+          {/* User Routes */}
           <Route path='/' element={<Login />} />
           <Route path='/changePassword' element={<ChangePassword />} />
           <Route path='/landingPage' element={<LandingPage />} />
           <Route path='/resumeBuilder' element={<Resume />} />
           <Route path='/resume/:id/edit' element={<EditResume />} />
           <Route path='/resume/:id/view' element={<ViewResume />} />
+          {/* Company Routes */}
+          <Route path='/registerCompany' element = {<CompanyRegistration/>}/>
         </Routes>
       </BrowserRouter>
 

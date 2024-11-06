@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
-import { SignupApi, SigninApi, OtpVerificationApi } from "./LoginApis";
+import { SignupApi, SigninApi, OtpVerificationApi } from "../../User/Registration/LoginApis";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
 import { useUserStore } from "../../../Store/UserStore";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
-function Login() {
+import { companyOtpVerificationApi, companyRegistrationApi, companySigninApi } from "./CompanyRegistrationApis";
+function CompanyRegistration() {
   //Navigation
   let navigate = useNavigate();
-
-  //Importing User states from userStore to set user
-  const { user, setUser } = useUserStore();
 
   //State for setting the Account type
   let [Account, SetAccount] = useState("signin");
 
   //State for Setting email
-  let [Email, setEmail] = useState();
+  let [companyEmail, setEmail] = useState();
 
   //Otp values
   let [value1, setValue1] = useState();
@@ -30,25 +28,24 @@ function Login() {
 
   //Formik Structure for Signin
   let initialValuesSignin = {
-    email: "",
+    CompanyEmail: "",
     password: "",
   };
   let validationSchemaSignin = yup.object({
-    email: yup.string().email().required("Email Required"),
+    companyEmail: yup.string().email().required("Email Required"),
     password: yup.string().required("Password Required"),
   });
   //Api Calling for Signin
   let SigninMutation = useMutation({
-    mutationFn: SigninApi,
-    onSuccess: (data) => {
-      setUser(data.userData);
+    mutationFn: companySigninApi,
+    onSuccess: () => {
       navigate("/landingPage");
-      toast.success("User Logged in Successfully", {
+      toast.success("Logged in Successfully", {
         position: "top-center",
         autoClose: 3000,
         transition: Bounce,
       });
-      console.log("User Signed in Successfully");
+      console.log("Company Signed in Successfully");
     },
     onError: (error) => {
       const errorMessage = error.message || "An unknown error occurred";
@@ -68,14 +65,14 @@ function Login() {
 
   //Formik Structure for Signup
   let initialValuesSignup = {
-    fullname: "",
-    email: "",
+    companyName: "",
+    companyEmail: "",
     password: "",
     confirmpassword: "",
   };
   let validationSchemaSignup = yup.object({
-    fullname: yup.string().required("Required"),
-    email: yup.string().email().required("Required"),
+    companyName: yup.string().required("Required"),
+    companyEmail: yup.string().email().required("Required"),
     password: yup.string().required("Required"),
     confirmpassword: yup
       .string()
@@ -83,31 +80,32 @@ function Login() {
       .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
 
-  //Api Calling for Signup
+  //Api Calling for Company Registration
   let SignUpMutation = useMutation({
-    mutationFn: SignupApi,
+    mutationFn: companyRegistrationApi,
     onSuccess: () => {
-      console.log("User Signed up Successfully");
+      console.log("Company Signed up Successfully");
       SetAccount("otp");
     },
     onError: () => {
-      console.log("Some error in User Signup");
+      console.log("Some error in Company Signup");
     },
   });
   let onSubmitSignup = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
     SignUpMutation.mutate(values);
-    setEmail(values.email);
+    console.log(values)
+    setEmail(values.companyEmail);
   };
 
   //Api Calling for Otp
   let UserData = {
     otp: UserOtp,
-    email: Email,
+    companyEmail: companyEmail,
   };
   let OtpVerificationMutations = useMutation({
-    mutationFn: OtpVerificationApi,
+    mutationFn: companyOtpVerificationApi,
     onSuccess: () => {
       SetAccount("signin");
       console.log("otp Verificated");
@@ -135,16 +133,16 @@ function Login() {
                   <Form className="flex justify-start flex-col px-3 py-6 lg:px-6">
                     <label
                       className="text-start font-medium text-sm"
-                      htmlFor="email"
+                      htmlFor="companyEmail"
                     >
-                      Email
+                      Company Email
                     </label>
                     <div className="text-start w-full mt-2">
                       <Field
                         className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                        name="email"
+                        name="companyEmail"
                         type="email"
-                        placeholder="Email"
+                        placeholder="Company Email"
                       />
                       {/* <ErrorMessage name="email" component="div" className="text-red-500 text-sm text-start" /> */}
                     </div>
@@ -251,8 +249,8 @@ function Login() {
       ) : (
         <div className="min-h-screen flex justify-center items-center bg-bgSignin">
           <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4 rounded-md bg-bgwhite">
-            <h1 className="text-2xl font-extrabold tracking-widest">Talent-Link</h1>
-            <p className="my-2 font-semibold">Sign up your account </p>
+            <h1 className="text-2xl font-extrabold ">Talent-Link</h1>
+            <p className="my-2 font-semibold">Register your company account </p>
             <Formik
               key="signup"
               initialValues={initialValuesSignup}
@@ -264,16 +262,16 @@ function Login() {
                   <Form className="flex justify-start flex-col px-3 py-6 lg:px-6">
                     <label
                       className="text-start font-medium text-sm"
-                      htmlFor="fullname"
+                      htmlFor="comapyName"
                     >
-                      Full Name
+                      Company Name
                     </label>
                     <div className="text-start w-full mt-2">
                       <Field
                         className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                        name="fullname"
+                        name="companyName"
                         type="text"
-                        placeholder="Full Name"
+                        placeholder="Company Name"
                       />
                       {/* <ErrorMessage
                         name="fullname"
@@ -284,16 +282,16 @@ function Login() {
 
                     <label
                       className="text-start font-medium text-sm mt-3"
-                      htmlFor="email"
+                      htmlFor="companyEmail"
                     >
-                      Email
+                      Company Email
                     </label>
                     <div className="text-start w-full mt-2">
                       <Field
                         className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                        name="email"
+                        name="companyEmail"
                         type="email"
-                        placeholder="Email"
+                        placeholder="Company Email"
                       />
                       {/* <ErrorMessage
                         name="email"
@@ -375,4 +373,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default CompanyRegistration;

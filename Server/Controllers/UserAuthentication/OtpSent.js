@@ -1,6 +1,7 @@
+// controllers/userController.js
+
 const User = require('../../Models/UserModels/User');
-const nodemailer = require('nodemailer');
-const Mailgen = require('mailgen');
+const sendOtpEmail = require('../../Utils/EmailService');
 
 const OtpSent = async (req, res) => {
     let { useremail } = req.body;
@@ -15,47 +16,9 @@ const OtpSent = async (req, res) => {
         let fullname = UserData.fullname;
         UserData.otp = otp;
         await UserData.save();
-      
-        // Generating Email
-        const emails = useremail;
-        let config = {
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL,
-                pass: process.env.PASSWORD,
-            },
-        };
 
-        let transporter = nodemailer.createTransport(config);
+        await sendOtpEmail(useremail, fullname, otp);
 
-        let MailGenerator = new Mailgen({
-            theme: "default",
-            product: {
-                name: "Mailgen",
-                link: 'https://mailgen.js/',
-            },
-        });
-
-        let response = {
-            body: {
-                name: `${fullname}`,
-                intro: "Your one-time OTP is:",
-                table: {
-                    data: [{ item: otp }],
-                },
-            },
-        };
-
-        let mail = MailGenerator.generate(response);
-
-        let message = {
-            from: process.env.EMAIL,
-            to: emails,
-            subject: "One-time OTP",
-            html: mail,
-        };
-
-        await transporter.sendMail(message); 
         return res.status(200).json({ msg: "You should receive an email" });
 
     } catch (error) {
