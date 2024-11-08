@@ -4,9 +4,6 @@
 export const AddCourseApi = async (values) => {
     let response = await fetch('http://localhost:8000/instructor/course',{
         method: "POST",
-        // headers:{
-        //     'Content-Type':'application/json'
-        // },
         body: values 
     })
     if(!response.ok){
