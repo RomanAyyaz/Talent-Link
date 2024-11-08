@@ -10,7 +10,8 @@ import {
   FaRegArrowAltCircleLeft 
 } from "react-icons/fa";
 import { Link} from "react-router-dom";
-import AddCourse from "./AddCourse/AddCourse";
+import AddCourse from "../CourseInstructor/AddCourse/AddCourse";
+import CompanyProfile from "./CompanyProfile/CompanyProfile";
 function Navbar() {
   let [showProfile, setShowProfile] = useState(false);
   let [showSidebar, setShowSidebar] = useState(false);
@@ -83,7 +84,7 @@ function Navbar() {
         </div>
       </div>
       {showSidebar && (
-        <div className="md:hidden absolute z-10 duration 1000 w-56 bg-bgInstSidebar h-screen text-start text-gray-500 py-6 px-5">
+        <div className="md:hidden  absolute z-10 duration 1000 w-56 bg-bgInstSidebar h-screen text-start text-gray-500 py-6 px-5">
           <h1 className="text-sm text-gray-500">Main Menu</h1>
           <div className="px-2 flex mt-5 items-center">
             <FaHome className="text-black" />
@@ -137,7 +138,7 @@ function Navbar() {
       {
       <div className="flex">
       <div
-        className={`bg-bgwhite shadow-md hidden w-20 h-screen md:flex flex-col ${!showSidebar && 'items-center'} py-8
+        className={`bg-bgwhite  shadow-md hidden w-20 h-screen md:flex flex-col ${!showSidebar && 'items-center'} py-8
           ${
               showSidebar && "w-52 text-start items-start text-neutral-500"
             }`}
@@ -221,7 +222,8 @@ function Navbar() {
         }
       </div>
       <div className="w-full pb-5 bg-bgInstSidebar">
-        <AddCourse/>
+        {/* <AddCourse/> */}
+        <CompanyProfile/>
       </div>
         </div> 
       }

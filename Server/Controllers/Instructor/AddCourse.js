@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 const AddCourse = async (req, res) => {
     const { title, description, instructor, category, price, duration, learningOutcomes } = req.body;
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
-  
+    console.log(req.body)
     try {
       const newCourse = new Course({
         title,

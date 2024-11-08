@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
-import { SignupApi, SigninApi, OtpVerificationApi } from "../../User/Registration/LoginApis";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
-import { useUserStore } from "../../../Store/UserStore";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 import { companyOtpVerificationApi, companyRegistrationApi, companySigninApi } from "./CompanyRegistrationApis";
+import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
 function CompanyRegistration() {
+  //CompanyId
+  const{companyId,setCompanyId} = useCompanyIdStore();
   //Navigation
   let navigate = useNavigate();
 
@@ -38,8 +39,9 @@ function CompanyRegistration() {
   //Api Calling for Signin
   let SigninMutation = useMutation({
     mutationFn: companySigninApi,
-    onSuccess: () => {
-      navigate("/landingPage");
+    onSuccess: (data) => {
+      navigate("/dashboardCompany");
+      setCompanyId(data.companyData._id);
       toast.success("Logged in Successfully", {
         position: "top-center",
         autoClose: 3000,

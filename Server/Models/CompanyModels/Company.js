@@ -20,6 +20,18 @@ const companySchema = new mongoose.Schema({
     isOtpVerified:{
         type:Boolean,
         default:false
+    },
+    industry:{
+        type:String
+    },
+    companyDescription:{
+        type:String
+    },
+    companyLogo:{
+        type:String
+    },
+    companyAddress:{
+        type:String
     }
 })
 companySchema.pre('save', async function(next){

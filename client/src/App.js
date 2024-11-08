@@ -33,6 +33,7 @@ function App() {
           <Route path='/resume/:id/view' element={<ViewResume />} />
           {/* Company Routes */}
           <Route path='/registerCompany' element = {<CompanyRegistration/>}/>
+          <Route path='/dashboardCompany' element ={<InstructorDashBoard/>}/>
         </Routes>
       </BrowserRouter>
 
