@@ -22,7 +22,8 @@ module.exports = {
         bgInstSidebar:"#EEEEEF",
         InstructorPrimary:'#6A73FA',
         bgsidebarInst:'#EEEEF0',
-        buttonHover:'#3945F8'
+        buttonHover:'#3945F8',
+        bgSidebar:'#fafafa',
       }
     },
   },

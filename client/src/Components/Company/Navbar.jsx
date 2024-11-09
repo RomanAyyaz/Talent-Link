@@ -84,7 +84,7 @@ function Navbar() {
         </div>
       </div>
       {showSidebar && (
-        <div className="md:hidden  absolute z-10 duration 1000 w-56 bg-bgInstSidebar h-screen text-start text-gray-500 py-6 px-5">
+        <div className="md:hidden  absolute z-10 duration 1000 w-56 bg-bgSidebar h-screen text-start text-gray-500 py-6 px-5">
           <h1 className="text-sm text-gray-500">Main Menu</h1>
           <div className="px-2 flex mt-5 items-center">
             <FaHome className="text-black" />
@@ -138,33 +138,33 @@ function Navbar() {
       {
       <div className="flex">
       <div
-        className={`bg-bgwhite  shadow-md hidden w-20 h-screen md:flex flex-col ${!showSidebar && 'items-center'} py-8
+        className={`bg-bgSidebar shadow-md hidden w-20 h-screen md:flex flex-col ${!showSidebar && 'items-center'} py-8
           ${
-              showSidebar && "w-52 text-start items-start text-neutral-500"
+              showSidebar && "w-72 text-start items-start text-neutral-500"
             }`}
       >
-        <h1 className={` text-sm text-neutral-500 px-8 ${!showSidebar && "hidden"}`}>Main Menu</h1>
+        <h1 className={` text-xs font-semibold text-neutral-500 px-8 ${!showSidebar && "hidden"}`}>MAIN MENU</h1>
         <div
-          className={`p-3 group hover:bg-gray-300 rounded cursor-pointer ${
-            showSidebar && "flex justify-between items-center py-2 px-3 w-full  mt-4"
+          className={`p-3 group rounded cursor-pointer ${
+            showSidebar && "flex justify-between items-center py-2 px-2 w-full  mt-4"
           }`}
         >
-          <div className={`${showSidebar && 'flex items-center justify-between px-2'}`}>
-          <FaHome className={`text-black group-hover:text-InstructorPrimary`} />
+          <div className={` ${showSidebar && 'flex items-center justify-between px-2'}`}>
+          <FaHome className={``} />
           <h1 className={`text-sm ml-4 font-medium group-hover:text-InstructorPrimary ${!showSidebar && "hidden"}`}>Dashboard</h1>
           </div>
         </div>
         <div
-          className={`p-3 mt-4 hover:bg-gray-300 rounded cursor-pointer group ${
-            showSidebar && "flex justify-between items-center py-2 px-3 w-full"
-          } ${Courses && 'text-InstructorPrimary bg-gray-300'}`}
+          className={`p-3 mt-4  rcursor-pointer group ${
+            showSidebar && "flex justify-between items-center py-2 px-2 w-full"
+          } ${Courses && 'text-InstructorPrimary bg-blue-50 border-r-4 border-blue-600 duration-500'}`}
         >
           <div className={`${showSidebar && 'flex items-center justify-between px-2 w-full'}`} 
           onClick={()=>{
               setCourses(!Courses)
           }}>
               <div className="flex items-center justify-between">
-              <FaHome className={` group-hover:text-InstructorPrimary ${Courses && 'text-InstructorPrimary'}`} />
+              <FaHome className={` ${Courses && 'text-InstructorPrimary'}`} />
               <h1 className={`text-sm ml-4 font-medium group-hover:text-InstructorPrimary ${!showSidebar && "hidden"}`}>Courses</h1>
               </div>
           <div className="my-auto">
@@ -189,9 +189,9 @@ function Navbar() {
           </ul> 
         }
         <div
-          className={`p-3 mt-4 hover:bg-gray-300 rounded cursor-pointer group ${
-            showSidebar && "flex justify-between items-center py-2 px-3 w-full"
-          }  ${Students && 'text-InstructorPrimary bg-gray-300'}`}
+          className={`p-3 mt-4  cursor-pointer group ${
+            showSidebar && "flex justify-between items-center py-2 px-2 w-full"
+          }  ${Students && 'text-InstructorPrimary bg-blue-50 border-r-4 border-blue-600 duration-500'}`}
         >
           
           <div className={`${showSidebar && 'flex items-center justify-between px-2 w-full cursor-pointer'}`} onClick={()=>
@@ -200,7 +200,7 @@ function Navbar() {
               }
           }>
               <div className="flex items-center justify-between">
-              <FaHome className={` group-hover:text-InstructorPrimary ${Students && 'text-InstructorPrimary'}`} />
+              <FaHome className={`  ${Students && 'text-InstructorPrimary'}`} />
               <h1 className={`text-sm ml-4 font-medium group-hover:text-InstructorPrimary ${!showSidebar && "hidden"}`}>Students</h1>
               </div>
               {
@@ -213,7 +213,7 @@ function Navbar() {
           </div>
         </div>
         {
-          Students &&  <ul className="text-sm font-normal px-10 py-2 duration-300300">
+          Students &&  <ul className="text-sm font-normal px-10 py-2 duration-500">
           <li className="my-2 cursor-pointer hover:text-InstructorPrimary">All Students </li>
           <li className="my-2 cursor-pointer hover:text-InstructorPrimary">Add Students </li>
           <li className="my-2 cursor-pointer hover:text-InstructorPrimary">Edit Students </li>
