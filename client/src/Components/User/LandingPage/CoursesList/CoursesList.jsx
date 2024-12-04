@@ -20,7 +20,7 @@ function CoursesList() {
         }
     ]
   return (
-    <div className='lg:flex lg:mt-6'>
+    <div className='lg:flex lg:mt-3'>
         <div className='mt-14 text-start px-5 lg:px-8 lg:w-2/5 lg:py-28'>
             <h1 className='font-bold text-4xl hidden md:block lg:w-[400px] lg:leading-[65px] lg:text-6xl'>Find Courses on almost any topic</h1>
             <h1 className='font-semibold text-4xl md:hidden'>Find Courses on </h1>

@@ -9,12 +9,15 @@ import LatestNews from './LatestNews/LatestNews'
 import SkillLists from './SkillsList/SkillLists'
 import WebsiteInfo from './WebsiteInfo/WebsiteInfo'
 import SuccessStories from './SuccessStories/SuccessStories'
-import { useUserStore } from "../../../Store/UserStore";
+import Hero from './HeroSection/Hero'
+import Hero2 from './HeroSection/Hero2'
 function LandingPage() {
   return (
     <>
-        <Navbar/>
-        <HeroSection/>
+        {/* <Navbar/> */}
+        <Hero2/>
+        {/* <HeroSection/> */}
+        {/* <Hero/> */}
         <CoursesList/>
         <PopularCourses/>
         <WebsiteInfo/>
