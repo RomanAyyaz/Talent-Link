@@ -1,33 +1,29 @@
 import React from 'react'
 import Navbar from './Navbar/Navbar'
-import HeroSection from './HeroSection/HeroSection'
 import CoursesList from './CoursesList/CoursesList'
 import PopularCourses from './PopularCourses/PopularCourses'
 import Fotter from '../Fotter/Fotter'
 import OtherLinks from './OtherLinks/OtherLinks'
 import LatestNews from './LatestNews/LatestNews'
-import SkillLists from './SkillsList/SkillLists'
 import WebsiteInfo from './WebsiteInfo/WebsiteInfo'
 import SuccessStories from './SuccessStories/SuccessStories'
-import Hero from './HeroSection/Hero'
-import Hero2 from './HeroSection/Hero2'
+import HeroSection from './HeroSection/HeroSection'
+import EnhancedFeatureSection from './EnhancedFeatures/EnhancedFeatureSection'
 function LandingPage() {
   return (
-    <>
+    <div>
         {/* <Navbar/> */}
-        <Hero2/>
-        {/* <HeroSection/> */}
-        {/* <Hero/> */}
+        <HeroSection/>
         <CoursesList/>
         <PopularCourses/>
         <WebsiteInfo/>
         <SuccessStories/>
-        <SkillLists/>
+        <EnhancedFeatureSection/>
         <LatestNews/>
         <OtherLinks/>
         <Fotter/>
 
-    </>
+    </div>
   )
 }
 

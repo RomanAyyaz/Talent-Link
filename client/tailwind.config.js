@@ -24,7 +24,9 @@ module.exports = {
         bgsidebarInst:'#EEEEF0',
         buttonHover:'#3945F8',
         bgSidebar:'#fafafa',
-        connect:"#5300BC"
+        connect:"#5300BC",
+        bgFeatureSection:"#F3F4F6",
+        FeatureSection:"#F27A5B"
       }
     },
   },
