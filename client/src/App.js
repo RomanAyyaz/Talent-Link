@@ -11,6 +11,8 @@ import Resume from './Components/ResumeBuilder/Resume';
 import EditResume from './Components/ResumeBuilder/ResumeComponents/EditResume';
 import ViewResume from './Components/ResumeBuilder/ResumeComponents/ViewResume';
 import CompanyRegistration from './Components/Company/Company-Registration/CompanyRegistration';
+import CompanyDashboard from './Components/Company/CompanyDashboard';
+
 
 function App() {
   return (
@@ -33,7 +35,7 @@ function App() {
           <Route path='/resume/:id/view' element={<ViewResume />} />
           {/* Company Routes */}
           <Route path='/registerCompany' element = {<CompanyRegistration/>}/>
-          <Route path='/dashboardCompany' element ={<InstructorDashBoard/>}/>
+          <Route path='/dashboardCompany' element ={<CompanyDashboard/>}/>
         </Routes>
       </BrowserRouter>
 

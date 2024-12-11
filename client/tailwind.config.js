@@ -26,7 +26,8 @@ module.exports = {
         bgSidebar:'#fafafa',
         connect:"#5300BC",
         bgFeatureSection:"#F3F4F6",
-        FeatureSection:"#F27A5B"
+        FeatureSection:"#F27A5B",
+        bgcompanyProfile:"#F2F1F2"
       }
     },
   },
