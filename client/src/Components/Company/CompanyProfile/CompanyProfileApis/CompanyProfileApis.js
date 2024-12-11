@@ -64,3 +64,19 @@ export const addCompanyRepresentativesApi = async ({values,id}) =>{
       }
       return response.json();
 }
+
+//Api for Adding Company projects
+
+export const addCompanyProjectsApi = async ({ formData, id }) => {
+    let response = await fetch(`http://localhost:8000/company/projects/${id}`, {
+      method: 'PUT',
+      body: formData
+    });
+  
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.error || 'Network response was not ok');
+    }
+    return response.json();
+  };
+  
