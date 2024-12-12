@@ -21,27 +21,6 @@ const ManageLectures = () => {
       <h2>error</h2>
     }
     let courseData = data?.data || []
-  // Mock data for demonstration
-  const course = {
-    name: 'Introduction to React',
-    instructor: 'John Doe',
-    totalLectures: 10,
-    duration: '10 hours',
-  };
-
-  const lectures = [
-    { id: 1, title: 'React Basics', duration: '1 hour' },
-    { id: 2, title: 'Components and Props', duration: '1.5 hours' },
-    { id: 3, title: 'State and Lifecycle', duration: '2 hours' },
-  ];
-
-  
-
-  const handleDeleteLecture = (lectureId) => {
-    console.log('Lecture deleted:', lectureId);
-    // Implement the logic to delete a lecture
-  };
-
   return (
     <div className="bg-bgcompanyProfile container mx-auto px-3 md:px-8 border">
       <Header/>
@@ -52,7 +31,7 @@ const ManageLectures = () => {
         <AddLectureForm  />
       </div>
       <div className="mt-8">
-        <LectureList lectures={lectures} onDeleteLecture={handleDeleteLecture} />
+        <LectureList courseData={courseData} />
       </div>
     </div>
   );
