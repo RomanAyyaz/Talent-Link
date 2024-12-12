@@ -5,8 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ChangePassword from './Components/User/Registration/ChangePassword';
-import InstructorDashBoard from './Components/CourseInstructor/InstructorDashBoard';
-import AddCourse from './Components/CourseInstructor/AddCourse/AddCourse';
 import Resume from './Components/ResumeBuilder/Resume';
 import EditResume from './Components/ResumeBuilder/ResumeComponents/EditResume';
 import ViewResume from './Components/ResumeBuilder/ResumeComponents/ViewResume';
@@ -17,12 +15,6 @@ import CompanyDashboard from './Components/Company/CompanyDashboard';
 function App() {
   return (
     <div className="App">
-      {/* <BrowserRouter> */}
-      {/* <InstructorDashBoard/> */}
-      {/* <Routes>
-      <Route path='/addCourse' element ={<AddCourse/>}/>  
-      </Routes> */}
-      {/* </BrowserRouter> */}
       <ToastContainer />
       <BrowserRouter>
         <Routes>
@@ -33,9 +25,11 @@ function App() {
           <Route path='/resumeBuilder' element={<Resume />} />
           <Route path='/resume/:id/edit' element={<EditResume />} />
           <Route path='/resume/:id/view' element={<ViewResume />} />
+
           {/* Company Routes */}
           <Route path='/registerCompany' element = {<CompanyRegistration/>}/>
-          <Route path='/dashboardCompany' element ={<CompanyDashboard/>}/>
+          <Route path='/dashboardCompany/*' element={<CompanyDashboard />} />
+
         </Routes>
       </BrowserRouter>
 

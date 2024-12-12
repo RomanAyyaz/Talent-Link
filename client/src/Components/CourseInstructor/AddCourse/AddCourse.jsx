@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { FaGreaterThan } from 'react-icons/fa';
 import {useMutation} from '@tanstack/react-query'
-import {AddCourseApi} from './CourseApi'
+import {AddCourseApi} from '../CourseApis'
 import { Formik, Field, Form } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { useCourseIdStore } from '../../../Store/CourseIdStore';
 
 function AddCourse() {
+   //CourseId
+   const{courseId,setCourseId} = useCourseIdStore();
+  //Import navigation
+  const navigate = useNavigate();
   // State for learning outcomes
   const [learningOutcomes, setLearningOutcomes] = useState([]);
   const [currentOutcome, setCurrentOutcome] = useState('');
@@ -32,8 +38,10 @@ function AddCourse() {
   //Api Calling 
   let AddCourseMutation = useMutation({
     mutationFn: AddCourseApi,
-    onSuccess: ()=>{
+    onSuccess: (data)=>{
       console.log('Course Added')
+      setCourseId(data.course._id)
+      navigate(`/dashboardCompany/manage-Lecture/${data.course._id}`)
     },
     onError:()=>{
       console.log('Some error in adding course')
@@ -61,7 +69,7 @@ function AddCourse() {
   };
   
   return (
-    <div className='w-full px-3 md:px-7'>
+    <div className='w-full px-3 md:px-7 bg-bgcompanyProfile border'>
       <div className='bg-bgwhite w-full text-start my-3 md:my-6 rounded-md px-3 md:px-8 py-4 md:py-3 md:flex md:items-center justify-between'>
         <h1 className='text-lg text-InstructorPrimary font-bold'>Add Course</h1>
         <div>

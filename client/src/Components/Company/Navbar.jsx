@@ -4,7 +4,6 @@ import {
   FaRegEnvelope,
   FaRegArrowAltCircleLeft 
 } from "react-icons/fa";
-import Sidebar from "./Sidebar";
 function Navbar() {
   let [showProfile, setShowProfile] = useState(false);
   return (

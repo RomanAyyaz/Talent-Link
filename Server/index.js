@@ -5,7 +5,7 @@ const app = express()
 const port = process.env.PORT || 8000;
 const cors = require('cors')
 const UserRoute = require('./Routes/User/UserRoute')
-const InstructorRoute = require('./Routes/Instructor/InstructorRoute')
+const CourseRoute = require('./Routes/Course/Course')
 const CompanyRoutes = require('./Routes/Company/CompanyRoutes')
 const cookieParser = require('cookie-parser');
 
@@ -23,5 +23,5 @@ app.listen(port,()=>{
 
 //Routes for Api
 app.use('/user',UserRoute)
-app.use('/instructor',InstructorRoute)
+app.use('/course',CourseRoute)
 app.use('/company',CompanyRoutes)

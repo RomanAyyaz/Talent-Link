@@ -2,7 +2,9 @@ import React from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import CompanyProfile from "./CompanyProfile/CompanyProfile";
-
+import {Route, Routes } from 'react-router-dom'
+import AddCourse from "../CourseInstructor/AddCourse/AddCourse";
+import ManageLectures from "../CourseInstructor/ManageLectures/ManageLectures";
 function CompanyDashboard() {
   return (
     <div className="h-screen flex flex-col">
@@ -12,7 +14,14 @@ function CompanyDashboard() {
         <Sidebar />
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto bg-gray-50">
-          <CompanyProfile />
+        
+        <Routes>
+          <Route path='profile' element={ <CompanyProfile />} />
+          <Route path='add-course' element={<AddCourse />} />
+          <Route path='manage-Lecture/:id' element={<ManageLectures />} />
+        </Routes>
+     
+         
         </div>
       </div>
     </div>
