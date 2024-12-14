@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaGreaterThan } from 'react-icons/fa';
+import {Link} from 'react-router-dom'
 const Header = ({ courseName }) => {
   return (
     <header>
@@ -11,12 +12,15 @@ const Header = ({ courseName }) => {
           <p className='inline-block font-medium text-sm text-InstructorPrimary'>Manage Lecture</p>
         </div>
       </div>
+      <Link to = {`/dashboardCompany/all-courses`}>
       <button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         onClick={() => console.log('Navigate to course list')}
       >
         Back to Courses
       </button>
+      </Link>
+      
     </header>
   );
 };

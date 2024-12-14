@@ -10,6 +10,7 @@ const CompanyRoutes = require('./Routes/Company/CompanyRoutes')
 const cookieParser = require('cookie-parser');
 
 // Middlewares
+app.use('/public', express.static(path.resolve(__dirname, './public')));
 app.use(express.static(path.resolve("./public")))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

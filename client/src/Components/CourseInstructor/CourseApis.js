@@ -57,4 +57,16 @@ export const deleteLessonApi = async ({ values, id }) => {
     }
     return response.json();
   };
-  
+
+
+//Api for getting all the courses
+
+export const getAllCourses = async () => {
+
+    const response = await fetch(`http://localhost:8000/course/all-courses`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();
+    return data;
+  };  

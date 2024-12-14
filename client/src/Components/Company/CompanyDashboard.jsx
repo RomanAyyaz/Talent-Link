@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import CompanyProfile from "./CompanyProfile/CompanyProfile";
 import {Route, Routes } from 'react-router-dom'
 import AddCourse from "../CourseInstructor/AddCourse/AddCourse";
+import AllCourses from '../CourseInstructor/AllCourses/AllCourses'
 import ManageLectures from "../CourseInstructor/ManageLectures/ManageLectures";
 function CompanyDashboard() {
   return (
@@ -19,6 +20,7 @@ function CompanyDashboard() {
           <Route path='profile' element={ <CompanyProfile />} />
           <Route path='add-course' element={<AddCourse />} />
           <Route path='manage-Lecture/:id' element={<ManageLectures />} />
+          <Route path="all-courses" element = {<AllCourses/>} />
         </Routes>
      
          
