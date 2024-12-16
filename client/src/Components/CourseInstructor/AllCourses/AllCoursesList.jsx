@@ -1,6 +1,19 @@
 import { Heart, GraduationCap } from 'lucide-react';
 import {Link} from 'react-router-dom'
+import {useMutation, useQueryClient} from '@tanstack/react-query'
+import { deleteCourseApi } from '../CourseApis';
 export default function AllCoursesList({ courses }) {
+  const queryClient = useQueryClient();
+  const deleteCourseMutations = useMutation({
+    mutationFn:deleteCourseApi,
+    onSuccess:()=>{
+      queryClient.invalidateQueries('courses')
+      console.log("Course deleted Successfully")
+    },
+    onError:()=>{
+      console.log("Some error in deleting the course")
+    }
+  })
   return (
     <div className=" bg-white rounded-lg overflow-hidden shadow-md text-start">
       {/* Card Image */}
@@ -56,7 +69,10 @@ export default function AllCoursesList({ courses }) {
           Edit
         </button>
             </Link>
-        <button className="py-2 px-6 text-center bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors mt-2">
+        <button  className="py-2 px-6 text-center bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors mt-2"
+          onClick={()=>{
+            deleteCourseMutations.mutate(courses._id);
+          }}>
           Delete
         </button>
         </div>

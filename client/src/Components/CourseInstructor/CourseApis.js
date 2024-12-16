@@ -48,7 +48,7 @@ export const deleteLessonApi = async ({ values, id }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ lessonId: values }), // Send the lesson ID in the body as JSON
+      body: JSON.stringify({ lessonId: values }),
     });
     
     if (!response.ok) {
@@ -69,4 +69,14 @@ export const getAllCourses = async () => {
 
     const data = await response.json();
     return data;
-  };  
+  }; 
+  
+//Api for deleting Course
+
+export const deleteCourseApi = async (id)=>{
+  const response = await fetch (`http://localhost:8000/course/delete-course/${id}`,{
+      method:'DELETE'
+  }) 
+  const data = await response.json();
+  return data;
+}

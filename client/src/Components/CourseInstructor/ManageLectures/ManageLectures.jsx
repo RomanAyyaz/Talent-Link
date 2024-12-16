@@ -6,13 +6,14 @@ import LectureList from './LectureList';
 import { useCourseIdStore } from '../../../Store/CourseIdStore';
 import { useQuery } from '@tanstack/react-query';
 import { getDataOfCourseApi } from '../CourseApis';
+import { useParams } from 'react-router-dom';
 
 const ManageLectures = () => {
-    const { courseId} = useCourseIdStore();
+    const {id} = useParams();
     //Api Calling for getting all the resumes 
     const { data, isLoading, error } = useQuery({
-      queryKey: ["courses",courseId],
-      queryFn: () => getDataOfCourseApi(courseId),
+      queryKey: ["courses",id],
+      queryFn: () => getDataOfCourseApi(id),
     });
     if(isLoading) {
       <h1>Loading....</h1>

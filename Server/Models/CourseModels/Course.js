@@ -13,7 +13,14 @@ const LessonSchema = new mongoose.Schema({
     videoUrl:{
         type:String,
         //required:true
-    }
+    },
+    quiz:[
+        {
+            question:String,
+            answers:[String],
+            correctAnswer:String
+        }
+    ]
 })
 
 const CourseSchema = new  mongoose.Schema({
