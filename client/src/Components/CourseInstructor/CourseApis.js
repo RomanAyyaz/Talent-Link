@@ -28,7 +28,7 @@ export const getDataOfCourseApi = async (id)=>{
 //Api for adding the lecture of the specific Course
 
 export const addLectureApi = async ({ values, id }) => {
-    console.log('v',values)
+    console.log('v',id,values)
     const response = await fetch(`http://localhost:8000/course/add-Lecture/${id}`, {
       method: 'PUT',
       body: values 

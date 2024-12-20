@@ -1,12 +1,12 @@
 import React from 'react';
 import { deleteLessonApi } from '../CourseApis';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useCourseIdStore } from '../../../Store/CourseIdStore';
+import { useParams } from 'react-router-dom';
 
 const LectureList = ({ courseData }) => {
   const queryClient = useQueryClient();
    //Course Id
-   const { courseId} = useCourseIdStore();
+   const { id} = useParams();
   //Api to delete the lecture 
   const deleteLessonMutation = useMutation({
     mutationFn:deleteLessonApi,
@@ -40,7 +40,7 @@ const LectureList = ({ courseData }) => {
                   <td className="px-4 py-2 text-left">
                     <button
                     onClick={()=>{
-                      deleteLessonMutation.mutate({values:lecture._id ,id:courseId})
+                      deleteLessonMutation.mutate({values:lecture._id ,id:id})
                     }}
                       className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
                     >

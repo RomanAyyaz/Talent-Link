@@ -22,7 +22,6 @@ const addLecture = async (req, res) => {
     const { id } = req.params; 
     const { title, description } = req.body;
     const videoPath = req.file ? `/uploads/${req.file.filename}` : '';
-    
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
       { 

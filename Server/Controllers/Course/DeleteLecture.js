@@ -4,7 +4,6 @@ const deleteLecture = async (req, res) => {
   try {
     const courseId = req.params.id; 
     const { lessonId } = req.body; 
-
     if (!lessonId) {
       return res.status(400).json({ message: 'Lesson ID is required' });
     }
