@@ -19,19 +19,23 @@ const uploadVideo = multer({ storage: storage });
 
 const addLecture = async (req, res) => {
   try {
-    const { id } = req.params; 
-    const { title, description } = req.body;
+    const { id } = req.params;
+    let { title, description, quiz } = req.body;
     const videoPath = req.file ? `/uploads/${req.file.filename}` : '';
+    if (typeof quiz === 'string') {
+      quiz = JSON.parse(quiz);
+    }
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
-      { 
-        $push: { 
-          lessons: { 
-            title, 
-            description, 
-            videoUrl: videoPath 
-          } 
-        } 
+      {
+        $push: {
+          lessons: {
+            title,
+            description,
+            videoUrl: videoPath,
+            quiz
+          }
+        }
       },
       { new: true, runValidators: true }
     );
@@ -40,9 +44,9 @@ const addLecture = async (req, res) => {
       return res.status(404).json({ message: 'Course not found' });
     }
 
-    return res.status(201).json({ 
-      message: 'Lesson added successfully', 
-      course: updatedCourse 
+    return res.status(201).json({
+      message: 'Lesson added successfully',
+      course: updatedCourse
     });
   } catch (error) {
     console.error('Error adding lesson:', error);

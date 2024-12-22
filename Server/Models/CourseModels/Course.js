@@ -1,67 +1,67 @@
 const mongoose = require('mongoose')
 
 const LessonSchema = new mongoose.Schema({
-    title:{
-        type:String,
+    title: {
+        type: String,
         //required:true,
-        trim:true
+        trim: true
     },
-    description:{
-        type:String,
-        trim:true
+    description: {
+        type: String,
+        trim: true
     },
-    videoUrl:{
-        type:String,
+    videoUrl: {
+        type: String,
         //required:true
     },
-    quiz:[
+    quiz: [
         {
-            question:String,
-            answers:[String],
-            correctAnswer:String
+            question: String,
+            answer: [String],
+            correctAnswer: String
         }
     ]
 })
 
-const CourseSchema = new  mongoose.Schema({
-    title:{
-        type:String,
+const CourseSchema = new mongoose.Schema({
+    title: {
+        type: String,
         //required:true,
-        trim:true
+        trim: true
     },
-    description:{
-        type:String,
+    description: {
+        type: String,
         //required:true,
-        trim:true
+        trim: true
     },
-    instructor:{
-        type:String,
+    instructor: {
+        type: String,
         //required:true
     },
-    category:{
-        type:String,
+    category: {
+        type: String,
         //required:true
     },
-    lessons:[LessonSchema],
-    duration:{
-        type:String,
+    lessons: [LessonSchema],
+    duration: {
+        type: String,
         //required:true
     },
-    price:{
-        type:Number,
+    price: {
+        type: Number,
         //required:true,
-        default:0
+        default: 0
     },
-    imageUrl:{
-        type:String,
+    imageUrl: {
+        type: String,
         //required:true
     },
-    learningOutcomes:{
-        type:[String],
+    learningOutcomes: {
+        type: [String],
     }
 
-},{timestamps:true})
+}, { timestamps: true })
 
-const Course = mongoose.model('Course',CourseSchema)
+const Course = mongoose.model('Course', CourseSchema)
 
 module.exports = Course;

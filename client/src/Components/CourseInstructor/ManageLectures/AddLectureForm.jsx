@@ -20,14 +20,14 @@ const AddLectureForm = () => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     description: Yup.string().required("Description is required"),
-    video: Yup.mixed()
-      .required("Video is required")
-      .test(
-        "fileFormat",
-        "Unsupported Format",
-        (value) =>
-          value && ["video/mp4", "video/webm", "video/ogg"].includes(value.type)
-      ),
+    // video: Yup.mixed()
+    //   .required("Video is required")
+    //   .test(
+    //     "fileFormat",
+    //     "Unsupported Format",
+    //     (value) =>
+    //       value && ["video/mp4", "video/webm", "video/ogg"].includes(value.type)
+    //   ),
   });
 
   //Api calling
@@ -43,13 +43,14 @@ const AddLectureForm = () => {
   });
 
   const onSubmit = (values, onSubmitProps) => {
-    const { title, description, video } = values;
-    console.log('quiz values are',values)
+    const { title, description, video, quiz } = values;
+    console.log("quiz values are", values);
     // Create a FormData object
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     formData.append("video", video);
+    formData.append("quiz", JSON.stringify(values.quiz));
     addLectureMutation.mutate({ values: formData, id: id });
     // Reset the form
     onSubmitProps.setSubmitting(false);
@@ -135,83 +136,98 @@ const AddLectureForm = () => {
             <FieldArray name="quiz">
               {({ remove, push }) => (
                 <div>
-                  {
-                    values.quiz.length === 0 ?(<>
-                    <button type="button"  className=" bg-green-500 px-2 py-1 rounded-md text-white mt-2" onClick={() => push({ question: "", answer: ["", "", "", ""] })}>
-                  Add Question
-                </button>
-                    </>) : (<>
-                      {values.quiz.map((q, index) => (
-                    <div key={index}>
-                      <label
-                        htmlFor={`quiz.${index}.question`}
-                        className="block text-gray-700 font-medium mb-2"
+                  {values.quiz.length === 0 ? (
+                    <>
+                      <button
+                        type="button"
+                        className=" bg-green-500 px-2 py-1 rounded-md text-white mt-2"
+                        onClick={() =>
+                          push({ question: "", answer: ["", "", "", ""] })
+                        }
                       >
-                        Question {index + 1}
-                      </label>
-                      <Field
-                        name={`quiz.${index}.question`}
-                        placeholder="Enter the question"
-                        className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                      />
+                        Add Question
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {values.quiz.map((q, index) => (
+                        <div key={index}>
+                          <label
+                            htmlFor={`quiz.${index}.question`}
+                            className="block text-gray-700 font-medium mb-2"
+                          >
+                            Question {index + 1}
+                          </label>
+                          <Field
+                            name={`quiz.${index}.question`}
+                            placeholder="Enter the question"
+                            className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                          />
 
-                      {/* Answer array */}
-                      <FieldArray name={`quiz.${index}.answer`}>
-                      {({ remove: removeAnswer, push: pushAnswer }) => (
-                        <div className=" my-2">
-                          {q.answer.map((_, answerIndex) => (
-                            <div key={answerIndex} className="my-1.5">
-                              <Field
-                                name={`quiz.${index}.answer.${answerIndex}`}
-                                placeholder={`Answer ${answerIndex + 1}`}
-                                className="border p-2 w-2/5 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => removeAnswer(answerIndex)}
-                                disabled={q.answer.length <= 1}
-                                className=" bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          ))}
+                          {/* Answer array */}
+                          <FieldArray name={`quiz.${index}.answer`}>
+                            {({ remove: removeAnswer, push: pushAnswer }) => (
+                              <div className=" my-2">
+                                {q.answer.map((_, answerIndex) => (
+                                  <div key={answerIndex} className="my-1.5">
+                                    <Field
+                                      name={`quiz.${index}.answer.${answerIndex}`}
+                                      placeholder={`Answer ${answerIndex + 1}`}
+                                      className="border p-2 w-2/5 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                                    />
+                                    <button
+                                      type="button"
+                                      onClick={() => removeAnswer(answerIndex)}
+                                      disabled={q.answer.length <= 1}
+                                      className=" bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
+                                    >
+                                      Remove
+                                    </button>
+                                  </div>
+                                ))}
+                                <button
+                                  type="button"
+                                  onClick={() => pushAnswer("")}
+                                  className="bg-green-500 px-2 py-1 rounded-md text-white mt-1"
+                                >
+                                  Add Answer
+                                </button>
+                              </div>
+                            )}
+                          </FieldArray>
+
+                          <label
+                            htmlFor={`quiz.${index}.correctAnswer`}
+                            className="block text-gray-700 font-medium mb-2"
+                          >
+                            Correct Answer {index + 1}
+                          </label>
+                          <Field
+                            name={`quiz.${index}.correctAnswer`}
+                            placeholder="Enter the correct answer"
+                            className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                          />
+
                           <button
                             type="button"
-                            onClick={() => pushAnswer("")}
-                            className="bg-green-500 px-2 py-1 rounded-md text-white mt-1"
+                            className=" mt-2 bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
+                            onClick={() => remove(index)}
                           >
-                            Add Answer
+                            Remove Question
                           </button>
                         </div>
-                      )}
-                    </FieldArray>
-
-                    <label
-                        htmlFor={`quiz.${index}.correctAnswer`}
-                        className="block text-gray-700 font-medium mb-2"
+                      ))}
+                      <button
+                        type="button"
+                        className=" bg-green-500 px-2 py-1 rounded-md text-white mt-2"
+                        onClick={() =>
+                          push({ question: "", answer: ["", "", "", ""] })
+                        }
                       >
-                        Correct Answer {index + 1}
-                      </label>
-                      <Field
-                        name={`quiz.${index}.correctAnswer`}
-                        placeholder="Enter the correct answer"
-                        className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                      />
-
-
-
-                    <button type="button"   className=" mt-2 bg-red-500 ml-2 text-white px-2 py-1 rounded-md" onClick={() => remove(index)}>
-                      Remove Question
-                    </button>
-                    </div>
-                  ))}
-                  <button type="button"  className=" bg-green-500 px-2 py-1 rounded-md text-white mt-2" onClick={() => push({ question: "", answer: ["", "", "", ""] })}>
-                  Add Question
-                </button>
-                    </>)
-                  }
-                  
+                        Add Question
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
             </FieldArray>

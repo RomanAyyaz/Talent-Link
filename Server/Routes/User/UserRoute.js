@@ -17,7 +17,8 @@ const { getAllResumes } = require('../../Controllers/ResumeBuilder/GetAllResumes
 const { deleteResume } = require('../../Controllers/ResumeBuilder/DeleteResume')
 const { addCertification } = require('../../Controllers/ResumeBuilder/AddCertification')
 const { addProject } = require('../../Controllers/ResumeBuilder/AddProject')
-
+const {getAllCourses} = require('../../Controllers/Course/GetAllCourses')
+const { getCourseData } = require('../../Controllers/Course/GetCourseData')
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -69,6 +70,15 @@ Router.get('/Resume',getAllResumes)
 
 //Route for Deleting the Resume
 Router.delete('/Resume/:id',deleteResume)
+
+
+                    //    User courses routes
+//Route for all courses 
+Router.get('/courses',getAllCourses)
+
+//Route for getting the data of specific course
+
+Router.get('/courseData/:id',getCourseData)
 
 module.exports = Router
 

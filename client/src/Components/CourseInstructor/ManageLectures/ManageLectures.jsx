@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 
 const ManageLectures = () => {
     const {id} = useParams();
-    //Api Calling for getting all the resumes 
+    //Api Calling for getting all the courses
     const { data, isLoading, error } = useQuery({
       queryKey: ["courses",id],
       queryFn: () => getDataOfCourseApi(id),
@@ -22,6 +22,7 @@ const ManageLectures = () => {
       <h2>error</h2>
     }
     let courseData = data?.data || []
+    console.log('courses data in compnay',courseData)
   return (
     <div className="bg-bgcompanyProfile container mx-auto px-3 md:px-8 border">
       <Header/>
