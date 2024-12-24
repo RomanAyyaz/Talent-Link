@@ -6,6 +6,7 @@ const port = process.env.PORT || 8000;
 const cors = require('cors')
 const UserRoute = require('./Routes/User/UserRoute')
 const CourseRoute = require('./Routes/Course/Course')
+const JobRoute = require('./Routes/Job/Job')
 const CompanyRoutes = require('./Routes/Company/CompanyRoutes')
 const cookieParser = require('cookie-parser');
 
@@ -26,3 +27,4 @@ app.listen(port,()=>{
 app.use('/user',UserRoute)
 app.use('/course',CourseRoute)
 app.use('/company',CompanyRoutes)
+app.use('/job',JobRoute)
