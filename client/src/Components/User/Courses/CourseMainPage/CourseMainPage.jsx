@@ -20,7 +20,6 @@ const CourseMainPage = () => {
     <div>Some error loading data</div>;
   }
   let courseData = data?.data ? data.data : [];
-  
   return (
     <>
       <Navbar />
@@ -181,11 +180,26 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
         </div>
         <div className="h-[0.5px] bg-gray-200 my-2"></div>
       </div>
-      {view == "overview" ? (
+      {view === "overview" ? (
         <div className="mt-4 px-4 text-start">
-          <h1 className="text-2xl font-semibold">What you will learn</h1>
+          <h1 className="text-3xl font-bold">What you will learn</h1>
+          {
+            courseData.learningOutcomes? <div className="p-4 text-pretty">
+              { 
+                courseData.learningOutcomes.map((outcome,i)=>{
+                  return(
+                    <ul className="list-disc list-inside text-gray-800 space-y-2">
+                   <li key={i} className="text-lg leading-relaxed">  {outcome}</li>
+                  </ul>
+                  )
+                  
+                })
+              }
+              
+            </div> :"No Outcomes yet" 
+          }
         </div>
-      ) : view == "curriculum" ? (
+      ) : view === "curriculum" ? (
         <div className="mt-4 px-4 text-start">
           <h1 className="text-2xl font-semibold">Curriculum</h1>
         </div>

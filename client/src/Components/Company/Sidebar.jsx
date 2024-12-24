@@ -24,7 +24,16 @@ export default function Sidebar() {
     { name: 'Dashboard', icon: HomeIcon, to: '/dashboard' },
     { name: 'Profile', icon: CalendarIcon, to: '/dashboardCompany/profile' }, 
     { name: 'Professors', icon: UserGroupIcon, to: '/professors' },
-    { name: 'Students', icon: UsersIcon, to: '/students' },
+    { 
+      name: 'Job', 
+      icon: UsersIcon, 
+      subItems: [
+        { name: 'Post Job', to: '/dashboardCompany/postJob' },
+        { name: 'Add Courses', to: '' },
+        { name: 'Edit Courses', to: '#' },
+        { name: 'About Courses', to: '#' },
+      ]
+    },
     { 
       name: 'Courses', 
       icon: AcademicCapIcon,

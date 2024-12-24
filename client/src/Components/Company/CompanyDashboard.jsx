@@ -6,6 +6,7 @@ import {Route, Routes } from 'react-router-dom'
 import AddCourse from "../CourseInstructor/AddCourse/AddCourse";
 import AllCourses from '../CourseInstructor/AllCourses/AllCourses'
 import ManageLectures from "../CourseInstructor/ManageLectures/ManageLectures";
+import PostJobForm from "../Job/PostJobs/PostJobForm";
 function CompanyDashboard() {
   return (
     <div className="h-screen flex flex-col">
@@ -21,6 +22,7 @@ function CompanyDashboard() {
           <Route path='add-course' element={<AddCourse />} />
           <Route path='manage-Lecture/:id' element={<ManageLectures />} />
           <Route path="all-courses" element = {<AllCourses/>} />
+          <Route path="postJob" element = {<PostJobForm/>}/>
         </Routes>
      
          
