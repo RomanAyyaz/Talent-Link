@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
   const menuItems = [
     { name: 'Dashboard', icon: HomeIcon, to: '/dashboard' },
@@ -29,7 +29,7 @@ export default function Sidebar() {
       icon: UsersIcon, 
       subItems: [
         { name: 'Post Job', to: '/dashboardCompany/postJob' },
-        { name: 'Add Courses', to: '' },
+        { name: 'My Job', to: '/dashboardCompany/myJob' },
         { name: 'Edit Courses', to: '#' },
         { name: 'About Courses', to: '#' },
       ]
@@ -50,6 +50,11 @@ export default function Sidebar() {
     { name: 'Holiday', icon: CalendarDaysIcon, to: '/holiday' },
     { name: 'Fees', icon: CreditCardIcon, to: '/fees' },
   ];
+
+  // Toggles the expanded menu. If the same index is clicked again, collapse it.
+  const handleExpandClick = (index) => {
+    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   return (
     <div className={`bg-bgsidebar h-screen p-4 ${isExpanded ? 'w-60' : 'w-20'} duration-300 relative shadow-lg`}>
@@ -72,11 +77,15 @@ export default function Sidebar() {
             <li key={index}>
               {item.subItems ? (
                 <div>
+                  {/* 
+                    On click, toggle expand/collapse 
+                    We check if expandedIndex === index to see if it’s expanded 
+                  */}
                   <button
-                    onClick={() => setIsCoursesOpen(!isCoursesOpen)}
+                    onClick={() => handleExpandClick(index)}
                     className="flex items-center gap-4 text-gray-600 hover:bg-indigo-50 rounded-lg p-2 group w-full"
-                    aria-expanded={isCoursesOpen}
-                    aria-controls={`courses-submenu`}
+                    aria-expanded={expandedIndex === index}
+                    aria-controls={`${item.name}-submenu`}
                   >
                     <item.icon className="w-5 h-5 shrink-0" />
                     <span className={`duration-300 flex-1 text-left ${!isExpanded && 'hidden'}`}>
@@ -84,7 +93,7 @@ export default function Sidebar() {
                     </span>
                     <ChevronDownIcon 
                       className={`w-4 h-4 transition-transform duration-200 ${
-                        isCoursesOpen ? 'transform rotate-180' : ''
+                        expandedIndex === index ? 'transform rotate-180' : ''
                       } ${!isExpanded && 'hidden'}`}
                     />
                     {!isExpanded && (
@@ -94,12 +103,13 @@ export default function Sidebar() {
                     )}
                   </button>
                   <ul 
-                    id="courses-submenu"
-                    className={`mt-2 ml-6 space-y-2 ${!isExpanded && 'hidden'} ${isCoursesOpen ? '' : 'hidden'}`}
+                    id={`${item.name}-submenu`}
+                    className={`mt-2 ml-6 space-y-2 ${!isExpanded && 'hidden'} ${expandedIndex === index ? '' : 'hidden'}`}
                   >
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
-                        <Link to={subItem.to}
+                        <Link 
+                          to={subItem.to}
                           className="flex items-center text-gray-600 hover:text-indigo-600 text-sm"
                         >
                           {subItem.name}
@@ -109,7 +119,6 @@ export default function Sidebar() {
                   </ul>
                 </div>
               ) : (
-                
                 item.to ? (
                   <Link
                     to={item.to}
@@ -147,5 +156,5 @@ export default function Sidebar() {
         </ul>
       </div>
     </div>
-  );  
+  );
 }

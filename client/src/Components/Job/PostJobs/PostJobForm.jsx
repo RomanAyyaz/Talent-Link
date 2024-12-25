@@ -13,7 +13,9 @@ function PostJobForm() {
     minSalary:"",
     maxSalary:"",
     experience:"",
-    qualification:""
+    qualification:"",
+    location:"",
+    employmentType:""
   };
   //Api calling for posting jobs 
   let addJobMutation = useMutation({
@@ -115,7 +117,7 @@ function PostJobForm() {
                 <div className="text-start w-full mt-2">
                   <Field
                     className="border p-2 w-full md:w-11/12 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                    name="Working Schedule"
+                    name="workingSchedule"
                     as="select"
                     placeholder="workingSchedule"
                   >
@@ -136,7 +138,7 @@ function PostJobForm() {
                 <div className="text-start w-full mt-2">
                   <Field
                     className="border p-2 w-full md:w-11/12 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                    name="WorkingDays"
+                    name="workingDays"
                     as="select"
                     placeholder="Working Days"
                   >
@@ -146,19 +148,56 @@ function PostJobForm() {
                   </Field>
                 </div>
               </div>
-
+              {/*Location*/}
+              <div className="w-full md:w-1/2 mt-2">
+                <label
+                  className="text-start text-sm font-medium mt-3"
+                  htmlFor="Location"
+                >
+                  Location
+                </label>
+                <div className="text-start w-full mt-2 md:w-11/12">
+                  <Field
+                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    name="location"
+                    type="text"
+                    placeholder="Location"
+                  />
+                </div>
+              </div>
+              {/* Employment type */}
+              <div className="w-full md:w-1/2 mt-2">
+                <label
+                  className="text-start text-sm font-medium mt-3"
+                  htmlFor="employmentTyye"
+                >
+                  Employment Type
+                </label>
+                <div className="text-start w-full mt-2">
+                  <Field
+                    className="border p-2 w-full md:w-11/12 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    name="employmentType"
+                    as="select"
+                    placeholder="Employment Type"
+                  >
+                    <option value="Full Time" label="Full Time" />
+                    <option value="Part Time" label=" Part Time" />
+                    <option value="Internship" label=" Internship" />
+                  </Field>
+                </div>
+              </div>
               {/* Salary Min */}
               <div className="w-full md:w-1/2 mt-2">
                 <label
                   className="text-start text-sm font-medium mt-3"
-                  htmlFor="salaryMin"
+                  htmlFor="minSalary"
                 >
                   Minimum Salary
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
                     className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                    name="salaryMin"
+                    name="minSalary"
                     type="text"
                     placeholder="Minimum Salary"
                   />
@@ -168,14 +207,14 @@ function PostJobForm() {
               <div className="w-full md:w-1/2 mt-2">
                 <label
                   className="text-start text-sm font-medium mt-3 md:w-full"
-                  htmlFor="salaryMax"
+                  htmlFor="maxSalary"
                 >
                   Maximum Salary
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
                     className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
-                    name="salaryMax"
+                    name="maxSalary"
                     type="text"
                     placeholder="Maximum Salary"
                   />
