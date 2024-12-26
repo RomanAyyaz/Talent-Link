@@ -49,14 +49,15 @@ export default function MyJobList({job}) {
         </div>
 
         <div className="flex gap-4 justify-start">
+        <Link to={`/dashboardCompany/editJob/${job._id}`}>
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <Edit2 className="w-5 h-5 text-gray-600" />
           </button>
-          <Link to={`/dashboardCompany/editJob/${job._id}`}>
+          </Link>
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <Eye className="w-5 h-5 text-gray-600" />
           </button>
-          </Link>
+        
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" onClick={()=>{
             deleteJobMutation.mutate(job._id)
           }}>

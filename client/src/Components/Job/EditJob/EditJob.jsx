@@ -1,23 +1,59 @@
 import React from 'react'
 import { Formik, Field, Form } from "formik";
 import { FaGreaterThan } from "react-icons/fa";
+import { useNavigate, useParams } from 'react-router-dom';
+import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getJobData, updateJobData } from '../JobApis';
 function EditJob() {
+  //Query clinet for showing values  real time
+  let queryClient = useQueryClient();
+  //for navigation
+  let navigate = useNavigate();
+  //Getting the job from the parameter
+  let {id} = useParams();
+  //Api calling for getting the data of this specific job
+  let {data,isLaoding,error} = useQuery({
+    queryKey:['jobs',id],
+    queryFn: () => getJobData(id),
+  })
+  if(isLaoding){
+    <div>Data loading...</div>
+  }
+  if(error){
+    <div>Some error in loading data...</div>
+  }
+  //Job data 
+  let jobData = data?data.data:[]
+  //Formik structure
     const initialValues = {
-        companyName: "",
-        jobTitle: "",
-        jobDescription: "",
-        workingSchedule: "",
-        workingDays: "",
-        minSalary:"",
-        maxSalary:"",
-        experience:"",
-        qualification:"",
-        location:"",
-        employmentType:""
+        companyName: jobData ? jobData.companyName: "",
+        jobTitle: jobData ? jobData.jobTitle: "",
+        jobDescription:jobData ? jobData.jobDescription: "",
+        workingSchedule:jobData ? jobData.workingSchedule: "",
+        workingDays: jobData ? jobData.workingDays: "",
+        minSalary:jobData ? jobData.minSalary: "",
+        maxSalary:jobData ? jobData.maxSalary: "",
+        experience:jobData ? jobData.experience: "",
+        qualification:jobData ? jobData.qualification: "",
+        location:jobData ? jobData.location: "",
+        employmentType:jobData ? jobData.employmentType: ""
       };
+      //api calling for updating the values of the job form 
+      let updateJobMutation = useMutation({
+        mutationFn:updateJobData,
+        onSuccess:()=>{
+          navigate('/dashboardCompany/myJob')
+          queryClient.invalidateQueries('jobs')
+          console.log('job data updated Successfully')
+        },
+        onError:()=>{
+          console.log('There is some error in updating the job data')
+        }
+      })
       const onSubmit = (values, onSubmitProps) => {
         onSubmitProps.setSubmitting(false);
         onSubmitProps.resetForm(true);
+        updateJobMutation.mutate({values,id})
         console.log(values); 
       };
   return (

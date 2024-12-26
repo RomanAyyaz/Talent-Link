@@ -54,8 +54,8 @@ export const getJobData = async(id)=>{
 
 //Api for updating the data of job 
 
-export const updateJobData = async(values)=>{
-    let response = await fetch('http://localhost:8000/job/updateJob',{
+export const updateJobData = async({values,id})=>{
+    let response = await fetch(`http://localhost:8000/job/updateJob/${id}`,{
         method:'PUT',
         headers:{
             'Content-Type':'application/json'

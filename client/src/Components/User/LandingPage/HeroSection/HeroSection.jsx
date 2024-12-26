@@ -72,13 +72,15 @@ function HeroSection() {
                   COURSES
                 </a>
               </Link>
-
+              <Link to={"/jobs"} >
               <a
                 href="#"
                 className="text-white hover:text-gray-300 text-sm font-semibold"
               >
-                ABOUT
+                JOBS
               </a>
+              </Link>
+              
               <Link to={"/ResumeBuilder"}>
                 <a
                   href="#"
