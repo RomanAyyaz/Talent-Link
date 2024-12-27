@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-export default function AllJobslist() {
+export default function AllJobslist({job}) {
   return (
-    <div className="w-full md:w-1/2 md:h-2/5 rounded-md border border-gray-300 bg-white p-6 shadow-sm text-start">
+    <Link to={`/jobs/details/${job._id}`}>
+    <div className="w-full  md:h-2/5 rounded-md border border-gray-300 bg-white p-6 shadow-sm text-start">
       {/* Logo */}
       <div className="mb-6 h-16 w-16 rounded-lg bg-gray-100 p-4">
         <div className="grid grid-cols-2 gap-1">
@@ -80,5 +82,6 @@ export default function AllJobslist() {
       </div>
 
     </div>
+    </Link>
   )
 }

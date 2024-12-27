@@ -13,6 +13,8 @@ import CompanyDashboard from './Components/Company/CompanyDashboard';
 import Courses from './Components/User/Courses/Courses';
 import CourseMainPage from './Components/User/Courses/CourseMainPage/CourseMainPage';
 import Jobs from './Components/User/Job/Jobs';
+import JobMainPage from './Components/User/Job/JobMainPage/JobMainPage';
+import JobMain from './Components/User/Job/JobMainPage/JobMain';
 
 
 function App() {
@@ -38,7 +40,7 @@ function App() {
           
           {/* Jobs routes */}
           <Route path='/jobs' element = {<Jobs/> } />
-
+          <Route path='/jobs/details/:id' element={<JobMain/>}/>
           {/* Company Routes */}
           <Route path='/registerCompany' element={<CompanyRegistration />} />
           <Route path='/dashboardCompany/*' element={<CompanyDashboard />} />

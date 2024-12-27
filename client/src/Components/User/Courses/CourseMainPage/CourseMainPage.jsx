@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../LandingPage/Navbar/Navbar";
 import Fotter from '../../Fotter/Fotter'
 import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
+import TextNavbar from "../../TextNavbar";
 const CourseMainPage = () => {
   let { id } = useParams();
   //Data showing
@@ -22,9 +23,9 @@ const CourseMainPage = () => {
   let courseData = data?.data ? data.data : [];
   return (
     <>
-      <Navbar />
+      <TextNavbar />
 
-      <div className="bg-bgNavbar md:min-h-[340px]  min-h-[500px] text-white pt-16 md:pt-12 lg:pt-16 px-4 md:mt-1 text-start">
+      <div className="bg-bgNavbar md:min-h-[340px]  min-h-[500px] text-white pt-16 md:pt-12 lg:pt-16 px-4 text-start">
         {/* Instructor Section */}
         <div className="flex items-center justify-between lg:mt-6 mb-6">
           <div className="flex items-center gap-4">

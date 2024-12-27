@@ -27,7 +27,8 @@ module.exports = {
         connect:"#5300BC",
         bgFeatureSection:"#F3F4F6",
         FeatureSection:"#F27A5B",
-        bgcompanyProfile:"#F2F1F2"
+        bgcompanyProfile:"#F2F1F2",
+        bgJobMainPage:"#F1F1F1"
       }
     },
   },

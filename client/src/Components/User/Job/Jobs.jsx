@@ -24,7 +24,7 @@ let jobData = data? data.jobData : []
             <div className='px-6 md:px-10 w-full md:w-2/6'>
                 <Sidebar/>
             </div>
-            <div className='flex  gap-3 px-6 mt-4  w-full  md:w-3/5'>
+            <div className=' flex  gap-4 flex-col md:flex-row g px-6 mt-4  w-full  md:w-3/5'>
                {
                         jobData ? 
                         jobData.map((job,index)=>{
