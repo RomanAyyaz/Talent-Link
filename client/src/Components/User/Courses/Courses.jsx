@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../LandingPage/Navbar/Navbar";
+import Navbar from "../Navbar";
 import {useQuery} from "@tanstack/react-query"
 import { FaCaretDown } from "react-icons/fa";
 import { getAllCoursesData } from "./CoursesApi";

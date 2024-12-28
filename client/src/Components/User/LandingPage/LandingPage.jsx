@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from './Navbar/Navbar'
 import CoursesList from './CoursesList/CoursesList'
 import PopularCourses from './PopularCourses/PopularCourses'
 import Fotter from '../Fotter/Fotter'
@@ -12,7 +11,6 @@ import EnhancedFeatureSection from './EnhancedFeatures/EnhancedFeatureSection'
 function LandingPage() {
   return (
     <div>
-        {/* <Navbar/> */}
         <HeroSection/>
         <CoursesList/>
         <PopularCourses/>

@@ -1,26 +1,27 @@
 import { useState } from 'react'
-import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Youtube, Search } from 'lucide-react'
+import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Youtube, Search} from 'lucide-react'
 import {
     FaFacebookF,
     FaYoutube,
     FaInstagram,
     FaTwitter,
   } from "react-icons/fa";
+  import { Link } from "react-router-dom";
 export default function TextNavbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navigation = [
-    { name: 'HOME', href: '#' },
+    { name: 'HOME',to: '/landingpage'  },
     { name: 'NEWS', href: '#' },
     { name: 'FEATURES', href: '#', hasDropdown: true },
-    { name: 'COURSES', href: '#', hasDropdown: true },
-    { name: 'ABOUT', href: '#' },
-    { name: 'OUR TEAM', href: '#' },
+    { name: 'COURSES', to:'/courses', hasDropdown: true },
+    { name: 'JOBS', to: '/jobs' },
+    { name: 'RESUME', to: '/ResumeBuilder' },
     { name: 'CONTACT', href: '#' }
   ]
 
   const socialLinks = [
-    { Icon: Facebook, href: '#' },
+    { Icon: Facebook, href:'#'},
     { Icon: Twitter, href: '#' },
     { Icon: Instagram, href: '#' },
     { Icon: Youtube, href: '#' }
@@ -40,16 +41,15 @@ export default function TextNavbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-4">
             {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
+              <Link
+                to = {item.to}
                 className="hover:text-HeroButtonOne px-3 py-2 text-sm font-bold flex items-center"
               >
                 {item.name}
                 {item.hasDropdown && (
                   <ChevronDown className="ml-1 h-4 w-4 text-HeroButtonOne" />
                 )}
-              </a>
+              </Link>
             ))}
           </div>
 

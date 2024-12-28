@@ -4,7 +4,7 @@ import { getAllResumes } from './ResumeApis/ResumeApi';
 import { useQuery } from '@tanstack/react-query';
 import ResumesDisplay from './ResumeComponents/ResumesDisplay';
 import {useUserStore} from '../../Store/UserStore'
-import Navbar from '../User/LandingPage/Navbar/Navbar';
+import Navbar from '../User/Navbar';
 
 function Resume() {
   const { user} = useUserStore();

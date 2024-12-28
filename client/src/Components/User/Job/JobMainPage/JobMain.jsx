@@ -1,13 +1,13 @@
 import React from "react";
 import { MapPin, Briefcase, Clock, DollarSign } from "lucide-react";
-import Navbar from "../../LandingPage/Navbar/Navbar";
-import TextNavbar from "../../TextNavbar";
+//import Navbar from "../../LandingPage/Navbar/Navbar";
+import Navbar from "../../Navbar";
 
 export default function JobMain() {
   return (
     <>
-      <TextNavbar />
-      <div className="w-full md:h-[350px]   md:text-start">
+      <Navbar />
+      <div className="w-full md:h-[300px]   md:text-start">
         <div className="bg-bgNavbar h-full px-6 py-8 md:py-20 relative overflow-hidden">
           {/* Main content */}
           <div className="md:flex md:px-10 md:items-start md:gap-6">

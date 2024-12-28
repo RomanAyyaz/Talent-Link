@@ -1,6 +1,6 @@
 import React from "react";
 import { MapPin, Briefcase, Clock, DollarSign } from "lucide-react";
-import Navbar from "../../LandingPage/Navbar/Navbar";
+import Navbar from "../../Navbar";
 
 export default function JobMainPage() {
   return (

@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { getDataOfCourseApi } from "../CoursesApi";
 import { useParams } from "react-router-dom";
-import Navbar from "../../LandingPage/Navbar/Navbar";
+//import Navbar from "../../LandingPage/Navbar/Navbar";
 import Fotter from '../../Fotter/Fotter'
 import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
-import TextNavbar from "../../TextNavbar";
+import Navbar from "../../Navbar";
 const CourseMainPage = () => {
   let { id } = useParams();
   //Data showing
@@ -23,7 +23,7 @@ const CourseMainPage = () => {
   let courseData = data?.data ? data.data : [];
   return (
     <>
-      <TextNavbar />
+      <Navbar />
 
       <div className="bg-bgNavbar md:min-h-[340px]  min-h-[500px] text-white pt-16 md:pt-12 lg:pt-16 px-4 text-start">
         {/* Instructor Section */}

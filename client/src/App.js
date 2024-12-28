@@ -15,6 +15,7 @@ import CourseMainPage from './Components/User/Courses/CourseMainPage/CourseMainP
 import Jobs from './Components/User/Job/Jobs';
 import JobMainPage from './Components/User/Job/JobMainPage/JobMainPage';
 import JobMain from './Components/User/Job/JobMainPage/JobMain';
+import Main from './Components/User/Job/JobMainPage/Main';
 
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
           
           {/* Jobs routes */}
           <Route path='/jobs' element = {<Jobs/> } />
-          <Route path='/jobs/details/:id' element={<JobMain/>}/>
+          <Route path='/jobs/details/:id' element={<Main/>}/>
           {/* Company Routes */}
           <Route path='/registerCompany' element={<CompanyRegistration />} />
           <Route path='/dashboardCompany/*' element={<CompanyDashboard />} />
