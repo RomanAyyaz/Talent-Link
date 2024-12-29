@@ -11,13 +11,13 @@ export const getAllJobsApi = async ()=>{
     return response.json();
 }
 //Api for adding the the job application
-export const addJobApplicationApi = async(values)=>{
+export const addJobApplicationApi = async(valuess)=>{
     let response = await fetch(`${API_BASE_URL}/job/addApplication`,{
         method:"POST",
         headers:{
             'Content-Type':'application/json'
         },
-        body:JSON.stringify(values)
+        body:JSON.stringify(valuess)
     })
     if(!response.ok){
         let errorResponse = await response.json()
