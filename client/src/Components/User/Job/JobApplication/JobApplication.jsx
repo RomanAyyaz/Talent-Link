@@ -1,10 +1,27 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { X } from 'lucide-react';
-
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { X } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { useUserStore } from "../../../../Store/UserStore";
+import {useMutation} from '@tanstack/react-query'
+import { addJobApplicationApi } from "../JobApis";
 const JobApplicationModal = ({ isOpen, onClose }) => {
+  let { user, setUser } = useUserStore();
+  let userId = user._id;
+  let { id } = useParams();
+  let jobId = id;
+  //Api calling for adding job applications
+  let addApplicationMutation = useMutation({
+    mutationFn:addJobApplicationApi,
+    onSuccess:()=>{
+        onClose();
+        console.log('Application added successfully')
+    },
+    onError:()=>{
+        console.log('Some error in adding the Job application')
+    }
+  })
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-8 w-full max-w-md m-4 relative">
@@ -17,28 +34,45 @@ const JobApplicationModal = ({ isOpen, onClose }) => {
         </button>
         <h2 className="text-2xl font-bold mb-4">Apply for This Position</h2>
         <Formik
-          initialValues={{ resume: null, coverLetter: '' }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.resume) {
-              errors.resume = 'Resume is required';
-            }
-            if (!values.coverLetter) {
-              errors.coverLetter = 'Cover letter is required';
-            }
-            return errors;
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-           
-            console.log(values);
-            setSubmitting(false);
-            onClose();
-          }}
-        >
+  initialValues={{ resume: null, coverLetter: "" }}
+  validate={(values) => {
+    const errors = {};
+    if (!values.resume) {
+      errors.resume = "Resume is required";
+    }
+    if (!values.coverLetter) {
+      errors.coverLetter = "Cover letter is required";
+    }
+    return errors;
+  }}
+  onSubmit={(values, { setSubmitting }) => {
+    const formData = {
+      ...values,
+      jobId,
+      userId,
+    };
+
+    addApplicationMutation.mutate(formData, {
+      onSuccess: () => {
+        console.log("Application submitted successfully");
+        onClose();
+      },
+      onError: (error) => {
+        console.error("Error submitting application:", error.message);
+      },
+    });
+
+    setSubmitting(false);
+  }}
+>
+
           {({ isSubmitting, setFieldValue }) => (
             <Form className="space-y-4">
               <div>
-                <label htmlFor="resume" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="resume"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Resume
                 </label>
                 <input
@@ -50,10 +84,17 @@ const JobApplicationModal = ({ isOpen, onClose }) => {
                   }}
                   className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
                 />
-                <ErrorMessage name="resume" component="div" className="text-red-500 text-sm mt-1" />
+                <ErrorMessage
+                  name="resume"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
               <div>
-                <label htmlFor="coverLetter" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="coverLetter"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Cover Letter
                 </label>
                 <Field
@@ -63,7 +104,11 @@ const JobApplicationModal = ({ isOpen, onClose }) => {
                   rows="4"
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 />
-                <ErrorMessage name="coverLetter" component="div" className="text-red-500 text-sm mt-1" />
+                <ErrorMessage
+                  name="coverLetter"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
               <button
                 type="submit"
@@ -81,4 +126,3 @@ const JobApplicationModal = ({ isOpen, onClose }) => {
 };
 
 export default JobApplicationModal;
-

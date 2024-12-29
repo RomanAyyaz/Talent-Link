@@ -54,9 +54,12 @@ export default function MyJobList({job}) {
             <Edit2 className="w-5 h-5 text-gray-600" />
           </button>
           </Link>
+          <Link to = {`/dashboardCompany/manageJob/${job._id}`}>
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <Eye className="w-5 h-5 text-gray-600" />
           </button>
+          </Link>
+          
         
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" onClick={()=>{
             deleteJobMutation.mutate(job._id)

@@ -9,6 +9,7 @@ import ManageLectures from "../CourseInstructor/ManageLectures/ManageLectures";
 import PostJobForm from "../Job/PostJobs/PostJobForm";
 import MyJob from "../Job/MyJob/MyJob";
 import EditJob from "../Job/EditJob/EditJob";
+import ManageJobs from "../Job/ManageJobs/ManageJobs";
 function CompanyDashboard() {
   return (
     <div className="h-screen flex flex-col">
@@ -30,6 +31,7 @@ function CompanyDashboard() {
           <Route path="postJob" element = {<PostJobForm/>}/>
           <Route path="myJob" element = {<MyJob/>} />
           <Route path="editJob/:id" element= {<EditJob/>}/>
+          <Route path="manageJob/:id" element= {<ManageJobs/>} />
         </Routes>
      
          
