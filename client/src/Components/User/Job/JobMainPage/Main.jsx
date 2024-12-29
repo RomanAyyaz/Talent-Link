@@ -1,17 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import JobMain from "./JobMain";
 import JobDetails from "./JobDetails";
-import {
-  Calendar,
-  Users,
-  Clock,
-  Wallet,
-  CalendarClock,
-  GraduationCap,
-  MapPin,
-} from "lucide-react";
+import { Calendar, Users, Clock, Wallet, CalendarClock, GraduationCap, MapPin } from 'lucide-react';
 import Fotter from "../../Fotter/Fotter";
 import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
+import JobApplicationModal from '../JobApplication/JobApplication';
 function Main() {
   const tabs = [
     { id: "description", label: "Job Description", isActive: false },
@@ -57,6 +50,7 @@ function Main() {
       value: "New York, USA",
     },
   ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div>
       <JobMain />
@@ -140,8 +134,11 @@ function Main() {
           </div>
           {/* Apply to this job */}
           <div className="text-start px-4 md:px-0">
-            <button className="px-5 py-3 rounded-md text-center text-white font-medium transition-colors bg-green-500 hover:bg-green-600 duration-300">
-              Apply This Position
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="px-5 py-3 rounded-md text-center text-white font-medium transition-colors bg-green-500 hover:bg-green-600 duration-300"
+            >
+              Apply for This Position
             </button>
           </div>
         </div>
@@ -172,8 +169,11 @@ function Main() {
               </a>
 
               {/* Apply Button */}
-              <button className="w-full bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-xl transition-colors duration-200">
-                Apply This Position
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                className="w-full bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-xl transition-colors duration-200"
+              >
+                Apply for This Position
               </button>
             </div>
           </div>
@@ -211,8 +211,10 @@ function Main() {
       <OtherLinks/>
       {/* Footer */}
       <Fotter/>
+      <JobApplicationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
 
 export default Main;
+

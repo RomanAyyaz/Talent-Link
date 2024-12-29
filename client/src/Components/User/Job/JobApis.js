@@ -1,6 +1,7 @@
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 //api for getting all the jobs 
 export const getAllJobsApi = async ()=>{
-    let response = await fetch('http://localhost:8000/job/allJobs',{
+    let response = await fetch(`${API_BASE_URL}/job/allJobs`,{
         method:"GET"
     })
     if(!response.ok){
@@ -8,4 +9,19 @@ export const getAllJobsApi = async ()=>{
         throw new Error(errorResponse.message || 'Network response was not ok')
     }
     return response.json();
+}
+//Api for adding the the job application
+export const addJobApplicationApi = async(values)=>{
+    let response = await fetch(`${API_BASE_URL}/job/addApplication`,{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(values)
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json()
 }
