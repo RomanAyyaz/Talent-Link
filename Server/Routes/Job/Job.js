@@ -5,6 +5,7 @@ const { deleteJob } = require('../../Controllers/Job/DeleteJob');
 const { jobData } = require('../../Controllers/Job/JobData');
 const { updateJob } = require('../../Controllers/Job/UpdateJob');
 const { addApplication } = require('../../Controllers/Job/AddApplication');
+const { getCandiates } = require('../../Controllers/Job/GetCandidates');
 
 const Router = express.Router();
 
@@ -23,5 +24,7 @@ Router.put('/updateJob/:id',updateJob)
 Router.get('/allJobs',allJobs)
 //Router for adding application to the job
 Router.post('/addApplication',addApplication)
+//Route for getting the candidates for the specific job
+Router.get('/candidates/:id',getCandiates)
 
 module.exports = Router

@@ -12,7 +12,7 @@ const Header = () => {
           <p className='inline-block font-medium text-sm text-InstructorPrimary'>Manage Job</p>
         </div>
       </div>
-      <Link to = {``}>
+      <Link to = {`/dashboardCompany/myJob`}>
       <button
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         onClick={() => console.log('Navigate to course list')}

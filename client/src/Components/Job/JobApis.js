@@ -68,3 +68,16 @@ export const updateJobData = async({values,id})=>{
     }
     return response.json()
 }
+
+//Api for getting the data of specific job candidates
+
+export const getCandidatesApi = async (id)=>{
+    let response = await fetch(`http://localhost:8000/job/candidates/${id}`,{
+        method:"GET"
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json();
+}
