@@ -23,7 +23,35 @@ const UserSchema = new mongoose.Schema({
     type:{
         type:String,
         default:'student'
-    }     
+    },
+    PhoneNumber:{
+        type:String,
+    },
+    dateOfBirth:{
+        type:String
+    },
+    gender:{
+        type:String
+    },
+    age:{
+        type:String
+    },
+    qualification:{
+        type:String,
+    },
+    language:{
+        type:String
+    },
+    experience:{
+        type:String
+    },
+    showProfile:{
+        type:String
+    },
+    userDescription:{
+        type:String
+    }
+
 },{timestamps:true})
 
 UserSchema.pre('save', async function(next){

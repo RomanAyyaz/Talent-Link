@@ -19,9 +19,13 @@ const { addCertification } = require('../../Controllers/ResumeBuilder/AddCertifi
 const { addProject } = require('../../Controllers/ResumeBuilder/AddProject')
 const {getAllCourses} = require('../../Controllers/Course/GetAllCourses')
 const { getCourseData } = require('../../Controllers/Course/GetCourseData')
+const { updateUser } = require('../../Controllers/UserProfile/UpdateUser')
 
 //Route to add User
 Router.post('/signup',UserSignup)
+
+//Route to update the user
+Router.put('/updateUser/:id',updateUser)
 
 //Route to login User
 Router.post('/signin',UserSignin)

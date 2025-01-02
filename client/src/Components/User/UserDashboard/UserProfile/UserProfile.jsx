@@ -3,7 +3,7 @@ import UserDetailsForm from './UserForms/UserDetailsForm'
 
 function UserProfile() {
   return (
-    <div className='w-full  bg-bgcompanyProfile border'>
+    <div className='w-full px-8  bg-bgcompanyProfile border'>
         <UserDetailsForm/>
     </div>
   )
