@@ -12,9 +12,8 @@ import CompanyRegistration from './Components/Company/Company-Registration/Compa
 import CompanyDashboard from './Components/Company/CompanyDashboard';
 import Courses from './Components/User/Courses/Courses';
 import CourseMainPage from './Components/User/Courses/CourseMainPage/CourseMainPage';
+import UserDashboard from './Components/User/UserDashboard/UserDashboard'
 import Jobs from './Components/User/Job/Jobs';
-import JobMainPage from './Components/User/Job/JobMainPage/JobMainPage';
-import JobMain from './Components/User/Job/JobMainPage/JobMain';
 import Main from './Components/User/Job/JobMainPage/Main';
 
 
@@ -29,6 +28,7 @@ function App() {
           <Route path='/' element={<Login />} />
           <Route path='/changePassword' element={<ChangePassword />} />
           <Route path='/landingPage' element={<LandingPage />} />
+          <Route path='/userDashboard/*' element={<UserDashboard/>}/>
 
           {/* Resume builder routes */}
           <Route path='/resumeBuilder' element={<Resume />} />

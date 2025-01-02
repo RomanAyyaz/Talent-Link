@@ -1,14 +1,39 @@
-import { useState } from 'react'
-import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Youtube, Search} from 'lucide-react'
+import React, { useState } from 'react'
+import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Youtube, Search } from 'lucide-react'
 import {
-    FaFacebookF,
-    FaYoutube,
-    FaInstagram,
-    FaTwitter,
-  } from "react-icons/fa";
-  import { Link } from "react-router-dom";
+  FaFacebookF,
+  FaYoutube,
+  FaInstagram,
+  FaTwitter,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+const UserDropdown = ({ isOpen, setIsOpen }) => (
+  <div className="relative">
+    <button
+      onClick={() => setIsOpen(!isOpen)}
+      className="flex items-center focus:outline-none"
+    >
+      <img
+        src="https://html.themewant.com/jobpath/template/assets/img/author/1.svg"
+        alt="User"
+        className="h-10 w-10 rounded-full"
+      />
+    </button>
+    {isOpen && (
+      <div className="absolute z-50 text-start right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5">
+         <Link to="/UserDashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+        <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+        <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</Link>
+        <Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</Link>
+      </div>
+    )}
+  </div>
+);
+
 export default function TextNavbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const navigation = [
     { name: 'HOME',to: '/landingpage'  },
@@ -28,7 +53,7 @@ export default function TextNavbar() {
   ]
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-white shadow-sm border border-b ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
         <div className="flex justify-between h-16">
           {/* Logo */}
@@ -42,7 +67,8 @@ export default function TextNavbar() {
           <div className="hidden md:flex md:items-center md:space-x-4">
             {navigation.map((item) => (
               <Link
-                to = {item.to}
+                key={item.name}
+                to={item.to}
                 className="hover:text-HeroButtonOne px-3 py-2 text-sm font-bold flex items-center"
               >
                 {item.name}
@@ -54,32 +80,10 @@ export default function TextNavbar() {
           </div>
 
           {/* Desktop Right Section */}
-            <div className="hidden lg:flex items-center space-x-4">
-                        <div className="hover:bg-facebook relative text-base p-1 group flex items-center justify-center">
-                          <FaFacebookF />
-                          {/* <div class="absolute top-5 left-3 mb-2 hidden border border-1 w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
-                            Facebook
-                          </div> */}
-                        </div>
-                        <div className="hover:bg-twitter relative text-base p-1 group flex items-center justify-center">
-                          <FaTwitter />
-                          {/* <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
-                            Twitter
-                          </div> */}
-                        </div>
-                        <div className="hover:bg-instagram relative text-base p-1 group flex items-center justify-center">
-                          <FaInstagram />
-                          {/* <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
-                            Instagram
-                          </div> */}
-                        </div>
-                        <div className="hover:bg-youtube relative text-base p-1 group flex items-center justify-center">
-                          <FaYoutube />
-                          {/* <div class="absolute top-5 left-3 mb-2 hidden w-max bg-white text-black text-sm px-2 py-1 rounded group-hover:block">
-                            Youtube
-                          </div> */}
-                        </div>
-                      </div>
+          <div className="hidden lg:flex items-center space-x-4">
+            
+            <UserDropdown isOpen={isDropdownOpen} setIsOpen={setIsDropdownOpen} />
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
