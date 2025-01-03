@@ -50,8 +50,18 @@ const UserSchema = new mongoose.Schema({
     },
     userDescription:{
         type:String
-    }
-
+    },
+    //Social links
+    facebookLink:{
+        type:String,
+    },
+    websiteLink:{
+        type:String,
+    },
+    linkedInLink:{
+        type:String,
+    },
+    
 },{timestamps:true})
 
 UserSchema.pre('save', async function(next){

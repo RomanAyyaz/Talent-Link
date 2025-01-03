@@ -1,8 +1,10 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
+import {useMutation} from "@tanstack/react-query"
 import { useUserStore } from "../../../../../Store/UserStore";
+import { updateUserProfileApi } from "../../UserApi";
 function UserDetailsForm() {
-  const {user,setUser} = useUserStore();
+  const {user} = useUserStore();
   let id = user._id;
   // Formik Structure 
   const initialValues = {
@@ -10,8 +12,18 @@ function UserDetailsForm() {
     qualification:"" , language:"" , experience:"" , showProfile:"", userDescription:""
   }
   //API CALLING FOR UPDATING THE DATA
-  
+  let addProfileMutation = useMutation({
+    mutationFn:updateUserProfileApi,
+    onSuccess:()=>{
+      console.log('User profile updated Successfully')
+    },
+    onError:()=>{
+      console.log('Some error in updating the user prifile')
+    }
+  })
+
   const onSubmit = (values,onSubmitProps)=>{
+    addProfileMutation.mutate({values:values , id:id})
     console.log(values)
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm(true);
