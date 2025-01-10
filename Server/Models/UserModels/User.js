@@ -1,5 +1,15 @@
 const mongoose = require('mongoose')
 const bcryptjs = require('bcryptjs')
+
+const projectSchema = new mongoose.Schema({
+    projectName: String,
+    projectUrl: String,
+    projectDescription: String,
+    projectStartDate: Date,
+    projectEndDate: Date,
+    projectImages: [String]
+  });
+
 const UserSchema = new mongoose.Schema({
     fullname:{
         type:String,
@@ -61,6 +71,11 @@ const UserSchema = new mongoose.Schema({
     linkedInLink:{
         type:String,
     },
+    githubLink:{
+        type:String,
+    },
+    //User portfolio
+    projects: [projectSchema]
     
 },{timestamps:true})
 

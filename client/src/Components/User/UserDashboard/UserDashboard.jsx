@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import {Route, Routes } from "react-router-dom";
 import DashboardMainPage from "./DashboardMainPage/DashboardMainPage";
 import UserProfile from "./UserProfile/UserProfile";
+import UserPortfolioForm from "./UserProfile/UserForms/UserPortfolioForm";
 
 function UserDashboard() {
   return (
@@ -15,6 +16,7 @@ function UserDashboard() {
           <Routes>
           <Route path='/' element={ <DashboardMainPage />} />
           <Route path="user-profile" element={<UserProfile/>}/>
+          <Route path="addPortfolio" element={<UserPortfolioForm/>}/>
           </Routes>
         </div>
       </div>

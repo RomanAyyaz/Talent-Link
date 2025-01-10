@@ -20,12 +20,17 @@ const { addProject } = require('../../Controllers/ResumeBuilder/AddProject')
 const {getAllCourses} = require('../../Controllers/Course/GetAllCourses')
 const { getCourseData } = require('../../Controllers/Course/GetCourseData')
 const { updateUser } = require('../../Controllers/UserProfile/UpdateUser')
+const { userProjects , upload } = require('../../Controllers/UserProfile/UserProjects')
 
 //Route to add User
 Router.post('/signup',UserSignup)
 
 //Route to update the user
 Router.put('/updateUser/:id',updateUser)
+
+//User Projects (multiple images)
+Router.put('/projects/:id', upload.array('projectImages'), userProjects);
+
 
 //Route to login User
 Router.post('/signin',UserSignin)
