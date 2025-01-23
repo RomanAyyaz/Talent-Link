@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { getDataOfCourseApi } from "../CoursesApi";
 import { useParams } from "react-router-dom";
 //import Navbar from "../../LandingPage/Navbar/Navbar";
-import Fotter from '../../Fotter/Fotter'
+import Fotter from "../../Fotter/Fotter";
 import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
 import Navbar from "../../Navbar";
+import CourseCurriculum from "../CoursesCurriculum/CourseCurriculum";
 const CourseMainPage = () => {
   let { id } = useParams();
   //Data showing
@@ -184,54 +185,55 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
       {view === "overview" ? (
         <div className="mt-4 px-4 text-start">
           <h1 className="text-3xl font-bold">What you will learn</h1>
-          {
-            courseData.learningOutcomes? <div className="p-4 text-pretty">
-              { 
-                courseData.learningOutcomes.map((outcome,i)=>{
-                  return(
-                    <ul className="list-disc list-inside text-gray-800 space-y-2">
-                   <li key={i} className="text-lg leading-relaxed">  {outcome}</li>
+          {courseData.learningOutcomes ? (
+            <div className="p-4 text-pretty">
+              {courseData.learningOutcomes.map((outcome, i) => {
+                return (
+                  <ul className="list-disc list-inside text-gray-800 space-y-2">
+                    <li key={i} className="text-lg leading-relaxed">
+                      {" "}
+                      {outcome}
+                    </li>
                   </ul>
-                  )
-                  
-                })
-              }
-              
-            </div> :"No Outcomes yet" 
-          }
+                );
+              })}
+            </div>
+          ) : (
+            "No Outcomes yet"
+          )}
         </div>
       ) : view === "curriculum" ? (
         <div className="mt-4 px-4 text-start">
-          <h1 className="text-2xl font-semibold">Curriculum</h1>
+          <h2 className="text-3xl font-bold mb-6 text-gray-800">
+            Course Curriculum
+          </h2>
+          <CourseCurriculum />
         </div>
       ) : (
         <div className="mt-4 mb-10 px-4 text-start md:flex">
-            <div className="flex mt-3 items-center justify-center gap-4 ">
-              <img
-                src="
+          <div className="flex mt-3 items-center justify-center gap-4 ">
+            <img
+              src="
 https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r=g"
-                alt="Instructor avatar"
-                className="rounded-full w-[80px] h-[80px] md:w-[90px] md:h-[90px]"
-              />
-              <div>
-              </div>
-            </div>
-            <div className="flex justify-center mt-3 md:items-center">
-                <h3 className="text-2xl font-semibold md:font-bold ">
-                  {courseData.instructor}
-                </h3>
-            </div>
+              alt="Instructor avatar"
+              className="rounded-full w-[80px] h-[80px] md:w-[90px] md:h-[90px]"
+            />
+            <div></div>
+          </div>
+          <div className="flex justify-center mt-3 md:items-center">
+            <h3 className="text-2xl font-semibold md:font-bold ">
+              {courseData.instructor}
+            </h3>
+          </div>
         </div>
       )}
 
-   <div className="mt-3">
-        <OtherLinks/>
-       </div>
-       <div className="">
-        <Fotter/>
-       </div>
-
-      
+      <div className="mt-3">
+        <OtherLinks />
+      </div>
+      <div className="">
+        <Fotter />
+      </div>
     </>
   );
 };

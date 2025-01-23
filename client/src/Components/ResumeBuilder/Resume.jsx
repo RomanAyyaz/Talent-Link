@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import ResumesDisplay from './ResumeComponents/ResumesDisplay';
 import {useUserStore} from '../../Store/UserStore'
 import Navbar from '../User/Navbar';
+import OtherLinks from '../User/LandingPage/OtherLinks/OtherLinks';
+import Fotter from '../User/Fotter/Fotter';
 
 function Resume() {
   const { user} = useUserStore();
@@ -39,6 +41,12 @@ function Resume() {
             }
         </div>
     </div>
+    <div className="mt-3">
+        <OtherLinks />
+      </div>
+      <div className="">
+        <Fotter />
+      </div>
     </div>
   )
 }
