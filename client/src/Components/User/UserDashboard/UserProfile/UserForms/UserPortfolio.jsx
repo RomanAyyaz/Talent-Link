@@ -2,6 +2,8 @@ import React from "react";
 import {Link} from 'react-router-dom'
 import { useUserStore } from "../../../../../Store/UserStore";
 import { Image, Trash2, Edit } from 'lucide-react'
+import {useMutation, useQueryClient} from "@tanstack/react-query"
+import { deleteUserProjectApi } from "../../UserApi";
 function UserPortfolio() {
     let {user} = useUserStore();
   return (
@@ -31,9 +33,19 @@ function UserPortfolio() {
 
 export default UserPortfolio;
 
-
 function ProjectCard({project}) {
-    console.log('p',project)
+  let {user} = useUserStore();
+  let queryClient = useQueryClient();
+    let deleteProjectMutation = useMutation({
+      mutationFn:deleteUserProjectApi,
+      onSuccess:()=>{
+        //queryClient.invalidateQueries('user');
+        console.log('User project deleted Successfully')
+      },
+      onError:()=>{
+        console.log('Some error in deleting the project')
+      }
+    })
     return (
       <div className="w-2/5 rounded-lg overflow-hidden bg-white shadow-lg group">
         {/* Project Image Container */}
@@ -53,7 +65,14 @@ function ProjectCard({project}) {
             <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100">
               <Edit className="w-4 h-4 text-gray-600" />
             </button>
-            <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100">
+            <button className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100" 
+            onClick={()=>{
+              deleteProjectMutation.mutate({
+                userId: user._id,
+                projectId: project._id
+              }
+              )
+            }}>
               <Trash2 className="w-4 h-4 text-gray-600" />
             </button>
           </div>

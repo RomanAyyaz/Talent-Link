@@ -35,9 +35,7 @@ const userProjects = async (req, res) => {
       projectEndDate: projectEndDate ? new Date(projectEndDate) : null,
       projectImages
     });
-    console.log(user)
     await user.save();
-
     res.status(200).json({ message: 'Project added successfully', user });
   } catch (error) {
     console.error(error);

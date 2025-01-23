@@ -21,6 +21,7 @@ const {getAllCourses} = require('../../Controllers/Course/GetAllCourses')
 const { getCourseData } = require('../../Controllers/Course/GetCourseData')
 const { updateUser } = require('../../Controllers/UserProfile/UpdateUser')
 const { userProjects , upload } = require('../../Controllers/UserProfile/UserProjects')
+const { deleteUserProject } = require('../../Controllers/UserProfile/DeleteUserProject')
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -31,6 +32,8 @@ Router.put('/updateUser/:id',updateUser)
 //User Projects (multiple images)
 Router.put('/projects/:id', upload.array('projectImages'), userProjects);
 
+//Delete user project 
+Router.delete('/projects/:userId/:projectId/deleteProject',deleteUserProject)
 
 //Route to login User
 Router.post('/signin',UserSignin)

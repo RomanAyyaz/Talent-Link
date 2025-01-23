@@ -26,3 +26,14 @@ export const addUserProjectsApi = async ({ formData, id }) => {
     }
     return response.json();
   };
+
+//api for deleting the user project
+
+export const deleteUserProjectApi = async ({ userId, projectId }) => {
+  const response = await fetch(`http://localhost:8000/user/projects/${userId}/${projectId}/deleteProject`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  return data;
+};
+
