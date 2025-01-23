@@ -25,3 +25,11 @@ export const addJobApplicationApi = async(valuess)=>{
     }
     return response.json()
 }
+//Api for adding the the job application
+export const hasUserAppliedApi = async({userId , jobId})=>{
+    let response = await fetch(`${API_BASE_URL}/job/hasApplied/${userId}/${jobId}`,{
+        method:"GET",
+    })
+    const data = await response.json();
+    return data;
+}

@@ -1,26 +1,34 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { X } from "lucide-react";
+import { toast, Bounce } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useUserStore } from "../../../../Store/UserStore";
-import {useMutation} from '@tanstack/react-query'
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addJobApplicationApi } from "../JobApis";
 const JobApplicationModal = ({ isOpen, onClose }) => {
   let { user, setUser } = useUserStore();
   let userId = user._id;
+  const queryClient = useQueryClient();
   let { id } = useParams();
   let jobId = id;
   //Api calling for adding job applications
   let addApplicationMutation = useMutation({
-    mutationFn:addJobApplicationApi,
-    onSuccess:()=>{
-        onClose();
-        console.log('Application added successfully')
+    mutationFn: addJobApplicationApi,
+    onSuccess: () => {
+      onClose();
+      toast.success("Applied to job Successfully", {
+        position: "top-center",
+        autoClose: 3000,
+        transition: Bounce,
+      });
+      queryClient.invalidateQueries("jobs");
+      console.log("Application added successfully");
     },
-    onError:()=>{
-        console.log('Some error in adding the Job application')
-    }
-  })
+    onError: () => {
+      console.log("Some error in adding the Job application");
+    },
+  });
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -34,38 +42,37 @@ const JobApplicationModal = ({ isOpen, onClose }) => {
         </button>
         <h2 className="text-2xl font-bold mb-4">Apply for This Position</h2>
         <Formik
-  initialValues={{ resume: null, coverLetter: "" }}
-  validate={(values) => {
-    const errors = {};
-    if (!values.resume) {
-      errors.resume = "Resume is required";
-    }
-    if (!values.coverLetter) {
-      errors.coverLetter = "Cover letter is required";
-    }
-    return errors;
-  }}
-  onSubmit={(values, { setSubmitting }) => {
-    const formData = {
-      ...values,
-      jobId,
-      userId,
-    };
+          initialValues={{ resume: null, coverLetter: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.resume) {
+              errors.resume = "Resume is required";
+            }
+            if (!values.coverLetter) {
+              errors.coverLetter = "Cover letter is required";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            const formData = {
+              ...values,
+              jobId,
+              userId,
+            };
 
-    addApplicationMutation.mutate(formData, {
-      onSuccess: () => {
-        console.log("Application submitted successfully");
-        onClose();
-      },
-      onError: (error) => {
-        console.error("Error submitting application:", error.message);
-      },
-    });
+            addApplicationMutation.mutate(formData, {
+              onSuccess: () => {
+                console.log("Application submitted successfully");
+                onClose();
+              },
+              onError: (error) => {
+                console.error("Error submitting application:", error.message);
+              },
+            });
 
-    setSubmitting(false);
-  }}
->
-
+            setSubmitting(false);
+          }}
+        >
           {({ isSubmitting, setFieldValue }) => (
             <Form className="space-y-4">
               <div>

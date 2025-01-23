@@ -1,11 +1,30 @@
 import React, { useState } from "react";
 import JobMain from "./JobMain";
 import JobDetails from "./JobDetails";
-import { Calendar, Users, Clock, Wallet, CalendarClock, GraduationCap, MapPin } from 'lucide-react';
+import {
+  Calendar,
+  Users,
+  Clock,
+  Wallet,
+  CalendarClock,
+  GraduationCap,
+  MapPin,
+} from "lucide-react";
 import Fotter from "../../Fotter/Fotter";
 import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
-import JobApplicationModal from '../JobApplication/JobApplication';
+import JobApplicationModal from "../JobApplication/JobApplication";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { hasUserAppliedApi } from "../JobApis";
+import { useUserStore } from "../../../../Store/UserStore";
 function Main() {
+  let { user } = useUserStore();
+  let { id } = useParams();
+
+  let { data, isLoading, isError } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: () => hasUserAppliedApi({ userId: user._id, jobId: id }),
+  });
   const tabs = [
     { id: "description", label: "Job Description", isActive: false },
     { id: "responsibilities", label: "Responsibilities", isActive: false },
@@ -51,10 +70,13 @@ function Main() {
     },
   ];
   const [isModalOpen, setIsModalOpen] = useState(false);
+  if (isLoading) {
+    <div>Data loading</div>;
+  }
   return (
     <div>
       <JobMain />
-      <div className="border md:px-10 md:flex" >
+      <div className="border md:px-10 md:flex">
         {/* Left Section */}
         <div className="py-5 md:py-14 md:w-3/5">
           <JobDetails />
@@ -134,51 +156,73 @@ function Main() {
           </div>
           {/* Apply to this job */}
           <div className="text-start px-4 md:px-0">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="px-5 py-3 rounded-md text-center text-white font-medium transition-colors bg-green-500 hover:bg-green-600 duration-300"
-            >
-              Apply for This Position
-            </button>
+            {data.applied == true ? (
+              <button
+                disabled
+                className="px-5 py-3 rounded-md cursor-pointer text-center text-white font-medium transition-colors bg-green-400 duration-300"
+              >
+                Already Applied
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-5 py-3 rounded-md text-center text-white font-medium transition-colors bg-green-500 hover:bg-green-600 duration-300"
+              >
+                Apply for This Position
+              </button>
+            )}
           </div>
         </div>
         {/* Right section */}
         <div className="py-5 md:py-14  md:w-2/6 md:ml-10">
           {/* Website link */}
           <div className="md:px-4">
-          <div className="max-w-sm mx-auto p-8  rounded-3xl bg-gradient-to-br from-gray-50 to-gray-100">
-            <div className="flex flex-col items-center space-y-6">
-              {/* Logo */}
-              <div className="bg-white p-4 rounded-2xl shadow-sm">
-                <div className="grid grid-cols-2 gap-1 w-12 h-12">
-                  <div className="bg-red-500 rounded-sm"></div>
-                  <div className="bg-green-500 rounded-sm"></div>
-                  <div className="bg-blue-500 rounded-sm"></div>
-                  <div className="bg-yellow-500 rounded-sm"></div>
+            <div className="max-w-sm mx-auto p-8  rounded-3xl bg-gradient-to-br from-gray-50 to-gray-100">
+              <div className="flex flex-col items-center space-y-6">
+                {/* Logo */}
+                <div className="bg-white p-4 rounded-2xl shadow-sm">
+                  <div className="grid grid-cols-2 gap-1 w-12 h-12">
+                    <div className="bg-red-500 rounded-sm"></div>
+                    <div className="bg-green-500 rounded-sm"></div>
+                    <div className="bg-blue-500 rounded-sm"></div>
+                    <div className="bg-yellow-500 rounded-sm"></div>
+                  </div>
                 </div>
+
+                {/* Company Name */}
+                <h2 className="text-2xl font-semibold text-gray-900">
+                  Google.com
+                </h2>
+
+                {/* Visit Website Link */}
+                <a
+                  href="#"
+                  className="text-gray-900 hover:underline font-medium"
+                >
+                  Visit Website
+                </a>
+
+                {/* Apply Button */}
+                {data.applied === true ? (
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    disabled
+                    className="w-full cursor-pointer bg-green-400 text-white py-4 px-6 rounded-xl transition-colors duration-200"
+                  >
+                    Already Applied
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="w-full bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-xl transition-colors duration-200"
+                  >
+                    Apply for This Position
+                  </button>
+                )}
               </div>
-
-              {/* Company Name */}
-              <h2 className="text-2xl font-semibold text-gray-900">
-                Google.com
-              </h2>
-
-              {/* Visit Website Link */}
-              <a href="#" className="text-gray-900 hover:underline font-medium">
-                Visit Website
-              </a>
-
-              {/* Apply Button */}
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-xl transition-colors duration-200"
-              >
-                Apply for This Position
-              </button>
             </div>
           </div>
-          </div>
-          
+
           {/* Job overView */}
           <div className="px-4 py-3">
             <div className="bg-gray-50 rounded-xl p-6 max-w-md">
@@ -204,17 +248,18 @@ function Main() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
       {/* Links */}
-      <OtherLinks/>
+      <OtherLinks />
       {/* Footer */}
-      <Fotter/>
-      <JobApplicationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Fotter />
+      <JobApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
 
 export default Main;
-
