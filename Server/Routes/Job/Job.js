@@ -7,6 +7,7 @@ const { updateJob } = require('../../Controllers/Job/UpdateJob');
 const { addApplication } = require('../../Controllers/Job/AddApplication');
 const { getCandiates } = require('../../Controllers/Job/GetCandidates');
 const { hasUserApplied } = require('../../Controllers/Job/HasUserApplied');
+const { updateJobStatus } = require('../../Controllers/Job/UpdateJobStatus');
 
 const Router = express.Router();
 
@@ -29,5 +30,8 @@ Router.post('/addApplication',addApplication)
 Router.get('/candidates/:id',getCandiates)
 //Route for checking that user has applied for the job or not
 Router.get('/hasApplied/:userId/:jobId',hasUserApplied)
+
+//Route for updating the job application status
+Router.put('/updateStatus/:userId/:jobId' , updateJobStatus)
 
 module.exports = Router

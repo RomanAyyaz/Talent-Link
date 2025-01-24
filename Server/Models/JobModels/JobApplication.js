@@ -6,17 +6,35 @@ let JobApplicationSchema = new mongoose.Schema({
         ref: 'Job',
         required: true,
     },
+
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required:true
     },
+
     resume:{
         type:String,
     },
+
     coverLetter:{
         type:String,
     },
+
+    status: {
+        type: String,
+        enum: [
+          'applied',
+          'shortlisted',
+          'hr_round',
+          'technical_round',
+          'final_round',
+          'selected',
+          'rejected',
+        ],
+        default: 'applied',
+      },
+      
     appliedAt:{
         type:Date,
         default:Date.now

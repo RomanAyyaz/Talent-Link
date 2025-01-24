@@ -81,3 +81,16 @@ export const getCandidatesApi = async (id)=>{
     }
     return response.json();
 }
+
+//Api for updating the status of job application
+
+export const updateJobStatus = async({userId , jobId})=>{
+    let response = await fetch(`http://localhost:8000/job/updateStatus/${userId}/${jobId}`,{
+        method:'PUT'
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json();
+}

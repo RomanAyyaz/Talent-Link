@@ -5,6 +5,7 @@ import {Route, Routes } from "react-router-dom";
 import DashboardMainPage from "./DashboardMainPage/DashboardMainPage";
 import UserProfile from "./UserProfile/UserProfile";
 import UserPortfolioForm from "./UserProfile/UserForms/UserPortfolioForm";
+import MyResume from "../../ResumeBuilder/MyResume";
 
 function UserDashboard() {
   return (
@@ -17,6 +18,7 @@ function UserDashboard() {
           <Route path='/' element={ <DashboardMainPage />} />
           <Route path="user-profile" element={<UserProfile/>}/>
           <Route path="addPortfolio" element={<UserPortfolioForm/>}/>
+          <Route path="myResume" element = {<MyResume/>}/>
           </Routes>
         </div>
       </div>
