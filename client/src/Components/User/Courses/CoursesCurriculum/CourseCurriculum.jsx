@@ -4,13 +4,12 @@ import {
   ChevronUpIcon,
   PlayCircleIcon,
 } from "@heroicons/react/24/solid";
+import { Lock } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getDataOfCourseApi } from "../CoursesApi";
 
 function QuizModal({ quiz, onClose }) {
-  // 1) State to store user answers
-  // Using an object: { questionIndex: "selectedAnswer", ... }
   const [userAnswers, setUserAnswers] = useState({});
   // 2) State to store final score once the user submits
   const [score, setScore] = useState(null);
@@ -103,14 +102,14 @@ function QuizModal({ quiz, onClose }) {
   );
 }
 
-export default function CourseCurriculum() {
+export default function CourseCurriculum({bought}) {
   const { id } = useParams();
   const { data, isLoading, error } = useQuery({
     queryKey: ["course", id],
     queryFn: () => getDataOfCourseApi(id),
   });
 
-  // Keep hooks at top level (no early returns before them)
+ 
   const [expandedLecture, setExpandedLecture] = useState(null);
   const [openQuizIndex, setOpenQuizIndex] = useState(null);
 
@@ -121,9 +120,7 @@ export default function CourseCurriculum() {
   if (error) {
     return <div>Some error loading data</div>;
   }
-
   const lectures = data?.data?.lessons || [];
-
   const toggleLecture = (index) => {
     setExpandedLecture(expandedLecture === index ? null : index);
   };
@@ -139,7 +136,7 @@ export default function CourseCurriculum() {
   return (
     <div className="py-2">
       <div className="max-w-4xl p-4">
-        <h1 className="text-2xl font-bold mb-6">Course Curriculum</h1>
+        {/* <h1 className="text-2xl font-bold mb-6">Course Curriculum</h1> */}
 
         {lectures.map((lecture, index) => (
           <div
@@ -147,7 +144,8 @@ export default function CourseCurriculum() {
             className="bg-gray-50 rounded-lg shadow-md overflow-hidden mb-4"
           >
             {/* Accordion Header */}
-            <div
+            {
+              bought === true ?  <div
               className="flex justify-between items-center p-4 cursor-pointer hover:bg-gray-100"
               onClick={() => toggleLecture(index)}
             >
@@ -166,7 +164,23 @@ export default function CourseCurriculum() {
               ) : (
                 <ChevronDownIcon className="w-6 h-6 text-gray-600" />
               )}
+            </div>  : <div
+              className="flex justify-between items-center p-4 cursor-pointer hover:bg-gray-100"
+            >
+              <div className="flex items-center space-x-4">
+                <span className="text-lg font-semibold">{index + 1}</span>
+                <div>
+                  <h3 className="text-lg font-semibold">{lecture.title}</h3>
+                  <p className="text-sm flex items-center mt-1">
+                    <PlayCircleIcon className="w-4 h-4 mr-1" />
+                    45 minutes
+                  </p>
+                </div>
+              </div>
+                <Lock className="w-6 h-6 text-gray-600" />
             </div>
+            }
+           
 
             {/* Accordion Body */}
             {expandedLecture === index && (
@@ -175,7 +189,7 @@ export default function CourseCurriculum() {
                 <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
                   <iframe
                     src={`http://localhost:8000${lecture.videoUrl}`}
-                    frameBorder="0"
+                    // frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"

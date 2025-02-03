@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useState } from "react";
 import { getDataOfCourseApi } from "../CoursesApi";
 import { useParams } from "react-router-dom";
 //import Navbar from "../../LandingPage/Navbar/Navbar";
@@ -8,10 +8,11 @@ import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
 import Navbar from "../../Navbar";
 import CourseCurriculum from "../CoursesCurriculum/CourseCurriculum";
 const CourseMainPage = () => {
-  let { id } = useParams();
+  const { id } = useParams();
+
   //Data showing
-  let [view, setView] = useState("overview");
-  let { data, isLoading, Error } = useQuery({
+  const [view, setView] = useState("overview");
+  const { data, isLoading, Error } = useQuery({
     queryKey: ["course"],
     queryFn: () => getDataOfCourseApi(id),
   });
@@ -21,12 +22,12 @@ const CourseMainPage = () => {
   if (Error) {
     <div>Some error loading data</div>;
   }
-  let courseData = data?.data ? data.data : [];
+  const courseData = data?.data ? data.data : [];
   return (
     <>
       <Navbar />
 
-      <div className="bg-bgNavbar md:min-h-[340px]  min-h-[500px] text-white pt-16 md:pt-12 lg:pt-16 px-4 text-start">
+      <div className="bg-bgNavbar md:min-h-[340px]  min-h-[500px] text-white pt-16 md:pt-12 lg:pt-16 px-4 text-start relative">
         {/* Instructor Section */}
         <div className="flex items-center justify-between lg:mt-6 mb-6">
           <div className="flex items-center gap-4">
@@ -149,6 +150,26 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
             <span>78 Students</span>
           </div>
         </div>
+        {/* Buy Now Card */}
+        <div className="absolute top-40 right-4 w-80 h-80 bg-white rounded-lg shadow-lg">
+          <div>
+            <img
+              src={`http://localhost:8000${courseData.imageUrl}`}
+              className="w-full h-48"
+              alt=""
+            />
+          </div>
+          <div className="text-center mt-1">
+            <span className="text-xl text-[#FF4405]">
+              ${courseData.price || "Free"}
+            </span>
+          </div>
+          <div className="text-black flex justify-center">
+            <button className="mt-6 text-sm bg-[#25333D] text-white py-2 px-6 rounded-md hover:bg-[#1e2830] transition-colors">
+              BUY NOW
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Navigation */}
@@ -207,7 +228,7 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
           <h2 className="text-3xl font-bold mb-6 text-gray-800">
             Course Curriculum
           </h2>
-          <CourseCurriculum />
+          <CourseCurriculum bought={courseData.bought} />
         </div>
       ) : (
         <div className="mt-4 mb-10 px-4 text-start md:flex">
