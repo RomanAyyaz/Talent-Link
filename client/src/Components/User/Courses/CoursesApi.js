@@ -22,3 +22,15 @@ export const getDataOfCourseApi = async (id)=>{
     const data = await response.json();
     return data;
 }
+
+//Api for updating the course status
+
+export const updateCourseApi = async (id) =>{
+    let response = await fetch (`http://localhost:8000/user/updateCourseStatus/${id}`,{
+        method:'PUT',
+    })
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
+      }
+    }

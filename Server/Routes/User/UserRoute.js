@@ -22,7 +22,8 @@ const {getAllCourses} = require('../../Controllers/Course/GetAllCourses')
 const { getCourseData } = require('../../Controllers/Course/GetCourseData')
 const { updateUser } = require('../../Controllers/UserProfile/UpdateUser')
 const { userProjects , upload } = require('../../Controllers/UserProfile/UserProjects')
-const { deleteUserProject } = require('../../Controllers/UserProfile/DeleteUserProject')
+const { deleteUserProject } = require('../../Controllers/UserProfile/DeleteUserProject');
+const { updateCourseStatus } = require('../../Controllers/Course/UpdateCourseStatus');
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -93,6 +94,9 @@ Router.get('/courses',getAllCourses)
 
 Router.get('/courseData/:id',getCourseData)
 
+//Route for updating the courses bought status
+
+Router.put('/updateCourseStatus/:id',updateCourseStatus)
 
 //Checkout
 Router.post("/checkout", async (req, res) => {
@@ -105,7 +109,6 @@ Router.post("/checkout", async (req, res) => {
   
       const priceInCents = Math.round(parseFloat(course.price) * 100);
   
-      // Generate the full URL for the image
       const imageUrl = course.imageUrl.startsWith("http")
         ? course.imageUrl
         : `http://localhost:8000${course.imageUrl}`;
@@ -129,10 +132,10 @@ Router.post("/checkout", async (req, res) => {
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: "http://localhost:3000/success", 
+        success_url: "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: "http://localhost:3000/cancel",
         metadata: {
-          courseId: course.id,
+          courseId: course._id,
           instructor: course.instructor,
         },
       });
@@ -144,5 +147,16 @@ Router.post("/checkout", async (req, res) => {
     }
   });
   
+Router.get("/checkout-session/:sessionId", async (req, res) => {
+    try {
+      const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
+      res.json({ courseId: session.metadata.courseId });
+    } catch (error) {
+      console.error("Error retrieving session:", error);
+      res.status(500).json({ error: "Failed to fetch session details" });
+    }
+  });
+  
+
 module.exports = Router
 

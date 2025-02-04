@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { getDataOfCourseApi } from "../CoursesApi";
+import { getDataOfCourseApi, updateCourseApi } from "../CoursesApi";
 import { useParams } from "react-router-dom";
 //import Navbar from "../../LandingPage/Navbar/Navbar";
 import Fotter from "../../Fotter/Fotter";
@@ -28,9 +28,7 @@ const CourseMainPage = () => {
   // Payment process
   const MakePayment = async () => {
     try {
-      const stripe = await loadStripe(
-        stripe_URL
-      );
+      const stripe = await loadStripe(stripe_URL);
 
       if (!stripe) {
         console.error("Stripe failed to load.");
@@ -58,8 +56,6 @@ const CourseMainPage = () => {
         },
       };
 
-      console.log("Sending request body:", body);
-
       const response = await fetch("http://localhost:8000/user/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,8 +75,9 @@ const CourseMainPage = () => {
         return;
       }
 
-      const result = await stripe.redirectToCheckout({ sessionId: session.id });
-
+      const result = await stripe.redirectToCheckout({ sessionId: session.id ,
+      });
+      console.log(result)
       if (result.error) {
         console.error("Stripe Checkout Error:", result.error.message);
       }
@@ -217,7 +214,8 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
           </div>
         </div>
         {/* Buy Now Card */}
-        <div className="absolute top-40 right-4 w-80 h-80 bg-white rounded-lg shadow-lg">
+        {
+          courseData.bought ===  false ?  <div className="absolute top-40 right-4 w-80 h-80 bg-white rounded-lg shadow-lg">
           <div>
             <img
               src={`http://localhost:8000${courseData.imageUrl}`}
@@ -238,7 +236,9 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
               BUY NOW
             </button>
           </div>
-        </div>
+        </div>: null
+        }
+       
       </div>
 
       {/* Navigation */}
