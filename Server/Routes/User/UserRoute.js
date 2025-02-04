@@ -1,5 +1,6 @@
 const express = require('express')
 const Router = express.Router()
+const stripe = require('stripe')(process.env.STRIPKEY); 
 const {UserSignup} = require('../../Controllers/UserAuthentication/UserSignup')
 const {UserSignin} = require('../../Controllers/UserAuthentication/UserSignin')
 const {OtpVerification} = require('../../Controllers/UserAuthentication/OtpVerification')
@@ -92,5 +93,56 @@ Router.get('/courses',getAllCourses)
 
 Router.get('/courseData/:id',getCourseData)
 
+
+//Checkout
+Router.post("/checkout", async (req, res) => {
+    try {
+      const { course } = req.body;
+  
+      if (!course) {
+        return res.status(400).json({ error: "Course data is required" });
+      }
+  
+      const priceInCents = Math.round(parseFloat(course.price) * 100);
+  
+      // Generate the full URL for the image
+      const imageUrl = course.imageUrl.startsWith("http")
+        ? course.imageUrl
+        : `http://localhost:8000${course.imageUrl}`;
+
+  
+      const lineItems = [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: course.title,
+              description: course.description,
+              images: [imageUrl],
+            },
+            unit_amount: priceInCents,
+          },
+          quantity: 1,
+        },
+      ];
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: lineItems,
+        mode: "payment",
+        success_url: "http://localhost:3000/success", 
+        cancel_url: "http://localhost:3000/cancel",
+        metadata: {
+          courseId: course.id,
+          instructor: course.instructor,
+        },
+      });
+  
+      res.json({ id: session.id });
+    } catch (error) {
+      console.error("Error creating Stripe session:", error);
+      res.status(500).json({ error: "Failed to create Stripe session" });
+    }
+  });
+  
 module.exports = Router
 

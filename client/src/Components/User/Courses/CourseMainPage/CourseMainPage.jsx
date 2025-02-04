@@ -7,9 +7,10 @@ import Fotter from "../../Fotter/Fotter";
 import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
 import Navbar from "../../Navbar";
 import CourseCurriculum from "../CoursesCurriculum/CourseCurriculum";
+import { loadStripe } from "@stripe/stripe-js";
 const CourseMainPage = () => {
   const { id } = useParams();
-
+  const stripe_URL = process.env.REACT_APP_Stripe_URL;
   //Data showing
   const [view, setView] = useState("overview");
   const { data, isLoading, Error } = useQuery({
@@ -23,6 +24,71 @@ const CourseMainPage = () => {
     <div>Some error loading data</div>;
   }
   const courseData = data?.data ? data.data : [];
+
+  // Payment process
+  const MakePayment = async () => {
+    try {
+      const stripe = await loadStripe(
+        stripe_URL
+      );
+
+      if (!stripe) {
+        console.error("Stripe failed to load.");
+        return;
+      }
+
+      if (
+        !courseData ||
+        !courseData._id ||
+        !courseData.title ||
+        !courseData.price
+      ) {
+        console.error("Invalid course data:", courseData);
+        return;
+      }
+
+      const body = {
+        course: {
+          _id: courseData._id,
+          title: courseData.title,
+          price: courseData.price,
+          description: courseData.description,
+          imageUrl: courseData.imageUrl,
+          instructor: courseData.instructor,
+        },
+      };
+
+      console.log("Sending request body:", body);
+
+      const response = await fetch("http://localhost:8000/user/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Failed to create Stripe session:", errorText);
+        return;
+      }
+
+      const session = await response.json();
+
+      if (!session.id) {
+        console.error("Invalid session response:", session);
+        return;
+      }
+
+      const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+      if (result.error) {
+        console.error("Stripe Checkout Error:", result.error.message);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -165,7 +231,10 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
             </span>
           </div>
           <div className="text-black flex justify-center">
-            <button className="mt-6 text-sm bg-[#25333D] text-white py-2 px-6 rounded-md hover:bg-[#1e2830] transition-colors">
+            <button
+              className="mt-6 text-sm bg-[#25333D] text-white py-2 px-6 rounded-md hover:bg-[#1e2830] transition-colors"
+              onClick={MakePayment}
+            >
               BUY NOW
             </button>
           </div>
