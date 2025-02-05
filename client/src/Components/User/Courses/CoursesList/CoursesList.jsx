@@ -16,7 +16,7 @@ export default function CourseList({courseData}) {
         <div className="space-y-4">
           <Link to={`/courses/${courseData._id}`}>
           <h2 className="text-3xl font-serif font-medium text-gray-900 cursor-pointer hover:text-HeroButtonOne transitions-colors">
-            Build a Shopify Dropshipping Business from Scratch
+           {courseData.title}
           </h2>
           </Link>
           

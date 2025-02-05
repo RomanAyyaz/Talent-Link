@@ -23,6 +23,22 @@ const LessonSchema = new mongoose.Schema({
     ]
 })
 
+const reviewSchema = new mongoose.Schema({
+    comment:{
+        type:String,
+        required:true
+    },
+    rating:{
+        type:Number,
+        required:true
+    },
+    user:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required:true
+        },
+})
+
 const CourseSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -62,7 +78,8 @@ const CourseSchema = new mongoose.Schema({
     bought:{
         type:Boolean,
         default:false
-    }
+    },
+    reviews:[reviewSchema]
 }, { timestamps: true })
 
 const Course = mongoose.model('Course', CourseSchema)

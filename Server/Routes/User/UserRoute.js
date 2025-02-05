@@ -24,6 +24,7 @@ const { updateUser } = require('../../Controllers/UserProfile/UpdateUser')
 const { userProjects , upload } = require('../../Controllers/UserProfile/UserProjects')
 const { deleteUserProject } = require('../../Controllers/UserProfile/DeleteUserProject');
 const { updateCourseStatus } = require('../../Controllers/Course/UpdateCourseStatus');
+const { searchCourses } = require('../../Controllers/Course/SearchCourses');
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -97,6 +98,10 @@ Router.get('/courseData/:id',getCourseData)
 //Route for updating the courses bought status
 
 Router.put('/updateCourseStatus/:id',updateCourseStatus)
+
+//Router for searching the course
+
+Router.get('/course/search',searchCourses)
 
 //Checkout
 Router.post("/checkout", async (req, res) => {
