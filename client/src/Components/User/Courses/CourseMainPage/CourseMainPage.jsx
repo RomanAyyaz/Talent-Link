@@ -8,6 +8,7 @@ import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
 import Navbar from "../../Navbar";
 import CourseCurriculum from "../CoursesCurriculum/CourseCurriculum";
 import { loadStripe } from "@stripe/stripe-js";
+import CourseReviews from "./CourseReviews";
 const CourseMainPage = () => {
   const { id } = useParams();
   const stripe_URL = process.env.REACT_APP_Stripe_URL;
@@ -317,7 +318,10 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
           </div>
         </div>
       )}
-
+      <div>
+        <h1 className="text-start text-3xl px-4 font-bold">Reviews</h1>
+      </div>
+      <CourseReviews/>
       <div className="mt-3">
         <OtherLinks />
       </div>
