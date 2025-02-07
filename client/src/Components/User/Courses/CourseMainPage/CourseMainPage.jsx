@@ -86,7 +86,6 @@ const CourseMainPage = () => {
       console.error("Payment error:", error);
     }
   };
-
   return (
     <>
       <Navbar />
@@ -318,10 +317,12 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
           </div>
         </div>
       )}
-      <div>
+      {
+        view === 'curriculum' ? <> <div>
         <h1 className="text-start text-3xl px-4 font-bold">Reviews</h1>
       </div>
-      <CourseReviews/>
+      <CourseReviews/></> : null
+      }
       <div className="mt-3">
         <OtherLinks />
       </div>

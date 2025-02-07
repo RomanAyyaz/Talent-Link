@@ -45,3 +45,29 @@ export const searchCoursesApi = async (query)=>{
     const data = await response.json();
     return data;
 }
+
+//Api for submmiting the review 
+
+export const submitReviewApi = async ({id , values}) => {
+    let response = await fetch(`http://localhost:8000/user/course/review/${id}`, {
+        method: 'PUT',
+        headers:{
+            'Content-Type':"application/json"
+        },
+        body: JSON.stringify(values)
+    })
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.error || 'Network response was not ok');
+    }
+}
+
+//Courses review search Api
+
+export const getReviewApi = async (id)=>{
+    const response = await fetch(`http://localhost:8000/user/reviews/${id}`, {
+        method: 'GET'
+    })
+    const data = await response.json();
+    return data;
+}
