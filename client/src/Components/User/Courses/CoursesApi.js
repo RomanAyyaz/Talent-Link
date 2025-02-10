@@ -65,6 +65,7 @@ export const submitReviewApi = async ({id , values}) => {
 //Courses review search Api
 
 export const getReviewApi = async (id)=>{
+    console.log(id)
     const response = await fetch(`http://localhost:8000/user/reviews/${id}`, {
         method: 'GET'
     })

@@ -58,12 +58,14 @@ function HeroSection() {
               >
                 NEWS
               </a>
+              <Link to={"/interviewPreparation"}>
               <a
-                href="#"
+                href=""
                 className="text-white hover:text-gray-300 text-sm font-semibold"
               >
-                FEATURES
+                INTERVIEW
               </a>
+              </Link>
               <Link to={"/courses"}>
                 <a
                   href="#"

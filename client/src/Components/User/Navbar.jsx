@@ -38,8 +38,8 @@ export default function TextNavbar() {
   const navigation = [
     { name: 'HOME',to: '/landingpage'  },
     { name: 'NEWS', href: '#' },
-    { name: 'FEATURES', href: '#', hasDropdown: true },
-    { name: 'COURSES', to:'/courses', hasDropdown: true },
+    { name: 'INTERVIEW', to: '/interviewPreparation', },
+    { name: 'COURSES', to:'/courses' },
     { name: 'JOBS', to: '/jobs' },
     { name: 'RESUME', to: '/ResumeBuilder' },
     { name: 'CONTACT', href: '#' }

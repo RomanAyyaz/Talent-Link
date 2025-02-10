@@ -16,6 +16,7 @@ import UserDashboard from './Components/User/UserDashboard/UserDashboard'
 import Jobs from './Components/User/Job/Jobs';
 import Main from './Components/User/Job/JobMainPage/Main';
 import Success from './Components/Payment/Success'
+import InterviewMainPage from './Components/Interview/InterviewMainPage';
 
 function App() {
   return (
@@ -43,10 +44,14 @@ function App() {
           {/* Jobs routes */}
           <Route path='/jobs' element = {<Jobs/> } />
           <Route path='/jobs/details/:id' element={<Main/>}/>
+
           {/* Company Routes */}
           <Route path='/registerCompany' element={<CompanyRegistration />} />
           <Route path='/dashboardCompany/*' element={<CompanyDashboard />} />
 
+          {/* Interview route */}
+          <Route path='/interviewPreparation' element = {<InterviewMainPage/>}/>
+          
         </Routes>
       </BrowserRouter>
 

@@ -1,49 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import {useMutation, useQuery} from '@tanstack/react-query'
-import { getReviewApi, submitReviewApi } from "../CoursesApi"
-import { useParams } from "react-router-dom"
+import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getReviewApi, submitReviewApi } from "../CoursesApi";
+import { useParams } from "react-router-dom";
 import { useUserStore } from "../../../../Store/UserStore";
-// Dummy review data
-const reviews = [
-  {
-    id: 1,
-    author: "Eitan M.",
-    initials: "EM",
-    rating: 5,
-    timeAgo: "4 weeks ago",
-    content:
-      "The course is very good, Jonas talks about everything in JavaScript, and I have watched the whole course twice and learned new things every time.",
-  },
-  {
-    id: 2,
-    author: "Sarah K.",
-    initials: "SK",
-    rating: 5,
-    timeAgo: "2 weeks ago",
-    content:
-      "Excellent content and clear explanations. The practical examples really helped cement my understanding of JavaScript concepts.",
-  },
-  {
-    id: 3,
-    author: "Michael R.",
-    initials: "MR",
-    rating: 4,
-    timeAgo: "1 month ago",
-    content:
-      "Very comprehensive course material. The exercises are challenging but really help you learn the concepts in depth.",
-  },
-  {
-    id: 4,
-    author: "Jessica T.",
-    initials: "JT",
-    rating: 5,
-    timeAgo: "3 weeks ago",
-    content:
-      "One of the best programming courses I've taken. The instructor's teaching style makes complex topics easy to understand.",
-  },
-]
+import ReviewCard from "./ReviewCard";
 
 function StarRating({ rating }) {
   return (
@@ -51,7 +13,9 @@ function StarRating({ rating }) {
       {[...Array(5)].map((_, index) => (
         <svg
           key={index}
-          className={`w-5 h-5 ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
+          className={`w-5 h-5 ${
+            index < rating ? "text-yellow-400" : "text-gray-300"
+          }`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -59,108 +23,75 @@ function StarRating({ rating }) {
         </svg>
       ))}
     </div>
-  )
-}
-
-function ReviewCard({ review }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  return (
-    <div className="flex gap-4 p-6 bg-gray-100 rounded-lg shadow-sm">
-      <div className="flex-shrink-0">
-        <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-white font-semibold">
-          {review.initials}
-        </div>
-      </div>
-      <div className="flex-grow">
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="font-semibold text-gray-900">{review.author}</h3>
-            <div className="flex items-center gap-2 mt-1">
-              <StarRating rating={review.rating} />
-              <span className="text-gray-600 text-sm">{review.timeAgo}</span>
-            </div>
-          </div>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-500 hover:text-gray-700 relative">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-            {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-                <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                  Report Review
-                </button>
-                <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                  Share Review
-                </button>
-              </div>
-            )}
-          </button>
-        </div>
-        <p className="mt-3 text-gray-600">{review.content}</p>
-      </div>
-    </div>
-  )
+  );
 }
 
 export default function CourseReviews() {
   const { id } = useParams();
-  let [review , setReview] = useState()
+  let [review, setReview] = useState();
   const { user, setUser } = useUserStore();
-  const { data, isLoading, Error } = useQuery({
-    queryKey: ["course"],
-    queryFn: () => getReviewApi(id),
-  });
-  const addReviewMutation = useMutation({
-    mutationFn:submitReviewApi,
-    onSuccess:()=>{
-      console.log('review submitted successfully')
-    },
-    onError:()=>{
-      console.log('some error in submiting a review')
-    }
+  const{data,isLoading , isError} = useQuery({
+    queryKey:['course',id],
+    queryFn:()=>getReviewApi(id)
   })
+  const addReviewMutation = useMutation({
+    mutationFn: submitReviewApi,
+    onSuccess: () => {
+      console.log("review submitted successfully");
+    },
+    onError: () => {
+      console.log("some error in submiting a review");
+    },
+  });
   const reviewData = {
-    comment:review,
-    user:user._id
-  }
-  const handleSubmit = (e)=>{
+    comment: review,
+    user: user._id,
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
-    addReviewMutation.mutate({id: id , values: reviewData})
-    setReview('')
-  }
+    addReviewMutation.mutate({ id: id, values: reviewData });
+    setReview("");
+  };
   if (isLoading) {
-    <div>Data Loading...</div>;
+    return <div>Data Loading...</div>; // Return loading message
   }
-  if (Error) {
-    <div>Some error loading data</div>;
+  
+  if (isError) {
+    return <div>Some error loading data</div>; // Return error message
   }
-  const reviewsData = data.data;
-  console.log('reviews data is',reviewsData)
+  console.log("Reviews Data:", data.data);
   return (
     <>
-    <div>
-      <form action="" onSubmit={handleSubmit} className="flex justify-center item-center my-3">
-      <input type="text" value={review} className="border py-1 px-3 w-1/2  rounded-md  "  onChange={(e)=>{
-        setReview(e.target.value)
-      }}/>
-      <button type="submit" className="mx-2 bg-green-500 p-2 rounded-md text-white">Submit Review</button>
-      </form>
-      
-    </div>
-    <div className="flex flex-wrap gap-2 p-4 item-center justify-center">
-      {reviews.map((review) => (
-        <div className="w-2/5" key={review.id}>
-          <ReviewCard review={review} />
-        </div>
-        
-      ))}
-    </div>
+      <div>
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          className="flex justify-center item-center my-3"
+        >
+          <input
+            type="text"
+            value={review}
+            className="border py-1 px-3 w-1/2  rounded-md  "
+            onChange={(e) => {
+              setReview(e.target.value);
+            }}
+          />
+          <button
+            type="submit"
+            className="mx-2 bg-green-500 p-2 rounded-md text-white"
+          >
+            Submit Review
+          </button>
+        </form>
+      </div>
+      <div className="flex flex-wrap gap-2 p-4 item-center justify-center">
+
+        {/* {reviewsData?.map((review) => (
+          <div className="w-2/5" key={review.id}>
+            <ReviewCard review={review} />
+          </div>
+        ))} */}
+      </div>
     </>
-  )
+  );
 }
