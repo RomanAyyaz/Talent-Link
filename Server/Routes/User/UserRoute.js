@@ -27,6 +27,7 @@ const { updateCourseStatus } = require('../../Controllers/Course/UpdateCourseSta
 const { searchCourses } = require('../../Controllers/Course/SearchCourses');
 const { submitReview } = require('../../Controllers/Course/SubmitReview');
 const { getReviewsData } = require('../../Controllers/Course/getReviews');
+const { AddInterview } = require('../../Controllers/Interview/AddInterview');
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -113,6 +114,9 @@ Router.put('/course/review/:id',submitReview)
 
 Router.get('/reviews/:id',getReviewsData)
 
+//Interview Routes
+
+Router.post('/interview/:id',AddInterview)
 
 
 //Checkout
