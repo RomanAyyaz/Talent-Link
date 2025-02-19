@@ -59,7 +59,7 @@ export default function AllJobslist({job}) {
 
       {/* Job Title */}
       <h2 className="mb-4 text-2xl font-semibold text-gray-900">
-        Software Engineer, Bing
+        {job.jobTitle}
       </h2>
 
       {/* Description */}

@@ -42,7 +42,7 @@ export default function TextNavbar() {
     { name: 'COURSES', to:'/courses' },
     { name: 'JOBS', to: '/jobs' },
     { name: 'RESUME', to: '/ResumeBuilder' },
-    { name: 'CONTACT', href: '#' }
+    { name: 'CONTACT', to: '/contact' }
   ]
 
   const socialLinks = [

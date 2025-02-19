@@ -45,58 +45,61 @@ function HeroSection() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               <Link to={"/landingpage"}>
-                <a
-                  href="#"
+                <p
+                  
                   className="text-white hover:text-gray-300 text-sm font-semibold"
                 >
                   HOME
-                </a>
+                </p>
               </Link>
-              <a
-                href="#"
+              <p
+
                 className="text-white hover:text-gray-300 text-sm font-semibold"
               >
                 NEWS
-              </a>
+              </p>
               <Link to={"/interviewPreparation"}>
-              <a
+              <p
                 href=""
                 className="text-white hover:text-gray-300 text-sm font-semibold"
               >
                 INTERVIEW
-              </a>
+              </p>
               </Link>
               <Link to={"/courses"}>
-                <a
+                <p
                   href="#"
                   className="text-white hover:text-gray-300 text-sm font-semibold"
                 >
                   COURSES
-                </a>
+                </p>
               </Link>
               <Link to={"/jobs"} >
-              <a
+              <p
                 href="#"
                 className="text-white hover:text-gray-300 text-sm font-semibold"
               >
                 JOBS
-              </a>
+              </p>
               </Link>
               
               <Link to={"/ResumeBuilder"}>
-                <a
+                <p
                   href="#"
                   className="text-white hover:text-gray-300 text-sm font-semibold"
                 >
                   RESUME
-                </a>
+                </p>
               </Link>
-              <a
+              <Link to={"/contact"} >
+              <p
                 href="#"
                 className="text-white hover:text-gray-300 text-sm font-semibold"
               >
                 CONTACT
-              </a>
+              </p>
+              </Link>
+              
             </div>
 
             {/* Social Icons */}

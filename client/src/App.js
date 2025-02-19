@@ -17,6 +17,8 @@ import Jobs from './Components/User/Job/Jobs';
 import Main from './Components/User/Job/JobMainPage/Main';
 import Success from './Components/Payment/Success'
 import InterviewMainPage from './Components/Interview/InterviewMainPage';
+import ContactPage from './Components/User/Contact/ContactPage';
+
 
 function App() {
   return (
@@ -51,7 +53,10 @@ function App() {
 
           {/* Interview route */}
           <Route path='/interviewPreparation' element = {<InterviewMainPage/>}/>
-          
+
+          {/* Contact page details */}
+          <Route path='/contact' element = {<ContactPage/>}/> 
+                   
         </Routes>
       </BrowserRouter>
 
