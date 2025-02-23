@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
-import { Search} from 'lucide-react';
-import Navbar from '../Navbar';
-import { getAllJobsApi } from './JobApis';
-import { useQuery } from '@tanstack/react-query';
-import AllJobslist from './AllJobs/AllJobslist';
+import React, { useState } from "react";
+import { Search } from "lucide-react";
+import Navbar from "../Navbar";
+import { getAllJobsApi } from "./JobApis";
+import { useQuery } from "@tanstack/react-query";
+import AllJobslist from "./AllJobs/AllJobslist";
+import OtherLinks from "../LandingPage/OtherLinks/OtherLinks";
+import Fotter from "../Fotter/Fotter";
 
 export default function Jobs() {
   const [jobType, setJobType] = useState({
     fulltime: false,
     parttime: false,
     temporary: false,
-    freelance: false
+    freelance: false,
   });
 
   const [salary, setSalary] = useState({
     under500: false,
     under10k: false,
-    under15k: false
+    under15k: false,
   });
 
   // New state for search queries
-  const [searchTitle, setSearchTitle] = useState('');
-  const [searchExperience, setSearchExperience] = useState('');
-  const [searchLocation, setSearchLocation] = useState('');
-
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchExperience, setSearchExperience] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
 
   // Fetch jobs using react-query
   const { data, isLoading, error } = useQuery({
-    queryKey: ['jobs'],
-    queryFn: getAllJobsApi
+    queryKey: ["jobs"],
+    queryFn: getAllJobsApi,
   });
 
   if (isLoading) {
@@ -45,21 +46,31 @@ export default function Jobs() {
     fulltime: "Full Time",
     parttime: "Part Time",
     temporary: "Temporary",
-    freelance: "Freelance"
+    freelance: "Freelance",
   };
 
   // Get an array of selected job types
-  const selectedJobTypes = Object.keys(jobType).filter(key => jobType[key]);
+  const selectedJobTypes = Object.keys(jobType).filter((key) => jobType[key]);
 
   // Filter jobs based on job title, experience, and job type
   const filteredJobs = jobData.filter((job) => {
-    const matchesTitle = job.jobTitle.toLowerCase().includes(searchTitle.toLowerCase());
-    const matchesExperience = job.experience.toLowerCase().includes(searchExperience.toLowerCase());
-    const matchesLocation = job.location.toLowerCase().includes(searchLocation.toLowerCase());
+    const matchesTitle = job.jobTitle
+      .toLowerCase()
+      .includes(searchTitle.toLowerCase());
+    const matchesExperience = job.experience
+      .toLowerCase()
+      .includes(searchExperience.toLowerCase());
+    const matchesLocation = job.location
+      .toLowerCase()
+      .includes(searchLocation.toLowerCase());
     const matchesJobType =
       selectedJobTypes.length === 0 ||
-      selectedJobTypes.some(key => job.employmentType === jobTypeMapping[key]);
-    return matchesTitle && matchesExperience && matchesJobType && matchesLocation;
+      selectedJobTypes.some(
+        (key) => job.employmentType === jobTypeMapping[key]
+      );
+    return (
+      matchesTitle && matchesExperience && matchesJobType && matchesLocation
+    );
   });
 
   return (
@@ -119,14 +130,17 @@ export default function Jobs() {
               <h2 className="text-lg font-normal mb-2">Job Type</h2>
               <div className="space-y-3">
                 {[
-                  { label: 'Full Time', count: 130 },
-                  { label: 'Part Time', count: 80 },
-                  { label: 'Temporary', count: 150 },
-                  { label: 'Freelance', count: 130 }
+                  { label: "Full Time", count: 130 },
+                  { label: "Part Time", count: 80 },
+                  { label: "Temporary", count: 150 },
+                  { label: "Freelance", count: 130 },
                 ].map((type) => {
-                  const key = type.label.toLowerCase().replace(' ', '');
+                  const key = type.label.toLowerCase().replace(" ", "");
                   return (
-                    <label key={type.label} className="flex items-center justify-between cursor-pointer">
+                    <label
+                      key={type.label}
+                      className="flex items-center justify-between cursor-pointer"
+                    >
                       <div className="flex items-center">
                         <input
                           type="checkbox"
@@ -135,7 +149,7 @@ export default function Jobs() {
                           onChange={() =>
                             setJobType((prev) => ({
                               ...prev,
-                              [key]: !prev[key]
+                              [key]: !prev[key],
                             }))
                           }
                         />
@@ -148,19 +162,25 @@ export default function Jobs() {
               </div>
             </div>
 
-
             {/* Salary Offered */}
             <div className="mb-6">
               <h2 className="text-lg font-normal mb-2">Salary Offered</h2>
               <div className="space-y-3">
                 {[
-                  { label: 'Under $500', count: 10 },
-                  { label: '$5,000 - $10,000', count: 44 },
-                  { label: '$10,000 - $15,000', count: 27 }
+                  { label: "Under $500", count: 10 },
+                  { label: "$5,000 - $10,000", count: 44 },
+                  { label: "$10,000 - $15,000", count: 27 },
                 ].map((sal) => {
-                  const key = sal.label.toLowerCase().replace('$', '').replace(',', '').replace(' - ', 'to');
+                  const key = sal.label
+                    .toLowerCase()
+                    .replace("$", "")
+                    .replace(",", "")
+                    .replace(" - ", "to");
                   return (
-                    <label key={sal.label} className="flex items-center justify-between cursor-pointer">
+                    <label
+                      key={sal.label}
+                      className="flex items-center justify-between cursor-pointer"
+                    >
                       <div className="flex items-center">
                         <input
                           type="checkbox"
@@ -169,7 +189,7 @@ export default function Jobs() {
                           onChange={() =>
                             setSalary((prev) => ({
                               ...prev,
-                              [key]: !prev[key]
+                              [key]: !prev[key],
                             }))
                           }
                         />
@@ -185,15 +205,23 @@ export default function Jobs() {
         </div>
 
         {/* Jobs List */}
-        <div className="flex gap-4 flex-col md:flex-row px-6 mt-4 w-full md:w-3/5">
+        <div className="flex gap-4 flex-wrap px-6 mt-4 w-full md:w-3/5 ">
           {filteredJobs && filteredJobs.length > 0 ? (
             filteredJobs.map((job, index) => (
-              <AllJobslist job={job} key={index} />
+              <div key={index} className="w-full md:w-1/2">
+                <AllJobslist job={job} />
+              </div>
             ))
           ) : (
             <div>No Jobs Found</div>
           )}
         </div>
+      </div>
+      <div className="mt-3">
+        <OtherLinks />
+      </div>
+      <div className="">
+        <Fotter />
       </div>
     </div>
   );

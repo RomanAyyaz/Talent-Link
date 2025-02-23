@@ -37,7 +37,7 @@ export default function TextNavbar() {
 
   const navigation = [
     { name: 'HOME',to: '/landingpage'  },
-    { name: 'NEWS', href: '#' },
+    { name: 'NEWS',to: '/landingpage'  },
     { name: 'INTERVIEW', to: '/interviewPreparation', },
     { name: 'COURSES', to:'/courses' },
     { name: 'JOBS', to: '/jobs' },
@@ -58,9 +58,9 @@ export default function TextNavbar() {
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="#" className="text-2xl font-bold">
+            <p  className="text-2xl font-bold">
               Talent-Link
-            </a>
+            </p>
           </div>
 
           {/* Desktop Navigation */}
