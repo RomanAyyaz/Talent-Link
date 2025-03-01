@@ -7,7 +7,6 @@ const deleteJob = async(req,res)=>{
         if (!deletedjob) {
             return res.status(404).json({ message: 'Job not found' });
         }
-
         return res.status(200).json({ message: 'Job deleted successfully' });
     } catch (error) {
         return res.status(500).json({error:error})

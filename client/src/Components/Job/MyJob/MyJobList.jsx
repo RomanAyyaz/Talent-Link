@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function MyJobList({job}) {
   let queryClient = useQueryClient()
   let deleteJobMutation = useMutation({
-    mutationFn: deleteJobApi(),
+    mutationFn: deleteJobApi,
     onSuccess:()=>{
       queryClient.invalidateQueries('jobs')
       console.log('Job delete SuccessFully')

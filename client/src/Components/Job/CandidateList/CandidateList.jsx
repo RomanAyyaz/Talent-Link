@@ -4,8 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getCandidatesApi } from "../JobApis";
 import { useParams } from "react-router-dom";
 import Candidate from "./Candidate";
+import { useState } from "react";
 export default function CandidateList() {
   const { id } = useParams();
+  //State to show the Data 
+  const [candidateStatus , setCandidateStatus] = useState('total')
   //Api Calling for getting The data of the specific job
   const { data, isLoading, error } = useQuery({
     queryKey: ["jobApplication", id],
@@ -18,6 +21,13 @@ export default function CandidateList() {
     <h2>error</h2>;
   }
   let candidatesData = data?.data || [];
+
+  let rejectedCandidateData =candidatesData.filter((data)=>{
+    return data.status === 'rejected'
+  })
+  let shortlistedCandidateData =candidatesData.filter((data)=>{
+    return data.status === 'shortlisted'
+  })
   return (
     <div className="p-6 max-w-6xl mx-auto">
       {/* Header Section */}
@@ -26,18 +36,43 @@ export default function CandidateList() {
           Candidate List
         </h1>
         <div className="flex flex-wrap gap-4 text-base">
-          <span className="font-semibold">Total: {candidatesData.length}</span>
-          <span className="text-gray-500">ShortListed: 0</span>
-          <span className="text-gray-500">Rejected: 0</span>
+          <button className="font-semibold" onClick={()=>{
+            setCandidateStatus('total')
+          }}  >Total: {candidatesData.length}</button>
+          <button className="text-gray-500" onClick={()=>{
+            setCandidateStatus('shortlisted')
+          }}  >ShortListed: {shortlistedCandidateData.length}</button>
+          <button className="text-gray-500" onClick={()=>{
+            setCandidateStatus('rejected')
+          }} >Rejected: {rejectedCandidateData.length}</button>
         </div>
       </div>
 
       {/* candidates lists */}
-      {candidatesData.map((candidateData, i) => (
-        <div className="my-2" key={i}>
-          <Candidate candidateData={candidateData} />
-        </div>
-      ))}
+      {
+        candidateStatus === 'total' ?  <>
+        {candidatesData.map((candidateData, i) => (
+          <div className="my-2" key={i}>
+            <Candidate candidateData={candidateData} />
+          </div>
+        ))}
+        </> :  candidateStatus === 'shortlisted' ? <>
+        
+        {shortlistedCandidateData.map((candidateData, i) => (
+          <div className="my-2" key={i}>
+            <Candidate candidateData={candidateData} />
+          </div>
+        ))}
+        </>  :  <>
+      
+        {rejectedCandidateData.map((candidateData, i) => (
+          <div className="my-2" key={i}>
+            <Candidate candidateData={candidateData} />
+          </div>
+        ))} 
+        </> 
+      }
+    
     </div>
   );
 }

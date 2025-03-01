@@ -84,9 +84,13 @@ export const getCandidatesApi = async (id)=>{
 
 //Api for updating the status of job application
 
-export const updateJobStatus = async({userId , jobId})=>{
+export const updateJobStatus = async({userId , jobId , jobStatus})=>{
     let response = await fetch(`http://localhost:8000/job/updateStatus/${userId}/${jobId}`,{
-        method:'PUT'
+        method:'PUT',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(jobStatus)
     })
     if(!response.ok){
         let errorResponse = await response.json()
