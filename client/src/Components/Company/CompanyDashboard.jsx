@@ -10,6 +10,7 @@ import PostJobForm from "../Job/PostJobs/PostJobForm";
 import MyJob from "../Job/MyJob/MyJob";
 import EditJob from "../Job/EditJob/EditJob";
 import ManageJobs from "../Job/ManageJobs/ManageJobs";
+import { CandidateProfile } from "../Job/HiringPipeLine/CandidateProfile";
 function CompanyDashboard() {
   return (
     <div className="h-screen flex flex-col">
@@ -32,6 +33,8 @@ function CompanyDashboard() {
           <Route path="myJob" element = {<MyJob/>} />
           <Route path="editJob/:id" element= {<EditJob/>}/>
           <Route path="manageJob/:id" element= {<ManageJobs/>} />
+          {/* Candiate profile  */}
+          <Route path="candidateProfile/:candidateId/:jobId" element = { < CandidateProfile/> }/>
         </Routes>
      
          

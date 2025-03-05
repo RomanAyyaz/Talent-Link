@@ -19,7 +19,6 @@ import Success from './Components/Payment/Success'
 import InterviewMainPage from './Components/Interview/InterviewMainPage';
 import ContactPage from './Components/User/Contact/ContactPage';
 
-
 function App() {
   return (
     <div className="App">
@@ -56,7 +55,7 @@ function App() {
 
           {/* Contact page details */}
           <Route path='/contact' element = {<ContactPage/>}/> 
-                   
+                 
         </Routes>
       </BrowserRouter>
 

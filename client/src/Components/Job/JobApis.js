@@ -98,3 +98,17 @@ export const updateJobStatus = async({userId , jobId , jobStatus})=>{
     }
     return response.json();
 }
+
+//Api for getting the jobdata and candidate data
+
+
+export const getJobCandidatesData = async ({candidateId , jobId})=>{
+    let response = await fetch(`http://localhost:8000/job/candidateJobData/${candidateId}/${jobId}`,{
+        method:"GET"
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json();
+}

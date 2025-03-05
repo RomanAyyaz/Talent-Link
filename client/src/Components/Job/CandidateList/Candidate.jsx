@@ -2,7 +2,7 @@ import React from "react";
 import { FileText, Send, Check, Trash2, MapPin, Clock } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { updateJobStatus } from "../JobApis";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 function Candidate({ candidateData }) {
   let { id } = useParams();
   let updateCandidateStatus = useMutation({
@@ -50,30 +50,36 @@ https://html.themewant.com/jobpath/template/assets/img/author/1.svg"
             <FileText className="w-4 h-4" />
             <span>Download CV</span>
           </button>
-          <button className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-green-500 hover:text-white transition-colors">
-            <Send className="w-4 h-4" />
-          </button>
+          <Link
+            to={`/dashboardCompany/candidateProfile/${candidateData.userId._id}/${id}`}
+          >
+            <button className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-green-500 hover:text-white transition-colors">
+              <Send className="w-4 h-4" />
+            </button>
+          </Link>
           <button
             className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-green-500 hover:text-white transition-colors"
             onClick={() => {
               updateCandidateStatus.mutate({
                 userId: candidateData.userId._id,
                 jobId: id,
-                jobStatus: {status:'shortlisted'}
+                jobStatus: { status: "shortlisted" },
               });
             }}
           >
             <Check className="w-4 h-4" />
           </button>
-          <button className="p-2 rounded-lg border border-gray-200 text-red-500 hover:bg-green-500 hover:text-white transition-colors"
-            onClick={()=>{
+          <button
+            className="p-2 rounded-lg border border-gray-200 text-red-500 hover:bg-green-500 hover:text-white transition-colors"
+            onClick={() => {
               updateCandidateStatus.mutate({
                 userId: candidateData.userId._id,
                 jobId: id,
-                jobStatus: {status:'rejected'}
+                jobStatus: { status: "rejected" },
               });
-            }}    >
-            <Trash2 className="w-4 h-4"  />
+            }}
+          >
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </div>

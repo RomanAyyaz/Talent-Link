@@ -21,7 +21,6 @@ export default function CandidateList() {
     <h2>error</h2>;
   }
   let candidatesData = data?.data || [];
-
   let rejectedCandidateData =candidatesData.filter((data)=>{
     return data.status === 'rejected'
   })

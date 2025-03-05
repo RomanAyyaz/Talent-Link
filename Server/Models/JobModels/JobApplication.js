@@ -34,7 +34,16 @@ let JobApplicationSchema = new mongoose.Schema({
         ],
         default: 'applied',
       },
-      
+      pipelineStages: [
+        {
+            name: { type: String, required: true },
+            status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
+            date: { type: Date },
+            feedback: { type: String },
+            interviewer: { type: String },
+        }
+    ],
+
     appliedAt:{
         type:Date,
         default:Date.now
