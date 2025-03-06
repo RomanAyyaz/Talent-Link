@@ -112,3 +112,19 @@ export const getJobCandidatesData = async ({candidateId , jobId})=>{
     }
     return response.json();
 }
+
+
+export const scheduleInterviewApi = async({candidateId , jobId , inetrviewData})=>{
+    let response = await fetch(`http://localhost:8000/job/scheduleInterview/${candidateId}/${jobId}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(inetrviewData)
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json();
+}

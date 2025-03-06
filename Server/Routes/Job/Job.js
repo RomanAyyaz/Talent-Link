@@ -9,6 +9,7 @@ const { getCandiates } = require('../../Controllers/Job/GetCandidates');
 const { hasUserApplied } = require('../../Controllers/Job/HasUserApplied');
 const { updateJobStatus } = require('../../Controllers/Job/UpdateJobStatus');
 const { candidateJobData } = require('../../Controllers/Job/CandidateJobData');
+const { scheduleInterview } = require('../../Controllers/Job/ScheduleInterview');
 
 const Router = express.Router();
 
@@ -37,5 +38,7 @@ Router.put('/updateStatus/:userId/:jobId' , updateJobStatus)
 
 //Api for getting the job and candidate data for hiring pipeline
 Router.get('/candidateJobData/:candidateId/:jobId' , candidateJobData)
+//Api for secdule the interview 
+Router.put('/scheduleInterview/:candidateId/:jobId',scheduleInterview)
 
 module.exports = Router

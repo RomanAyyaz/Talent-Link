@@ -18,28 +18,79 @@ import {
   AlertCircle,
 } from "lucide-react"
 import { useParams } from "react-router-dom"
-import { getJobCandidatesData } from "../JobApis"
-import { useQuery } from "@tanstack/react-query"
+import { getJobCandidatesData, scheduleInterviewApi } from "../JobApis"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export function CandidateProfile() {
   const [activeTab, setActiveTab] = useState("pipeline")
   const [showFeedback, setShowFeedback] = useState(null)
+  const [selectedDate, setSelectedDate] = useState("")
+  //const [selectedTime, setSelectedTime] = useState("")
+  const [selectedInterviewer , setSelectedInterviewer] = useState("")
+  const [interviewTitle, setInterviewTitle] = useState("")
+  const [interviewFeedback, setInterviewFeedback] = useState("")
+
+  //Schedule interview data 
+  const scheduledInterviewData = {
+    name: interviewTitle,
+    date: selectedDate,
+    interviewer: selectedInterviewer,
+    status : 'in-progress'
+  }
+  // const [scheduledInterviews, setScheduledInterviews] = useState([
+  //   {
+  //     id: 1,
+  //     title: "Technical Assessment",
+  //     date: "2023-06-15",
+  //     time: "10:00",
+  //     interviewer: "John Smith",
+  //     status: "completed",
+  //     feedback: "Excellent technical skills. Strong understanding of system architecture and design patterns.",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Culture Fit Interview",
+  //     date: "2023-06-22",
+  //     time: "14:30",
+  //     interviewer: "Emily Johnson",
+  //     status: "completed",
+  //     feedback: "Great team player. Aligned with company values and culture.",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Final Interview",
+  //     date: "2023-07-05",
+  //     time: "11:00",
+  //     interviewer: "Michael Rodriguez",
+  //     status: "upcoming",
+  //     feedback: "",
+  //   },
+  // ])
 
   // Destructure the params from the URL
-  const { candidateId, jobId } = useParams();
+  const { candidateId, jobId } = useParams()
   const { data, isLoading, error } = useQuery({
     queryKey: ["jobApplication", jobId],
-    queryFn: () => getJobCandidatesData({candidateId , jobId }),
-  });
+    queryFn: () => getJobCandidatesData({ candidateId, jobId }),
+  })
+  //Api calling for 
+  const scheduleInterviewMutations = useMutation({
+    mutationFn: scheduleInterviewApi,
+    onSuccess:()=>{
+      console.log('scheduleInterview successfully')
+    },
+    onError:()=>{
+      console.log('some error in interView Scheduling')
+    }
+  })
   if (isLoading) {
-    <h1>Loading....</h1>;
+    ;<h1>Loading....</h1>
   }
   if (error) {
-    <h2>error</h2>;
+    ;<h2>error</h2>
   }
-  let candidateJobData = data?.data || []
-  let candidateData = candidateJobData[0].userId
-  console.log(candidateJobData[0].pipelineStages)
+  const candidateJobData = data?.data || []
+  const candidateData = candidateJobData[0].userId
   //Dummy data for candidate
   const candidate = {
     name: "Alexandra Morrison",
@@ -241,6 +292,16 @@ export function CandidateProfile() {
             >
               Notes
             </button>
+            <button
+              onClick={() => setActiveTab("interviews")}
+              className={`${
+                activeTab === "interviews"
+                  ? "border-indigo-500 text-indigo-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            >
+              Schedule Interview
+            </button>
           </nav>
         </div>
       </div>
@@ -288,7 +349,7 @@ export function CandidateProfile() {
                               >
                                 {getStatusText(stage.status)}
                               </span>
-                              <span className="ml-4 text-sm text-gray-500">{stage.date}</span>
+                              <span className="ml-4 text-sm text-gray-500">  {new Date(stage.date).toISOString().split("T")[0]}</span>
                             </div>
                           </div>
 
@@ -406,6 +467,218 @@ export function CandidateProfile() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "interviews" && (
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-gray-900">Schedule Interview</h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-1">
+                <div className="bg-white border rounded-lg p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">New Interview</h3>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="interview-title" className="block text-sm font-medium text-gray-700">
+                        Interview Title
+                      </label>
+                      <input
+                        type="text"
+                        id="interview-title"
+                        className="mt-1 p-1.5 block w-full rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="e.g. Technical Interview"
+                        value={interviewTitle}
+                        onChange={(e) => setInterviewTitle(e.target.value)}
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="interview-date" className="block text-sm font-medium text-gray-700">
+                        Date
+                      </label>
+                      <input
+                        type="date"
+                        id="interview-date"
+                        className="mt-1 p-1.5 block w-full rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                      />
+                    </div>
+
+                    {/* <div>
+                      <label htmlFor="interview-time" className="block text-sm font-medium text-gray-700">
+                        Time
+                      </label>
+                      <input
+                        type="time"
+                        id="interview-time"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        value={selectedTime}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                      />
+                    </div> */}
+
+                    <div>
+                      <label htmlFor="interviewer" className="block text-sm font-medium text-gray-700">
+                        Interviewer
+                      </label>
+                      <select
+                        id="interviewer"
+                        className="mt-1 p-1.5 block w-full rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e)=>{
+                          setSelectedInterviewer(e.target.value)
+                        }}
+                      >
+                        <option>Select an interviewer</option>
+                        <option>Sarah Johnson</option>
+                        <option>David Chen</option>
+                        <option>Michael Rodriguez</option>
+                        <option>Emily Watson</option>
+                      </select>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                      // onClick={() => {
+                      //   if (interviewTitle && selectedDate && selectedTime) {
+                      //     setScheduledInterviews([
+                      //       ...scheduledInterviews,
+                      //       {
+                      //         id: scheduledInterviews.length + 4,
+                      //         title: interviewTitle,
+                      //         date: selectedDate,
+                      //         time: selectedTime,
+                      //         interviewer: "You",
+                      //         status: "upcoming",
+                      //         feedback: "",
+                      //       },
+                      //     ])
+                      //     setInterviewTitle("")
+                      //     setSelectedDate("")
+                      //     setSelectedTime("")
+                      //   }
+                      // }}
+                      onClick={()=>{
+                        scheduleInterviewMutations.mutate({
+                          candidateId: candidateId ,
+                          jobId : jobId,
+                          inetrviewData :  scheduledInterviewData 
+                        })
+                        setInterviewTitle("")
+                            setSelectedDate("")
+                      }}
+                    >
+                      Schedule Interview
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="lg:col-span-2">
+                <div className="bg-white border rounded-lg p-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Current Interview</h3>
+
+                  {scheduledInterviews.length === 0 ? (
+                    <p className="text-gray-500">No interview scheduled yet.</p>
+                  ) : (
+                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="text-lg font-medium text-gray-900">
+                            {scheduledInterviews[scheduledInterviews.length - 1].title}
+                          </h4>
+                          <div className="mt-1 flex items-center text-sm text-gray-500">
+                            <Calendar className="h-4 w-4 mr-1.5 text-gray-400" />
+                            {new Date(scheduledInterviews[scheduledInterviews.length - 1].date).toLocaleDateString(
+                              "en-US",
+                              {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              },
+                            )}
+                            <span className="mx-2">•</span>
+                            <Clock className="h-4 w-4 mr-1.5 text-gray-400" />
+                            {scheduledInterviews[scheduledInterviews.length - 1].time}
+                          </div>
+                          <div className="mt-1 text-sm text-gray-500">
+                            <User className="inline h-4 w-4 mr-1.5 text-gray-400" />
+                            Interviewer: {scheduledInterviews[scheduledInterviews.length - 1].interviewer}
+                          </div>
+                        </div>
+                        <span
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(scheduledInterviews[scheduledInterviews.length - 1].status)}`}
+                        >
+                          {getStatusText(scheduledInterviews[scheduledInterviews.length - 1].status)}
+                        </span>
+                      </div>
+
+                      {scheduledInterviews[scheduledInterviews.length - 1].status === "completed" ? (
+                        <div className="mt-4">
+                          <h5 className="text-sm font-medium text-gray-700">Feedback</h5>
+                          <p className="mt-1 text-sm text-gray-600">
+                            {scheduledInterviews[scheduledInterviews.length - 1].feedback}
+                          </p>
+                        </div>
+                      ) : scheduledInterviews[scheduledInterviews.length - 1].status === "upcoming" ? (
+                        <div className="mt-4">
+                          <button
+                            className="text-sm text-indigo-600 hover:text-indigo-500"
+                            onClick={() => {
+                              const updatedInterviews = [...scheduledInterviews]
+                              updatedInterviews[updatedInterviews.length - 1].status = "completed"
+                              setScheduledInterviews(updatedInterviews)
+                            }}
+                          >
+                            Mark as Completed
+                          </button>
+                        </div>
+                      ) : null}
+
+                      {scheduledInterviews[scheduledInterviews.length - 1].status === "completed" &&
+                        !scheduledInterviews[scheduledInterviews.length - 1].feedback && (
+                          <div className="mt-4">
+                            <label htmlFor="feedback-current" className="block text-sm font-medium text-gray-700">
+                              Add Feedback
+                            </label>
+                            <textarea
+                              id="feedback-current"
+                              rows={3}
+                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              placeholder="Enter feedback about the interview..."
+                              value={interviewFeedback}
+                              onChange={(e) => setInterviewFeedback(e.target.value)}
+                            ></textarea>
+                            <div className="mt-2 flex justify-end">
+                              <button
+                                type="button"
+                                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                onClick={() => {
+                                  if (interviewFeedback) {
+                                    const updatedInterviews = [...scheduledInterviews]
+                                    updatedInterviews[updatedInterviews.length - 1].feedback = interviewFeedback
+                                    setScheduledInterviews(updatedInterviews)
+                                    setInterviewFeedback("")
+                                  }
+                                }}
+                              >
+                                Save Feedback
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                    </div>
+                  )}
+                </div>
+              </div> */}
+
             </div>
           </div>
         )}
