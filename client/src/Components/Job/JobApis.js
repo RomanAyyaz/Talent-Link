@@ -128,3 +128,19 @@ export const scheduleInterviewApi = async({candidateId , jobId , inetrviewData})
     }
     return response.json();
 }
+
+//Updating the pipeline 
+export const updatePipeline = async({userId , jobId , jobStatus})=>{
+    let response = await fetch(`http://localhost:8000/job/updatePipeline/${userId}/${jobId}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(jobStatus)
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json();
+}

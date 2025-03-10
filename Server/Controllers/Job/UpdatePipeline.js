@@ -2,13 +2,13 @@ const JobApplication = require('../../Models/JobModels/JobApplication')
 const User = require('../../Models/UserModels/User');
 const sendShortlistedEmail = require('../../Utils/ShortListEmail')
 const rejectedEmail = require('../../Utils/RejectedEmail')
-let updateJobStatus = async (req, res) => {
+let updatePipeline = async (req, res) => {
     try {
 
         const { jobId } = req.params;
         const { userId } = req.params;
-        const {status} = req.body
-       
+        const {status  , name } = req.body
+
         const application = await JobApplication.findOne({ userId, jobId });
         const userData = await User.findById(userId)
 
@@ -19,21 +19,15 @@ let updateJobStatus = async (req, res) => {
             return res.status(404).json({ error: 'Application not found' });
         }
 
-        application.status = status;
-        await application.save();
-         // Sending ShortListed email
-         const email = userData.email
-         const fullname = userData.fullname
+       const interviewData = application.pipelineStages.filter((data)=>{
+          return data.name === name
+       })
+       interviewData[0].status = status
 
-         if(status === 'shortlisted') {
-            await sendShortlistedEmail(email, fullname);
-         }
-         if(status === 'rejected'){
-            await rejectedEmail(email, fullname);
-         }
+       await application.save()
        
         return res.status(200).json({
-            message: 'Candidate has been shortlisted successfully',
+            message: 'Status has been updated successfully',
             application
         });
 
@@ -44,5 +38,5 @@ let updateJobStatus = async (req, res) => {
 };
 
 module.exports = {
-    updateJobStatus
+    updatePipeline
 }

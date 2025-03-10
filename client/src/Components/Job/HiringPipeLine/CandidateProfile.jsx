@@ -18,7 +18,7 @@ import {
   AlertCircle,
 } from "lucide-react"
 import { useParams } from "react-router-dom"
-import { getJobCandidatesData, scheduleInterviewApi } from "../JobApis"
+import { getJobCandidatesData, scheduleInterviewApi, updatePipeline } from "../JobApis"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
 export function CandidateProfile() {
@@ -37,42 +37,15 @@ export function CandidateProfile() {
     interviewer: selectedInterviewer,
     status : 'in-progress'
   }
-  // const [scheduledInterviews, setScheduledInterviews] = useState([
-  //   {
-  //     id: 1,
-  //     title: "Technical Assessment",
-  //     date: "2023-06-15",
-  //     time: "10:00",
-  //     interviewer: "John Smith",
-  //     status: "completed",
-  //     feedback: "Excellent technical skills. Strong understanding of system architecture and design patterns.",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Culture Fit Interview",
-  //     date: "2023-06-22",
-  //     time: "14:30",
-  //     interviewer: "Emily Johnson",
-  //     status: "completed",
-  //     feedback: "Great team player. Aligned with company values and culture.",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Final Interview",
-  //     date: "2023-07-05",
-  //     time: "11:00",
-  //     interviewer: "Michael Rodriguez",
-  //     status: "upcoming",
-  //     feedback: "",
-  //   },
-  // ])
 
   // Destructure the params from the URL
   const { candidateId, jobId } = useParams()
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["jobApplication", jobId],
     queryFn: () => getJobCandidatesData({ candidateId, jobId }),
   })
+
   //Api calling for 
   const scheduleInterviewMutations = useMutation({
     mutationFn: scheduleInterviewApi,
@@ -83,11 +56,21 @@ export function CandidateProfile() {
       console.log('some error in interView Scheduling')
     }
   })
+  //Updating the candidate status 
+   let updateCandidateStatus = useMutation({
+      mutationFn: updatePipeline,
+      onSuccess: () => {
+        console.log("Job application status has been updated");
+      },
+      onError: () => {
+        console.log("Some error in updating the job application");
+      },
+    });
   if (isLoading) {
-    ;<h1>Loading....</h1>
+    <h1>Loading....</h1>
   }
   if (error) {
-    ;<h2>error</h2>
+    <h2>error</h2>
   }
   const candidateJobData = data?.data || []
   const candidateData = candidateJobData[0].userId
@@ -123,6 +106,10 @@ export function CandidateProfile() {
 
   const pipelineStages = candidateJobData[0].pipelineStages
 
+  const currentInterviewData = pipelineStages.filter((data)=>{
+    return data.status === 'in-progress'
+  })
+  // console.log(currentInterviewData[0].status)
   const notes = [
     {
       id: 1,
@@ -580,22 +567,25 @@ export function CandidateProfile() {
                 </div>
               </div>
 
-              {/* <div className="lg:col-span-2">
+              <div className="lg:col-span-2">
                 <div className="bg-white border rounded-lg p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Current Interview</h3>
 
-                  {scheduledInterviews.length === 0 ? (
+                  {currentInterviewData.length === 0 ? (
                     <p className="text-gray-500">No interview scheduled yet.</p>
                   ) : (
                     <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex justify-between items-start">
-                        <div>
+
+                        <div className="">
+
                           <h4 className="text-lg font-medium text-gray-900">
-                            {scheduledInterviews[scheduledInterviews.length - 1].title}
+                            {currentInterviewData[0].name}
                           </h4>
+
                           <div className="mt-1 flex items-center text-sm text-gray-500">
                             <Calendar className="h-4 w-4 mr-1.5 text-gray-400" />
-                            {new Date(scheduledInterviews[scheduledInterviews.length - 1].date).toLocaleDateString(
+                            {new Date(currentInterviewData[0].date).toLocaleDateString(
                               "en-US",
                               {
                                 weekday: "long",
@@ -604,37 +594,41 @@ export function CandidateProfile() {
                                 day: "numeric",
                               },
                             )}
-                            <span className="mx-2">•</span>
+                            <span className="mx-2"></span>
                             <Clock className="h-4 w-4 mr-1.5 text-gray-400" />
-                            {scheduledInterviews[scheduledInterviews.length - 1].time}
+                            10:00 PM
                           </div>
-                          <div className="mt-1 text-sm text-gray-500">
+
+                          <div className="mt-2 text-sm text-gray-500 text-start">
                             <User className="inline h-4 w-4 mr-1.5 text-gray-400" />
-                            Interviewer: {scheduledInterviews[scheduledInterviews.length - 1].interviewer}
+                            Interviewer: {currentInterviewData[0].interviewer}
                           </div>
+
                         </div>
                         <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(scheduledInterviews[scheduledInterviews.length - 1].status)}`}
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(currentInterviewData[0].status)}`}
                         >
-                          {getStatusText(scheduledInterviews[scheduledInterviews.length - 1].status)}
+                          {getStatusText(currentInterviewData[0].status)}
                         </span>
                       </div>
 
-                      {scheduledInterviews[scheduledInterviews.length - 1].status === "completed" ? (
+                      {currentInterviewData[0].status === "completed" ? (
                         <div className="mt-4">
                           <h5 className="text-sm font-medium text-gray-700">Feedback</h5>
                           <p className="mt-1 text-sm text-gray-600">
-                            {scheduledInterviews[scheduledInterviews.length - 1].feedback}
+                            {currentInterviewData[0].feedback}
                           </p>
                         </div>
-                      ) : scheduledInterviews[scheduledInterviews.length - 1].status === "upcoming" ? (
+                      ) : currentInterviewData[0].status === "in-progress" ? (
                         <div className="mt-4">
                           <button
                             className="text-sm text-indigo-600 hover:text-indigo-500"
                             onClick={() => {
-                              const updatedInterviews = [...scheduledInterviews]
-                              updatedInterviews[updatedInterviews.length - 1].status = "completed"
-                              setScheduledInterviews(updatedInterviews)
+                              updateCandidateStatus.mutate({
+                                userId: candidateId,
+                                jobId: jobId,
+                                jobStatus: { status: "completed" , name : currentInterviewData[0].name},
+                              });
                             }}
                           >
                             Mark as Completed
@@ -642,8 +636,8 @@ export function CandidateProfile() {
                         </div>
                       ) : null}
 
-                      {scheduledInterviews[scheduledInterviews.length - 1].status === "completed" &&
-                        !scheduledInterviews[scheduledInterviews.length - 1].feedback && (
+                      {currentInterviewData[0].status === "in-progress" &&
+                        currentInterviewData[0].feedback === 'To Be given' && (
                           <div className="mt-4">
                             <label htmlFor="feedback-current" className="block text-sm font-medium text-gray-700">
                               Add Feedback
@@ -651,7 +645,7 @@ export function CandidateProfile() {
                             <textarea
                               id="feedback-current"
                               rows={3}
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              className="mt-1 px-2 py-2 block w-full rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               placeholder="Enter feedback about the interview..."
                               value={interviewFeedback}
                               onChange={(e) => setInterviewFeedback(e.target.value)}
@@ -660,14 +654,6 @@ export function CandidateProfile() {
                               <button
                                 type="button"
                                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                onClick={() => {
-                                  if (interviewFeedback) {
-                                    const updatedInterviews = [...scheduledInterviews]
-                                    updatedInterviews[updatedInterviews.length - 1].feedback = interviewFeedback
-                                    setScheduledInterviews(updatedInterviews)
-                                    setInterviewFeedback("")
-                                  }
-                                }}
                               >
                                 Save Feedback
                               </button>
@@ -677,7 +663,7 @@ export function CandidateProfile() {
                     </div>
                   )}
                 </div>
-              </div> */}
+              </div>
 
             </div>
           </div>
