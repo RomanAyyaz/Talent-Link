@@ -37,7 +37,7 @@ let JobApplicationSchema = new mongoose.Schema({
       pipelineStages: [
         {
             name: { type: String, required: true },
-            status: { type: String, enum: ['pending', 'in-progress', 'completed' , 'upcoming'], default: 'pending' },
+            status: { type: String, enum: ['pending', 'in-progress', 'completed' , 'upcoming'], default: 'upcoming' },
             date: { type: Date },
             feedback: { type: String },
             interviewer: { type: String },

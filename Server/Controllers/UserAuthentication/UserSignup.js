@@ -1,7 +1,7 @@
 require('dotenv').config();
 const User = require('../../Models/UserModels/User');
 const sendOtpEmail = require('../../Utils/EmailService');
-
+const appEmitter = require('../../Utils/EventEmitter');
 const UserSignup = async (req, res) => {
     try {
         let { fullname, email, password } = req.body;
@@ -20,7 +20,8 @@ const UserSignup = async (req, res) => {
         await NewUser.save();
 
         // Sending OTP Email
-        await sendOtpEmail(email, fullname, otp);
+        //await sendOtpEmail(email, fullname, otp);
+        appEmitter.emit('userRegistered', { email, fullname, otp });
 
         res.status(201).json({ Message: 'User Created Successfully. You should receive an email' });
 

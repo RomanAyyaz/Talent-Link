@@ -1,10 +1,10 @@
 const  JobApplication = require('../../Models/JobModels/JobApplication')
 const defaultPipelineStages = [
-  { name: "Application Screening", status: "pending", date: null, feedback: "To Be given", interviewer: "TBA" },
-  { name: "Technical Assessment", status: "pending", date: null, feedback: "To Be given", interviewer: "TBA"},
-  { name: "Technical Interview", status: "pending", date: null, feedback: "To Be given", interviewer: "TBA" },
-  { name: "Team Interview", status: "pending", date: null, feedback: "To Be given", interviewer: "TBA" },
-  { name: "Final Interview", status: "pending", date: null, feedback: "To Be given", interviewer: "TBA" },
+  { name: "Application Screening", status: "upcoming", date: null, feedback: "To Be given", interviewer: "TBA" },
+  { name: "Technical Assessment", status: "upcoming", date: null, feedback: "To Be given", interviewer: "TBA"},
+  { name: "Technical Interview", status: "upcoming", date: null, feedback: "To Be given", interviewer: "TBA" },
+  { name: "Team Interview", status: "upcoming", date: null, feedback: "To Be given", interviewer: "TBA" },
+  { name: "Final Interview", status: "upcoming", date: null, feedback: "To Be given", interviewer: "TBA" },
 ];
  let addApplication = async (req, res) => {
     const { jobId, userId, resume, coverLetter } = req.body;
