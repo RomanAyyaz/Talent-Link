@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { 
   HomeIcon, 
   CalendarIcon, 
-  UserGroupIcon, 
+  // UserGroupIcon, 
   AcademicCapIcon,
   BookOpenIcon,
   BuildingLibraryIcon,
@@ -22,8 +22,8 @@ export default function Sidebar() {
 
   const menuItems = [
     { name: 'Dashboard', icon: HomeIcon, to: '/dashboard' },
-    { name: 'Profile', icon: CalendarIcon, to: '/dashboardCompany/profile' }, 
-    { name: 'Professors', icon: UserGroupIcon, to: '/professors' },
+    { name: 'Edit Profile', icon: CalendarIcon, to: '/dashboardCompany/profile' }, 
+    // { name: 'Professors', icon: UserGroupIcon, to: '/professors' },
     { 
       name: 'Job', 
       icon: UsersIcon, 
@@ -135,7 +135,7 @@ export default function Sidebar() {
                     )}
                   </Link>
                 ) : (
-                  <a
+                  <p
                     href="#"
                     className="flex items-center gap-4 text-gray-600 hover:bg-indigo-50 rounded-lg p-2 group"
                   >
@@ -148,7 +148,7 @@ export default function Sidebar() {
                         {item.name}
                       </div>
                     )}
-                  </a>
+                  </p>
                 )
               )}
             </li>

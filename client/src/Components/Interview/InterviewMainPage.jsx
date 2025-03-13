@@ -11,9 +11,9 @@ function InterviewMainPage() {
         <div>
             <InterviewBookingPage/>
         </div>
-        <div className="mt-3">
+        {/* <div className="mt-3">
         <OtherLinks />
-      </div>
+      </div> */}
       <div className="">
         <Fotter />
       </div>

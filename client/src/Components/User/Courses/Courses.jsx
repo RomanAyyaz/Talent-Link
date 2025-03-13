@@ -3,7 +3,6 @@ import Navbar from "../Navbar";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getAllCoursesData, searchCoursesApi } from "./CoursesApi";
 import Fotter from "../Fotter/Fotter";
-import OtherLinks from "../LandingPage/OtherLinks/OtherLinks";
 import CoursesList from "./CoursesList/CoursesList";
 
 function Courses() {
@@ -129,9 +128,7 @@ function Courses() {
           ))
         )}
       </div>
-      <div className="mt-3">
-        <OtherLinks />
-      </div>
+
       <div className="">
         <Fotter />
       </div>

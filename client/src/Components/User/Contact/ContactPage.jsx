@@ -2,7 +2,6 @@
 import Navbar from '../Navbar';
 import { useState } from "react"
 import { MapPin, Phone, Mail } from "lucide-react"
-import OtherLinks from '../LandingPage/OtherLinks/OtherLinks';
 import Fotter from '../Fotter/Fotter';
 
 const ContactPage = () => {
@@ -140,9 +139,6 @@ const ContactPage = () => {
         </div>
       </div>
     </div>
-    <div className="mt-3">
-        <OtherLinks />
-      </div>
       <div className="">
         <Fotter />
       </div>

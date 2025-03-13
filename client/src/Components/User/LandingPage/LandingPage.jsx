@@ -18,7 +18,7 @@ function LandingPage() {
         <SuccessStories/>
         <EnhancedFeatureSection/>
         <LatestNews/>
-        <OtherLinks/>
+        {/* <OtherLinks/> */}
         <Fotter/>
 
     </div>

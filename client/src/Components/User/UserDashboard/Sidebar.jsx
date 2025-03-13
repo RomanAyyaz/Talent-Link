@@ -20,7 +20,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { icon: LayoutGrid, text: 'Dashboard', to: '/UserDashboard' },
-    { icon: User, text: 'Profile', to: '/UserDashboard/user-profile' },
+    { icon: User, text: 'Edit Profile', to: '/UserDashboard/user-profile' },
     { icon: FileText, text: 'My Resume', to: '/UserDashboard/myResume' },
     { icon: Briefcase, text: 'Applied Job', to: '/applied-jobs' },
     { icon: ListChecks, text: 'Jobs shortlist', to: '/shortlist' },

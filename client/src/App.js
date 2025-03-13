@@ -18,6 +18,7 @@ import Main from './Components/User/Job/JobMainPage/Main';
 import Success from './Components/Payment/Success'
 import InterviewMainPage from './Components/Interview/InterviewMainPage';
 import ContactPage from './Components/User/Contact/ContactPage';
+import ProfileComponent from './Components/User/UserProfile/ProfileComponent';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* User Routes */}
+          <Route path='/userProfile' element = {<ProfileComponent/>}/>
           {/* Registration routes */}
           <Route path='/' element={<Login />} />
           <Route path='/changePassword' element={<ChangePassword />} />

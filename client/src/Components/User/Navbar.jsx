@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Youtube, Search } from 'lucide-react'
-import {
-  FaFacebookF,
-  FaYoutube,
-  FaInstagram,
-  FaTwitter,
-} from "react-icons/fa";
+// import {
+//   FaFacebookF,
+//   FaYoutube,
+//   FaInstagram,
+//   FaTwitter,
+// } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const UserDropdown = ({ isOpen, setIsOpen }) => (
@@ -23,8 +23,7 @@ const UserDropdown = ({ isOpen, setIsOpen }) => (
     {isOpen && (
       <div className="absolute z-50 text-start right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5">
          <Link to="/UserDashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
-        <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
-        <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</Link>
+        <Link to="/UserProfile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
         <Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</Link>
       </div>
     )}
