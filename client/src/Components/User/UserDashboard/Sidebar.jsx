@@ -22,8 +22,8 @@ const Sidebar = () => {
     { icon: LayoutGrid, text: 'Dashboard', to: '/UserDashboard' },
     { icon: User, text: 'Edit Profile', to: '/UserDashboard/user-profile' },
     { icon: FileText, text: 'My Resume', to: '/UserDashboard/myResume' },
-    { icon: Briefcase, text: 'Applied Job', to: '/applied-jobs' },
-    { icon: ListChecks, text: 'Jobs shortlist', to: '/shortlist' },
+    { icon: Briefcase, text: 'Applied Job', to: '/UserDashboard/appliedJobs' },
+    { icon: ListChecks, text: 'Jobs shortlist', to: '/UserDashboard/shortListJobs' },
     { icon: MessageSquare, text: 'Message', to: '/messages' },
     { icon: Bell, text: 'Job Alerts', to: '/alerts' }
   ];

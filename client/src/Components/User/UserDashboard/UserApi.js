@@ -37,3 +37,14 @@ export const deleteUserProjectApi = async ({ userId, projectId }) => {
   return data;
 };
 
+//api for getting user applied jobs  
+export const getUserAppliedJobs = async (userId)=>{
+  let response = await fetch(`http://localhost:8000/job/appliedJobs/${userId}`,{
+      method:"GET"
+  })
+  if(!response.ok){
+      let errorResponse = await response.json()
+      throw new Error(errorResponse.message || 'Network response was not ok')
+  }
+  return response.json();
+}

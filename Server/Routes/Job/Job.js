@@ -11,6 +11,7 @@ const { updateJobStatus } = require('../../Controllers/Job/UpdateJobStatus');
 const { candidateJobData } = require('../../Controllers/Job/CandidateJobData');
 const { scheduleInterview } = require('../../Controllers/Job/ScheduleInterview');
 const { updatePipeline } = require('../../Controllers/Job/UpdatePipeline');
+const { UserAppliedJobs } = require('../../Controllers/Job/UserAppliedJobs');
 
 const Router = express.Router();
 
@@ -33,15 +34,17 @@ Router.post('/addApplication',addApplication)
 Router.get('/candidates/:id',getCandiates)
 //Route for checking that user has applied for the job or not
 Router.get('/hasApplied/:userId/:jobId',hasUserApplied)
-
 //Route for updating the job application status
 Router.put('/updateStatus/:userId/:jobId' , updateJobStatus)
-
 //Api for getting the job and candidate data for hiring pipeline
 Router.get('/candidateJobData/:candidateId/:jobId' , candidateJobData)
 //Api for secdule the interview 
 Router.put('/scheduleInterview/:candidateId/:jobId',scheduleInterview)
 //Api for updating the pipeline 
 Router.put('/updatePipeline/:userId/:jobId' , updatePipeline)
+//Api for getting the data of user Applied jobs
+Router.get('/appliedJobs/:userId',UserAppliedJobs)
+
+
 
 module.exports = Router
