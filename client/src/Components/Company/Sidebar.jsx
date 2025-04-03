@@ -9,7 +9,6 @@ import {
   BuildingOfficeIcon,
   UsersIcon,
   CalendarDaysIcon,
-  CreditCardIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDownIcon
@@ -21,7 +20,7 @@ export default function Sidebar() {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const menuItems = [
-    { name: 'Dashboard', icon: HomeIcon, to: '/dashboard' },
+    { name: 'Dashboard', icon: HomeIcon, to: '/dashboardCompany/dashboard' },
     { name: 'Edit Profile', icon: CalendarIcon, to: '/dashboardCompany/profile' }, 
     // { name: 'Professors', icon: UserGroupIcon, to: '/professors' },
     { 
@@ -44,11 +43,10 @@ export default function Sidebar() {
         { name: 'About Courses', to: '#' },
       ]
     },
-    { name: 'Library', icon: BookOpenIcon, to: '/library' },
-    { name: 'Departments', icon: BuildingLibraryIcon, to: '/departments' },
-    { name: 'Staff', icon: BuildingOfficeIcon, to: '/staff' },
-    { name: 'Holiday', icon: CalendarDaysIcon, to: '/holiday' },
-    { name: 'Fees', icon: CreditCardIcon, to: '/fees' },
+    { name: 'Candidate Shortlist', icon: BookOpenIcon, to: '/dashboardCompany/candidateShortlist' },
+    { name: 'Package', icon: BookOpenIcon, to: '/dashboardCompany/package' },
+    { name: 'Change Password', icon: BuildingOfficeIcon, to: '/dashboardCompany/changePassword' },
+    { name: 'Delete Profile', icon: CalendarDaysIcon, to: '/dashboardCompany/deleteProfile' },
   ];
 
   // Toggles the expanded menu. If the same index is clicked again, collapse it.

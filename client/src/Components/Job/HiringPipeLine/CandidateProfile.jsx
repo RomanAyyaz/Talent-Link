@@ -21,6 +21,8 @@ import { useParams } from "react-router-dom"
 import { getJobCandidatesData, scheduleInterviewApi, updatePipeline } from "../JobApis"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
+import Messages from "../Messages/Messages"
+
 export function CandidateProfile() {
   const [activeTab, setActiveTab] = useState("pipeline")
   const [showFeedback, setShowFeedback] = useState(null)
@@ -289,6 +291,18 @@ export function CandidateProfile() {
             >
               Schedule Interview
             </button>
+
+            <button
+              onClick={() => setActiveTab("messages")}
+              className={`${
+                activeTab === "messages"
+                  ? "border-indigo-500 text-indigo-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            >
+              Inbox
+            </button>
+
           </nav>
         </div>
       </div>
@@ -675,6 +689,11 @@ export function CandidateProfile() {
             </div>
           </div>
         )}
+        {
+          activeTab === 'messages' &&(
+           <Messages/>
+          )
+        }
       </div>
     </div>
   )

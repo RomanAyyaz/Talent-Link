@@ -28,14 +28,15 @@ export function Pipeline() {
    const { user} = useUserStore();
   // Destructure the params from the URL
   const { jobId } = useParams();
-  let candidateId = user._id
+    //let candidateId = user._id
     const { data, isLoading, error } = useQuery({
       queryKey: ["jobApplication", jobId],
-      queryFn: () => getJobCandidatesData({ candidateId, jobId }),
+      queryFn: () => getJobCandidatesData({ candidateId : user._id, jobId }),
     })
-
+    console.log('dd',data)
   const candidateJobData = data?.data || []
-  const candidateData = candidateJobData[0].userId
+  const candidateData = candidateJobData[0]?.userId
+  console.log('cc',candidateJobData)
   //Dummy data for candidate
   const candidate = {
     name: "Alexandra Morrison",
@@ -73,6 +74,7 @@ export function Pipeline() {
     <h2>error</h2>
   }
   const pipelineStages = candidateJobData[0]?.pipelineStages || [];
+  console.log('pp',pipelineStages)
 
 
   const getStatusIcon = (status) => {
@@ -132,7 +134,7 @@ export function Pipeline() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
                   <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-                    {candidateData.fullname}
+                    {candidateData?.fullname}
                   </h1>
                   <p className="text-lg text-indigo-600">
                     {candidate.profession}
@@ -162,7 +164,7 @@ export function Pipeline() {
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <Mail className="h-4 w-4 mr-1.5 text-gray-400" />
-                  {candidateData.email}
+                  {candidateData?.email}
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <Phone className="h-4 w-4 mr-1.5 text-gray-400" />
@@ -170,7 +172,7 @@ export function Pipeline() {
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <Briefcase className="h-4 w-4 mr-1.5 text-gray-400" />
-                  {candidateData.experience}+ years Experience
+                  {candidateData?.experience}+ years Experience
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <Calendar className="h-4 w-4 mr-1.5 text-gray-400" />
@@ -178,7 +180,7 @@ export function Pipeline() {
                 </div>
               </div>
               <div className="mt-4 flex gap-2">
-                <a href={candidateData.linkedInLink} className="text-gray-400 hover:text-indigo-600">
+                <a href={candidateData?.linkedInLink} className="text-gray-400 hover:text-indigo-600">
                   <Linkedin className="h-5 w-5" />
                 </a>
                 <a
@@ -376,9 +378,11 @@ export function Pipeline() {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
