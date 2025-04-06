@@ -1,8 +1,9 @@
 import React from "react";
-import { FileText, Send, Check, Trash2, MapPin, Clock } from "lucide-react";
+import { FileText, Check, Trash2, MapPin, Clock } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { updateJobStatus } from "../JobApis";
 import { Link, useParams } from "react-router-dom";
+import { Eye } from "react-feather";
 function Candidate({ candidateData }) {
   let { id } = useParams();
   let updateCandidateStatus = useMutation({
@@ -19,8 +20,7 @@ function Candidate({ candidateData }) {
       <div className="flex flex-col  md:flex-row items-start md:items-center gap-6">
         {/* Profile Image */}
         <img
-          src="
-https://html.themewant.com/jobpath/template/assets/img/author/1.svg"
+          src={`http://localhost:8000${candidateData.userId.imageUrl}`}
           alt="Profile"
           className="w-20 h-20 rounded-lg object-cover"
         />
@@ -50,13 +50,14 @@ https://html.themewant.com/jobpath/template/assets/img/author/1.svg"
             <FileText className="w-4 h-4" />
             <span>Download CV</span>
           </button>
-          <Link
+            <button className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-green-500 hover:text-white transition-colors">
+            <Link
             to={`/dashboardCompany/candidateProfile/${candidateData.userId._id}/${id}`}
           >
-            <button className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-green-500 hover:text-white transition-colors">
-              <Send className="w-4 h-4" />
+              <Eye className="w-4 h-4" />
+              </Link>
             </button>
-          </Link>
+          
           <button
             className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-green-500 hover:text-white transition-colors"
             onClick={() => {

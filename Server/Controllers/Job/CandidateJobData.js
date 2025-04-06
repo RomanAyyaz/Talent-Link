@@ -18,3 +18,4 @@ const candidateJobData = async (req, res) => {
 module.exports = {
     candidateJobData
 }
+

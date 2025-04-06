@@ -33,3 +33,20 @@ export const hasUserAppliedApi = async({userId , jobId})=>{
     const data = await response.json();
     return data;
 }
+
+//Api for job Alert 
+export const jobAlertApi = async(values)=>{
+    console.log(values)
+    let response = await fetch(`${API_BASE_URL}/job/subscribe`,{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(values)
+    })
+    if(!response.ok){
+        let errorResponse = await response.json()
+        throw new Error(errorResponse.message || 'Network response was not ok')
+    }
+    return response.json()
+}

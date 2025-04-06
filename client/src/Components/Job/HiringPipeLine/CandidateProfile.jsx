@@ -185,7 +185,7 @@ export function CandidateProfile() {
             <div className="-mt-16 md:-mt-24 flex-shrink-0">
               <img
                 className="h-24 w-24 md:h-40 md:w-40 rounded-full border-4 border-white object-cover"
-                src={candidate.photo || "/placeholder.svg"}
+                src={`http://localhost:8000${candidateData.imageUrl}`}
                 alt={candidate.name}
               />
             </div>

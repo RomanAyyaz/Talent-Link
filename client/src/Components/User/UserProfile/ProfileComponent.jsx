@@ -3,6 +3,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaPinterest, FaYoutube, FaMapMarke
 import { BsBriefcaseFill, BsCalendarEvent } from 'react-icons/bs';
 import { IoSchool, IoWallet } from 'react-icons/io5';
 import Navbar from '../Navbar'
+import { useUserStore } from '../../../Store/UserStore';
 const ProfileComponent = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -10,7 +11,7 @@ const ProfileComponent = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
+ const { user} = useUserStore();
   return (
     <>
     <Navbar/>
@@ -20,7 +21,7 @@ const ProfileComponent = () => {
 
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-6">
           <img 
-            src="https://html.themewant.com/jobpath/template/assets/img/author/1.svg" 
+            src={`http://localhost:8000${user.imageUrl}`}
             alt="Profile" 
             className="w-36 h-36 rounded-md object-cover"
           />

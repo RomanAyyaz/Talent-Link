@@ -5,7 +5,6 @@ import {
   // UserGroupIcon, 
   AcademicCapIcon,
   BookOpenIcon,
-  BuildingLibraryIcon,
   BuildingOfficeIcon,
   UsersIcon,
   CalendarDaysIcon,

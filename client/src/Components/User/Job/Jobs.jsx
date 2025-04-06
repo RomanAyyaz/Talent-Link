@@ -1,13 +1,40 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import Navbar from "../Navbar";
-import { getAllJobsApi } from "./JobApis";
-import { useQuery } from "@tanstack/react-query";
+import { getAllJobsApi, jobAlertApi } from "./JobApis";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import AllJobslist from "./AllJobs/AllJobslist";
-import OtherLinks from "../LandingPage/OtherLinks/OtherLinks";
+import { ChevronDown } from 'lucide-react';
 import Fotter from "../Fotter/Fotter";
+import { useUserStore } from "../../../Store/UserStore";
 
 export default function Jobs() {
+    const { user} = useUserStore();
+    const [frequency, setFrequency] = useState('Daily');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [type , setType] = useState('')
+    const frequencies = ['Daily', 'Weekly', 'Bi-Weekly', 'Monthly'];
+
+    const jobAlertData = {
+      jobType : type ,
+      frequency : frequency,
+      email : user.email
+    }
+    const jobAlertMutation = useMutation({
+      mutationFn: jobAlertApi,
+      onSuccess:()=>{
+        console.log('Job Alert has been added successfully')
+        setType('')
+        setFrequency('dialy')
+      },
+      onError:()=>{
+        console.log('There is some error in adding job alert ')
+      }
+    })
+    const handleSave = () => {
+     
+      jobAlertMutation.mutate(jobAlertData)
+    };
   const [jobType, setJobType] = useState({
     fulltime: false,
     parttime: false,
@@ -202,7 +229,72 @@ export default function Jobs() {
               </div>
             </div>
           </aside>
+
+          <div className="max-w-md mt-4 mx-auto bg-gradient-to-br from-gray-100 to-gray-50 p-8 rounded-md shadow-sm">
+      <h2 className=" text-start text-xl font-bold mb-6">Job Alert</h2>
+      
+      {/* Job Type Input */}
+      <div className="mb-8">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+            <Search size={20} className="text-gray-400" />
+          </div>
+          <input
+            type="text"
+            placeholder="Enter Type Of job"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="w-full py-4 pl-10 pr-4 bg-white border-0 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-600"
+          />
         </div>
+      </div>
+      
+      {/* Email Frequency */}
+      <div className="mb-8">
+        <label className="block text-start text-xl font-bold mb-4">
+          Email Frequency
+        </label>
+        <div className="relative">
+          <button
+            type="button"
+            className="w-full flex items-center justify-between py-4 px-4 bg-white border-0 rounded-xl text-gray-600"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            <span>{frequency}</span>
+            <ChevronDown size={20} className="text-gray-400" />
+          </button>
+          
+          {isDropdownOpen && (
+            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg">
+              {frequencies.map((option) => (
+                <div
+                  key={option}
+                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => {
+                    setFrequency(option);
+                    setIsDropdownOpen(false);
+                  }}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Save Button */}
+      <button
+        onClick={handleSave}
+        className="w-full py-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-xl transition-colors"
+      >
+        Save Job Alert
+      </button>
+    </div>
+        </div>
+
+
+   
 
         {/* Jobs List */}
         <div className="flex gap-4 flex-wrap px-6 mt-4 w-full md:w-3/5 ">
@@ -216,10 +308,12 @@ export default function Jobs() {
             <div>No Jobs Found</div>
           )}
         </div>
+
       </div>
       {/* <div className="mt-3">
         <OtherLinks />
       </div> */}
+
       <div className="">
         <Fotter />
       </div>

@@ -61,6 +61,10 @@ const UserSchema = new mongoose.Schema({
     userDescription:{
         type:String
     },
+    imageUrl: {
+        type: String,
+        //required:true
+    },
     //Social links
     facebookLink:{
         type:String,

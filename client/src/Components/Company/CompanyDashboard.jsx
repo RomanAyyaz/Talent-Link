@@ -15,6 +15,7 @@ import ComDash from "./CompanyDashBoard/ComDash";
 import PasswordChangeForm from "./ChangePass/PasswordChangeForm";
 import DeleteProfile from "./DeleteProfile/DeleteProfile";
 import ComPackages from "./Package/ComPackages";
+import CandShort from "./CandidateShortlist/CandShort";
 function CompanyDashboard() {
   return (
     <div className="h-screen flex flex-col">
@@ -31,6 +32,7 @@ function CompanyDashboard() {
           <Route path="/changePassword" element = {<PasswordChangeForm/>}/>
           <Route path="/deleteProfile" element = {<DeleteProfile/>}/>
           <Route path="/package" element = {<ComPackages/>}/>
+          <Route path="/candidateShortlist" element = {<CandShort/>}/>
 
           {/* Company profile */}
           <Route path='profile' element={ <CompanyProfile />} />

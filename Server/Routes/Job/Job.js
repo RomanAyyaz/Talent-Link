@@ -12,6 +12,8 @@ const { candidateJobData } = require('../../Controllers/Job/CandidateJobData');
 const { scheduleInterview } = require('../../Controllers/Job/ScheduleInterview');
 const { updatePipeline } = require('../../Controllers/Job/UpdatePipeline');
 const { UserAppliedJobs } = require('../../Controllers/Job/UserAppliedJobs');
+const { candidateShortlist } = require('../../Controllers/Job/CandidateShortlist');
+const { jobAlertSub } = require('../../Controllers/Job/JobAlertSub');
 
 const Router = express.Router();
 
@@ -44,7 +46,9 @@ Router.put('/scheduleInterview/:candidateId/:jobId',scheduleInterview)
 Router.put('/updatePipeline/:userId/:jobId' , updatePipeline)
 //Api for getting the data of user Applied jobs
 Router.get('/appliedJobs/:userId',UserAppliedJobs)
-
-
+//Api for getting the data of shortlisted candidates
+Router.get('/candidateShortlist' , candidateShortlist )
+//Api for Job Alert 
+Router.post('/subscribe' , jobAlertSub)
 
 module.exports = Router

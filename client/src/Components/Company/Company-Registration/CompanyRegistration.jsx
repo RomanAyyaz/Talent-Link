@@ -40,7 +40,7 @@ function CompanyRegistration() {
   let SigninMutation = useMutation({
     mutationFn: companySigninApi,
     onSuccess: (data) => {
-      navigate("/dashboardCompany");
+      navigate("/dashboardCompany/dashboard");
       setCompanyId(data.companyData._id);
       toast.success("Logged in Successfully", {
         position: "top-center",

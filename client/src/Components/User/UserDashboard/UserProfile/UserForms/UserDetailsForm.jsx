@@ -9,7 +9,8 @@ function UserDetailsForm() {
   // Formik Structure 
   const initialValues = {
     fullname:"", email:"" , phoneNumber:"" , dateOfBirth:"" , gender:"" , age:"" ,
-    qualification:"" , language:"" , experience:"" , showProfile:"", userDescription:""
+    qualification:"" , language:"" , experience:"" , showProfile:"", userDescription:"",
+    imageUrl:null
   }
   //API CALLING FOR UPDATING THE DATA
   let addProfileMutation = useMutation({
@@ -228,7 +229,32 @@ function UserDetailsForm() {
                 </Field>
               </div>
             </div>
+            {/* Image url */}
+            <div className='w-full md:w-1/2 mt-2'>
+                  <label
+                    className="text-start text-sm font-medium mt-3"
+                    htmlFor="imageUrl"
+                  >
+                    Profile Picture
+                  </label>
+                  <div className="text-start w-full mt-2 md:w-11/12">
+                    <input
+                      className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                      name="imageUrl"
+                      type="file"
+                      onChange={(event) => {
+                        const file = event.currentTarget.files[0]
+                        formik.setFieldValue("imageUrl",file);
+                    }}
+                      
+                      placeholder="Course Photo"
+                    />
+                  </div>
+                  
+            </div>
             {/* User description */}
+            <div className='w-full md:w-1/2 mt-2'>       
+            </div>
             <label
               className="text-start text-sm font-medium mt-3"
               htmlFor="userDescription"

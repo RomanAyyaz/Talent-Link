@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Briefcase, Clock, ChevronDown } from 'lucide-react';
-
+// import {  ChevronDown } from 'react-feather';
 export default function Sidebar() {
+  const [frequency, setFrequency] = useState('Daily');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  const frequencies = ['Daily', 'Weekly', 'Bi-Weekly', 'Monthly'];
+  
+  const handleSave = () => {
+    console.log('Job Alert Saved:', { jobType, frequency });
+    // Add your save logic here
+  };
   const [jobType, setJobType] = useState({
     fullTime: false,
     partTime: false,
@@ -44,6 +53,8 @@ export default function Sidebar() {
   ];
 
   return (
+    <>
+    
     <div className='w-full'>
      <aside className="text-start py-6 w-full rounded-md px-4  mt-4  min-h-screen bg-gradient-to-b from-[#FDF2EB] to-[#F1F1F1]">
       {/* Search By Job Title */}
@@ -201,6 +212,70 @@ export default function Sidebar() {
       </div> */}
     </aside>
     </div>
+
+    <div className="max-w-md mx-auto bg-gradient-to-br from-gray-100 to-gray-50 p-8 rounded-3xl shadow-sm">
+      <h2 className="text-3xl font-bold text-purple-950 mb-6">Job Alert</h2>
+      
+      {/* Job Type Input */}
+      <div className="mb-8">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+            <Search size={20} className="text-gray-400" />
+          </div>
+          <input
+            type="text"
+            placeholder="Enter Type Of job"
+            value={jobType}
+            onChange={(e) => setJobType(e.target.value)}
+            className="w-full py-4 pl-10 pr-4 bg-white border-0 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-600"
+          />
+        </div>
+      </div>
+      
+      {/* Email Frequency */}
+      <div className="mb-8">
+        <label className="block text-2xl font-bold text-purple-950 mb-4">
+          EmailFrequency
+        </label>
+        <div className="relative">
+          <button
+            type="button"
+            className="w-full flex items-center justify-between py-4 px-4 bg-white border-0 rounded-xl text-gray-600"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            <span>{frequency}</span>
+            <ChevronDown size={20} className="text-gray-400" />
+          </button>
+          
+          {isDropdownOpen && (
+            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg">
+              {frequencies.map((option) => (
+                <div
+                  key={option}
+                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => {
+                    setFrequency(option);
+                    setIsDropdownOpen(false);
+                  }}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Save Button */}
+      <button
+        onClick={handleSave}
+        className="w-full py-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-xl transition-colors"
+      >
+        Save Job Alert
+      </button>
+    </div>
+    
+    </>
   );
 }
 

@@ -20,7 +20,7 @@ const { addCertification } = require('../../Controllers/ResumeBuilder/AddCertifi
 const { addProject } = require('../../Controllers/ResumeBuilder/AddProject')
 const {getAllCourses} = require('../../Controllers/Course/GetAllCourses')
 const { getCourseData } = require('../../Controllers/Course/GetCourseData')
-const { updateUser } = require('../../Controllers/UserProfile/UpdateUser')
+const { updateUser , uploads } = require('../../Controllers/UserProfile/UpdateUser')
 const { userProjects , upload } = require('../../Controllers/UserProfile/UserProjects')
 const { deleteUserProject } = require('../../Controllers/UserProfile/DeleteUserProject');
 const { updateCourseStatus } = require('../../Controllers/Course/UpdateCourseStatus');
@@ -33,7 +33,7 @@ const { AddInterview } = require('../../Controllers/Interview/AddInterview');
 Router.post('/signup',UserSignup)
 
 //Route to update the user
-Router.put('/updateUser/:id',updateUser)
+Router.put('/updateUser/:id' , upload.single('imageUrl') ,updateUser)
 
 //User Projects (multiple images)
 Router.put('/projects/:id', upload.array('projectImages'), userProjects);

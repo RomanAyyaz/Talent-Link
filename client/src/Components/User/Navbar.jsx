@@ -7,15 +7,19 @@ import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Youtube, Search } f
 //   FaTwitter,
 // } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useUserStore } from '../../Store/UserStore';
 
-const UserDropdown = ({ isOpen, setIsOpen }) => (
+
+const UserDropdown = ({ isOpen, setIsOpen , user }) => (
+  
   <div className="relative">
+    
     <button
       onClick={() => setIsOpen(!isOpen)}
       className="flex items-center focus:outline-none"
     >
       <img
-        src="https://html.themewant.com/jobpath/template/assets/img/author/1.svg"
+       src={`http://localhost:8000${user.imageUrl}`}
         alt="User"
         className="h-10 w-10 rounded-full"
       />
@@ -30,7 +34,9 @@ const UserDropdown = ({ isOpen, setIsOpen }) => (
   </div>
 );
 
-export default function TextNavbar() {
+export default function TextNavbar() { 
+   const { user} = useUserStore();
+   console.log('user is' , user)
   const [isOpen, setIsOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
@@ -81,7 +87,7 @@ export default function TextNavbar() {
           {/* Desktop Right Section */}
           <div className="hidden lg:flex items-center space-x-4">
             
-            <UserDropdown isOpen={isDropdownOpen} setIsOpen={setIsDropdownOpen} />
+            <UserDropdown isOpen={isDropdownOpen} setIsOpen={setIsDropdownOpen} user = {user}/>
           </div>
 
           {/* Mobile menu button */}
