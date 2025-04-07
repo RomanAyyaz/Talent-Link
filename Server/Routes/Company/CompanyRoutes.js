@@ -7,6 +7,8 @@ const { BusinessOverView } = require('../../Controllers/CompanyProfile/CompanyBu
 const { socialMediaLinks } = require('../../Controllers/CompanyProfile/CompanySocialMediaLinks');
 const { companyRepresentatives } = require('../../Controllers/CompanyProfile/CompanyRepresentatives');
 const { companyProjects, upload } = require('../../Controllers/CompanyProfile/CompanyProjects'); // Make sure CompanyProjects.js exports these
+const { deleteCompany } = require('../../Controllers/CompanyProfile/DeleteCompany');
+const { getNotification } = require('../../Controllers/CompanyProfile/GetNotification');
 const Router = express.Router();
 
 
@@ -23,5 +25,11 @@ Router.put('/representatives/:id', companyRepresentatives);
 
 // Company Projects (multiple images)
 Router.put('/projects/:id', upload.array('projectImages'), companyProjects);
+
+//Getting the notifications of a compnay 
+Router.get('/notification/:id',getNotification)
+
+//Deleting the company 
+Router.delete('/deleteCompany/:id',deleteCompany)
 
 module.exports = Router;

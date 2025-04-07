@@ -1,10 +1,27 @@
 "use client"
 
 import { useState } from "react"
+import {useMutation}  from '@tanstack/react-query'
+import { deleteCompanyApi } from "../CompanyApi"
+import { useCompanyIdStore } from "../../../Store/CompanyIdStore"
+import { Navigate } from "react-router-dom"
 
 export default function DeleteProfile() {
   const [password, setPassword] = useState("")
-
+   //CompanyId
+    const{companyId,setCompanyId} = useCompanyIdStore(); 
+    const id = companyId
+  //delete the company mutations 
+  const deleteCompanyMutations = useMutation({
+    mutationFn: deleteCompanyApi,
+    onSuccess:()=>{
+      Navigate("/");
+      console.log('the company has been deleted successfully')
+    },
+    onError:()=>{
+      console.log('There is some error in deleting the company ')
+    }
+  })
   const handleCancel = () => {
     // Handle cancel action
     console.log("Delete profile cancelled")
@@ -12,6 +29,7 @@ export default function DeleteProfile() {
 
   const handleDelete = (e) => {
     e.preventDefault()
+    deleteCompanyMutations.mutate({id:id , password : password})
     // Handle delete profile action with password verification
     console.log("Delete profile confirmed with password:", password)
   }

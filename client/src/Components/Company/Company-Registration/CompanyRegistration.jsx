@@ -6,9 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 import { companyOtpVerificationApi, companyRegistrationApi, companySigninApi } from "./CompanyRegistrationApis";
 import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
+import { useCompanyStore } from "../../../Store/CompanyStore";
 function CompanyRegistration() {
   //CompanyId
   const{companyId,setCompanyId} = useCompanyIdStore();
+   //Importing Company states from CompanyStore to set company
+   const {company , setCompany} = useCompanyStore()
   //Navigation
   let navigate = useNavigate();
 
@@ -42,6 +45,7 @@ function CompanyRegistration() {
     onSuccess: (data) => {
       navigate("/dashboardCompany/dashboard");
       setCompanyId(data.companyData._id);
+      setCompany(data.companyData)
       toast.success("Logged in Successfully", {
         position: "top-center",
         autoClose: 3000,
@@ -116,7 +120,6 @@ function CompanyRegistration() {
       console.log("Some error in otp verification");
     },
   });
-
   return (
     <>
       {Account === "signin" ? (

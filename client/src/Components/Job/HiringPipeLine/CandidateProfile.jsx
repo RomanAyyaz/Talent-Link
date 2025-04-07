@@ -227,7 +227,7 @@ export function CandidateProfile() {
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <Briefcase className="h-4 w-4 mr-1.5 text-gray-400" />
-                  {candidateData.experience}+ years Experience
+                  {candidateData.experience} + Experience
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                   <Calendar className="h-4 w-4 mr-1.5 text-gray-400" />

@@ -50,5 +50,6 @@ Router.get('/appliedJobs/:userId',UserAppliedJobs)
 Router.get('/candidateShortlist' , candidateShortlist )
 //Api for Job Alert 
 Router.post('/subscribe' , jobAlertSub)
-
+//Api for getting the data of a specific job 
+Router.get('/jobData/:id' , jobData)
 module.exports = Router

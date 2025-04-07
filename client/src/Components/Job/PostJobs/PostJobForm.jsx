@@ -3,7 +3,9 @@ import { FaGreaterThan } from "react-icons/fa";
 import { Formik, Field, Form } from "formik";
 import {useMutation} from "@tanstack/react-query"
 import { postJobApi } from "../JobApis";
+import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
 function PostJobForm() {
+  const{companyId,setCompanyId} = useCompanyIdStore();
   const initialValues = {
     companyName: "",
     jobTitle: "",
@@ -15,7 +17,8 @@ function PostJobForm() {
     experience:"",
     qualification:"",
     location:"",
-    employmentType:""
+    employmentType:"",
+    postedBy:companyId
   };
   //Api calling for posting jobs 
   let addJobMutation = useMutation({

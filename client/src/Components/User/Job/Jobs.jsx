@@ -105,6 +105,8 @@ export default function Jobs() {
       <Navbar />
       <div className="flex w-full flex-col md:flex-row my-14">
         {/* Sidebar */}
+
+        
         <div className="px-6 md:px-10 w-full md:w-2/6">
           <aside className="text-start py-6 w-full rounded-md px-4 mt-4 min-h-screen bg-gradient-to-b from-[#FDF2EB] to-[#F1F1F1]">
             {/* Search By Job Title */}
@@ -297,7 +299,7 @@ export default function Jobs() {
    
 
         {/* Jobs List */}
-        <div className="flex gap-4 flex-wrap px-6 mt-4 w-full md:w-3/5 ">
+        <div className="flex gap-4 flex-wrap px-6 mt-4 w-full md:w-3/5 border border-red-900 ">
           {filteredJobs && filteredJobs.length > 0 ? (
             filteredJobs.map((job, index) => (
               <div key={index} className="w-full md:w-1/2">

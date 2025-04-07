@@ -11,16 +11,22 @@ import {
   MapPin,
 } from "lucide-react";
 import Fotter from "../../Fotter/Fotter";
-import OtherLinks from "../../LandingPage/OtherLinks/OtherLinks";
 import JobApplicationModal from "../JobApplication/JobApplication";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { hasUserAppliedApi } from "../JobApis";
+import { getDataOfJobApi, hasUserAppliedApi } from "../JobApis";
 import { useUserStore } from "../../../../Store/UserStore";
 function Main() {
   let { user } = useUserStore();
   let { id } = useParams();
 
+  //Data of a specific job 
+   const { data : jobData, Loading, error } = useQuery({
+      queryKey: ["jobs", id],
+      queryFn: () => getDataOfJobApi(id),
+    });
+
+  //Has user applied to that job 
   let { data, isLoading, isError } = useQuery({
     queryKey: ["jobs"],
     queryFn: () => hasUserAppliedApi({ userId: user._id, jobId: id }),
@@ -73,6 +79,7 @@ function Main() {
   if (isLoading) {
     <div>Data loading</div>;
   }
+  const companyId = jobData.data.postedBy
   return (
     <div>
       <JobMain />
@@ -251,11 +258,12 @@ function Main() {
         </div>
       </div>
       {/* Links */}
-      <OtherLinks />
+      {/* <OtherLinks /> */}
       {/* Footer */}
       <Fotter />
       <JobApplicationModal
         isOpen={isModalOpen}
+        companyId = {companyId}
         onClose={() => setIsModalOpen(false)}
       />
     </div>

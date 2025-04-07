@@ -50,3 +50,13 @@ export const jobAlertApi = async(values)=>{
     }
     return response.json()
 }
+
+//Api for getting the data of a specific job 
+
+export const getDataOfJobApi = async (id)=>{
+    const response = await fetch (`http://localhost:8000/job/jobData/${id}`,{
+        method:'GET'
+    }) 
+    const data = await response.json();
+    return data;
+}

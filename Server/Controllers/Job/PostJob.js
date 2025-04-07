@@ -7,14 +7,14 @@ const postJob = async (req, res) => {
     let {
         jobTitle, jobDescription, workingSchedule, workingDays,
         salaryMin, salaryMax, experience, qualification,
-        employmentType, location
+        employmentType, location , postedBy
     } = req.body;
-
+    console.log(req.body)
     try {
         let jobData = new Job({
             jobTitle, jobDescription, workingSchedule, workingDays,
             salaryMin, salaryMax, experience, qualification,
-            employmentType, location
+            employmentType, location ,  postedBy
         });
 
         await jobData.save();

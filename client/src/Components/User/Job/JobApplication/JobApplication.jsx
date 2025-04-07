@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useUserStore } from "../../../../Store/UserStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addJobApplicationApi } from "../JobApis";
-const JobApplicationModal = ({ isOpen, onClose }) => {
+const JobApplicationModal = ({ isOpen, onClose , companyId }) => {
   let { user, setUser } = useUserStore();
   let userId = user._id;
   const queryClient = useQueryClient();
@@ -58,6 +58,7 @@ const JobApplicationModal = ({ isOpen, onClose }) => {
               ...values,
               jobId,
               userId,
+              companyId
             };
 
             addApplicationMutation.mutate(formData, {
