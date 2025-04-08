@@ -6,6 +6,7 @@ import { useCompanyStore } from "../../Store/CompanyStore"
 import { useCompanyIdStore } from "../../Store/CompanyIdStore"
 import { useQuery } from "@tanstack/react-query"
 import { getNotifications } from "./CompanyApi"
+import { Link } from "react-router-dom"
 
 function Navbar() {
   const [showProfile, setShowProfile] = useState(false)
@@ -137,11 +138,16 @@ console.log(Notifications)
               className="w-10 h-10 rounded-full cursor-pointer"
             />
             {showProfile && (
-              <div className="absolute duration-1000  right-0 mt-2.5 bg-bgwhite h-28 w-40 rounded-lg py-2 text-neutral-500 text-sm shadow-lg">
+              <div className="absolute duration-1000 z-50  right-0 mt-2.5 bg-bgwhite h-28 w-40 rounded-lg py-2 text-neutral-500 text-sm shadow-lg">
+                 <Link to={'/dashboardCompany/viewProfile'}>
                 <div className="flex items-center py-1.5 cursor-pointer hover:bg-gray-100 hover:text-InstructorPrimary w-full px-5">
+                 
                   <FaRegUser />
                   <h1 className="mx-2.5">Profile</h1>
+                 
+                  
                 </div>
+                </Link>
                 <div className="flex items-center py-1.5 cursor-pointer hover:bg-gray-100 hover:text-InstructorPrimary w-full px-5">
                   <FaRegEnvelope />
                   <h1 className="mx-2.5">Inbox</h1>

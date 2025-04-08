@@ -16,6 +16,7 @@ import PasswordChangeForm from "./ChangePass/PasswordChangeForm";
 import DeleteProfile from "./DeleteProfile/DeleteProfile";
 import ComPackages from "./Package/ComPackages";
 import CandShort from "./CandidateShortlist/CandShort";
+import ComProfile from "./ComProfile/ComProfile";
 function CompanyDashboard() {
   return (
     <div className="h-screen flex flex-col">
@@ -36,6 +37,7 @@ function CompanyDashboard() {
 
           {/* Company profile */}
           <Route path='profile' element={ <CompanyProfile />} />
+          <Route path='viewProfile' element={ <ComProfile />} />
 
           {/* Company courses */}
           <Route path='add-course' element={<AddCourse />} />

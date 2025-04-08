@@ -38,3 +38,16 @@ export const getNotifications = async (id)=>{
   }
   return response.json();
 }
+
+//Api to change the password 
+export const chnageCompanyPassApi = async ({ id, password , newPassword }) => {
+  let response = await fetch(`http://localhost:8000/company/changePassword/${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password , newPassword }),
+  });
+  const data = await response.json();
+  return data;
+};

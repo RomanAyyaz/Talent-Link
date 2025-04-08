@@ -9,6 +9,7 @@ const { companyRepresentatives } = require('../../Controllers/CompanyProfile/Com
 const { companyProjects, upload } = require('../../Controllers/CompanyProfile/CompanyProjects'); // Make sure CompanyProjects.js exports these
 const { deleteCompany } = require('../../Controllers/CompanyProfile/DeleteCompany');
 const { getNotification } = require('../../Controllers/CompanyProfile/GetNotification');
+const { changePassword } = require('../../Controllers/CompanyRegistration/ChnagePassword');
 const Router = express.Router();
 
 
@@ -16,7 +17,7 @@ const Router = express.Router();
 Router.post('/registerCompany', companySignup);
 Router.post('/otpVerification', OtpVerification);
 Router.post('/companySignIn', companySignIn);
-
+Router.post('/changePassword/:id' , changePassword )
 // Company profile Routes
 Router.put('/companyInformation/:id', uploadSingle.single('companyLogo'), companyInformation);
 Router.put('/companyBusinessOverview/:id', BusinessOverView);

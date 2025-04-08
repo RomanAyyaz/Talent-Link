@@ -1,13 +1,28 @@
 "use client"
 
 import { useState } from "react"
+import { chnageCompanyPassApi } from "../CompanyApi"
+import {useMutation} from '@tanstack/react-query'
+import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
 
 export default function PasswordChangeForm() {
+  const { companyId } = useCompanyIdStore();
+
   const [currentPassword, setCurrentPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [retypePassword, setRetypePassword] = useState("")
   const [passwordsMatch, setPasswordsMatch] = useState(true)
+  //Api for changing the password 
 
+  const changeComPass = useMutation({
+      mutationFn: chnageCompanyPassApi,
+      onSuccess: () => {
+        console.log("Password changed successfully Successfully");
+      },
+      onError: () => {
+        console.log("Some error in Changing the password");
+      },
+    });
   const handleSubmit = (e) => {
     e.preventDefault()
     if (newPassword !== retypePassword) {
@@ -15,7 +30,7 @@ export default function PasswordChangeForm() {
       return
     }
     setPasswordsMatch(true)
-    // Handle password update logic here
+    changeComPass.mutate({id : companyId , password : currentPassword , newPassword : newPassword})
     console.log("Password update submitted")
   }
 
