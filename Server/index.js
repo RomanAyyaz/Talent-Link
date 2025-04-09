@@ -8,6 +8,7 @@ const cors = require('cors')
 const UserRoute = require('./Routes/User/UserRoute')
 const CourseRoute = require('./Routes/Course/Course')
 const JobRoute = require('./Routes/Job/Job')
+const QuizRoute = require('./Routes/Quiz/Quiz')
 const CompanyRoutes = require('./Routes/Company/CompanyRoutes')
 const cookieParser = require('cookie-parser');
 
@@ -29,3 +30,4 @@ app.use('/user',UserRoute)
 app.use('/course',CourseRoute)
 app.use('/company',CompanyRoutes)
 app.use('/job',JobRoute)
+app.use('/quiz',QuizRoute)

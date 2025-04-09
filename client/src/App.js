@@ -19,6 +19,7 @@ import Success from './Components/Payment/Success'
 import InterviewMainPage from './Components/Interview/InterviewMainPage';
 import ContactPage from './Components/User/Contact/ContactPage';
 import ProfileComponent from './Components/User/UserProfile/ProfileComponent';
+import Quiz from './Components/QuizTest/Quiz';
 
 function App() {
   return (
@@ -57,7 +58,8 @@ function App() {
 
           {/* Contact page details */}
           <Route path='/contact' element = {<ContactPage/>}/> 
-                 
+          {/* Quiz  */}
+          <Route path='/quiz' element = {<Quiz/> }/>
         </Routes>
       </BrowserRouter>
 
