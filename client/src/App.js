@@ -20,6 +20,7 @@ import InterviewMainPage from './Components/Interview/InterviewMainPage';
 import ContactPage from './Components/User/Contact/ContactPage';
 import ProfileComponent from './Components/User/UserProfile/ProfileComponent';
 import Quiz from './Components/QuizTest/Quiz';
+import TakeQuiz from './Components/User/UserDashboard/TakeQuiz/TakeQuiz';
 
 function App() {
   return (
@@ -59,7 +60,8 @@ function App() {
           {/* Contact page details */}
           <Route path='/contact' element = {<ContactPage/>}/> 
           {/* Quiz  */}
-          <Route path='/quiz' element = {<Quiz/> }/>
+          <Route path='/quiz/:id' element = {<Quiz/> }/>
+          <Route path = '/takeQuiz/:id' element = {<TakeQuiz/>} />
         </Routes>
       </BrowserRouter>
 

@@ -3,10 +3,11 @@ const Test = require('../../Models/TestModel/Test')
 
 const sendQuizData = async(req,res)=>{
     try {
-        const { studentId, correctAnswers, wrongAnswers, isDisqualified, startTime, endTime } = req.body;
+        const { studentId, correctAnswers, wrongAnswers, isDisqualified, startTime, endTime , jobId } = req.body;
         console.log(req.body)
         const testAttempt = new Test({
-        //   studentId,
+          studentId,
+          jobId,
           correctAnswers,
           wrongAnswers,
           isDisqualified,

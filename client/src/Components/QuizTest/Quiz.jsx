@@ -5,10 +5,11 @@ import { AlertCircle, CheckCircle } from "lucide-react";
 import { AddQuizApi, getDataOfQuizApi } from "./QuizApi";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useUserStore } from "../../Store/UserStore";
+import { useParams } from "react-router-dom";
 
 export default function Quiz() {
   const { user } = useUserStore();
-
+  const { id } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [wrongAttempts, setWrongAttempts] = useState(0);
   const [score, setScore] = useState(0);
@@ -19,6 +20,9 @@ export default function Quiz() {
   const [endTime, setEndTime] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [timer, setTimer] = useState(30);
+
+  const [tabViolations, setTabViolations] = useState(0); // 👁️‍🗨️ tab switch count
+  const [warningMessage, setWarningMessage] = useState(""); // 🟡 for showing warnings
 
   const totalQuestions = 30;
 
@@ -44,6 +48,44 @@ export default function Quiz() {
     }
   }, []);
 
+  // ⛔ Disable right-click, copy, paste
+  useEffect(() => {
+    const blockContextMenu = (e) => e.preventDefault();
+    const blockCopyPaste = (e) => e.preventDefault();
+
+    document.addEventListener("contextmenu", blockContextMenu);
+    document.addEventListener("copy", blockCopyPaste);
+    document.addEventListener("paste", blockCopyPaste);
+
+    return () => {
+      document.removeEventListener("contextmenu", blockContextMenu);
+      document.removeEventListener("copy", blockCopyPaste);
+      document.removeEventListener("paste", blockCopyPaste);
+    };
+  }, []);
+
+  // 👁️‍🗨️ Detect tab switch / window blur
+  useEffect(() => {
+    const handleBlur = () => {
+      setTabViolations((prev) => {
+        const updated = prev + 1;
+        if (updated >= 3) {
+          setIsEliminated(true);
+        } else {
+          setWarningMessage(`Warning: Do not switch tabs! (${updated}/3)`);
+          setTimeout(() => setWarningMessage(""), 3000);
+        }
+        return updated;
+      });
+    };
+
+    window.addEventListener("blur", handleBlur);
+
+    return () => {
+      window.removeEventListener("blur", handleBlur);
+    };
+  }, []);
+
   // Automatically submit quiz when completed or eliminated
   useEffect(() => {
     if (isEliminated || isCompleted) {
@@ -51,7 +93,8 @@ export default function Quiz() {
       setEndTime(end);
 
       const quizResult = {
-        studentId: 'grgrgrgfe',
+        studentId: user._id,
+        jobId: id,
         correctAnswers: score,
         wrongAnswers: wrongAttempts,
         isDisqualified: isEliminated,
@@ -139,16 +182,10 @@ export default function Quiz() {
             <h2 className="text-2xl font-bold text-red-700">
               You've been eliminated!
             </h2>
-            <p className="text-red-600">You made 3 wrong attempts.</p>
+            <p className="text-red-600">You made 3 wrong attempts or violated tab rules.</p>
             <p className="text-gray-700">
               Your final score: {score} / {currentQuestion}
             </p>
-            <button
-              onClick={resetQuiz}
-              className="mt-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors duration-300"
-            >
-              Try Again
-            </button>
           </div>
         </div>
       </div>
@@ -170,12 +207,6 @@ export default function Quiz() {
             <p className="text-gray-700">
               Your final score: {score} / {totalQuestions}
             </p>
-            <button
-              onClick={resetQuiz}
-              className="mt-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition-colors duration-300"
-            >
-              Take Quiz Again
-            </button>
           </div>
         </div>
       </div>
@@ -241,6 +272,12 @@ export default function Quiz() {
               Time Left: {timer}s
             </div>
           </div>
+
+          {warningMessage && (
+            <div className="mt-4 text-sm font-semibold text-yellow-600 text-center">
+              {warningMessage}
+            </div>
+          )}
         </div>
       </div>
     </div>
