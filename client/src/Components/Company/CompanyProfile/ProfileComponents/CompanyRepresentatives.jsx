@@ -3,13 +3,13 @@ import {Formik , Field , Form} from 'formik'
 import {useMutation} from '@tanstack/react-query'
 import { useCompanyIdStore } from '../../../../Store/CompanyIdStore';
 import { addCompanyRepresentativesApi, } from '../CompanyProfileApis/CompanyProfileApis';
-function CompanyRepresentatives() {
+function CompanyRepresentatives({company}) {
     const {companyId} = useCompanyIdStore();
     //Formik Structure 
     const initialValues = {
-       name:'',
-       email:'',
-       role:''
+       name: '',
+       email: '',
+       role: ''
     }
     //Company Information Mutation
     const companyRepresentativesMutation = useMutation({

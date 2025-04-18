@@ -4,16 +4,16 @@ import {Formik , Field , Form} from 'formik'
 import {useMutation} from '@tanstack/react-query'
 import { useCompanyIdStore } from '../../../../Store/CompanyIdStore';
 import { addCompanyInformation } from '../CompanyProfileApis/CompanyProfileApis';
-function CompanyInfo() {
+function CompanyInfo( {company}) {
     const {companyId} = useCompanyIdStore();
     //Formik Structure 
     const initialValues = {
-        companyName:'',
-        companyEmail:'',
-        industry:'',
-        companyAddress:'',
+        companyName:company.companyName || '',
+        companyEmail: company.companyEmail || '',
+        industry: company.industry ||   '',
+        companyAddress: company.companyAddress ||'',
         companyLogo:null,
-        companyDescription:''
+        companyDescription:company.companyDescription ||''
     }
     //Company Information Mutation
     const companyMutation = useMutation({

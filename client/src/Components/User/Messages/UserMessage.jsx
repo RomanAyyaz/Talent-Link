@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import io from "socket.io-client";
-import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
+import { useUserStore } from "../../../Store/UserStore";
 const socket = io("http://localhost:8000");
-
-
-const Messages = ({ receiverId, receiverType = "user" }) => {
-  const { companyId } = useCompanyIdStore();
-  const senderId = companyId;
-  const senderType = "company";
+const UserMessage = ({ receiverId, receiverType = "company" }) => {
+  const { user} = useUserStore();
+  const senderId = user._id;
+  const senderType = "user";
 
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
@@ -42,7 +40,7 @@ const Messages = ({ receiverId, receiverType = "user" }) => {
           <div
             key={idx}
             className={`p-2 rounded mb-2 max-w-xs ${
-              msg.senderId === senderId ? "bg-blue-500 text-white ml-auto" : "bg-gray-200 text-black mr-auto"
+              msg.senderId === senderId ? "bg-green-500 text-white ml-auto" : "bg-gray-200 text-black mr-auto"
             }`}
           >
             {msg.message}
@@ -75,7 +73,7 @@ const Messages = ({ receiverId, receiverType = "user" }) => {
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-green-500 text-white px-4 py-2 rounded"
           >
             Send
           </button>
@@ -85,4 +83,4 @@ const Messages = ({ receiverId, receiverType = "user" }) => {
   );
 };
 
-export default Messages;
+export default UserMessage;

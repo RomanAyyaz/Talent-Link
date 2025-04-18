@@ -36,7 +36,6 @@ const UserDropdown = ({ isOpen, setIsOpen , user }) => (
 
 export default function TextNavbar() { 
    const { user} = useUserStore();
-   console.log('user is' , user)
   const [isOpen, setIsOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 

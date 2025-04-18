@@ -24,8 +24,10 @@ const Sidebar = () => {
     { icon: FileText, text: 'My Resume', to: '/UserDashboard/myResume' },
     { icon: Briefcase, text: 'Applied Job', to: '/UserDashboard/appliedJobs' },
     { icon: ListChecks, text: 'Jobs shortlist', to: '/UserDashboard/shortListJobs' },
-    { icon: MessageSquare, text: 'Message', to: '/messages' },
-    { icon: Bell, text: 'Job Alerts', to: '/alerts' }
+    { icon: MessageSquare, text: 'Message', to: '/UserDashboard/message' },
+    { icon: Bell, text: 'Job Alerts', to: '/alerts' },
+    { icon: Bell, text: 'Change Password', to: '/alerts' },
+    { icon: Bell, text: 'Delete Profile', to: '/alerts' }
   ];
 
   return (

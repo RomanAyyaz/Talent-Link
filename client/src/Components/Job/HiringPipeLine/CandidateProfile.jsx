@@ -24,6 +24,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import Messages from "../Messages/Messages"
 
 export function CandidateProfile() {
+ 
   const [activeTab, setActiveTab] = useState("pipeline")
   const [showFeedback, setShowFeedback] = useState(null)
   const [selectedDate, setSelectedDate] = useState("")
@@ -691,7 +692,7 @@ export function CandidateProfile() {
         )}
         {
           activeTab === 'messages' &&(
-           <Messages/>
+           <Messages receiverId={candidateId} />
           )
         }
       </div>

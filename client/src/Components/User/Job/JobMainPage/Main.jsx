@@ -79,7 +79,7 @@ function Main() {
   if (isLoading) {
     <div>Data loading</div>;
   }
-  const companyId = jobData.data.postedBy
+  const companyId = jobData?.data?.postedBy
   return (
     <div>
       <JobMain />

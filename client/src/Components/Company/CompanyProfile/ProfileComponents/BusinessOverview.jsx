@@ -3,13 +3,14 @@ import {Formik , Field , Form} from 'formik'
 import {useMutation} from '@tanstack/react-query'
 import { useCompanyIdStore } from '../../../../Store/CompanyIdStore';
 import { addCompanyBusinessOverviewApi, addCompanyInformation } from '../CompanyProfileApis/CompanyProfileApis';
-function BusinessOverview() {
+function BusinessOverview({company}) {
     const {companyId} = useCompanyIdStore();
+    console.log('The data is ' , company.socialMediaLinks)
     //Formik Structure 
     const initialValues = {
-       mission:'',
-       vision:'',
-       values:''
+       mission: company.mission || '',
+       vision: company.vision ||'',
+       values: company.values ||''
     }
     //Company Information Mutation
     const businessOverviewMutation = useMutation({
