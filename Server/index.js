@@ -41,7 +41,7 @@ app.use('/quiz', QuizRoute);
 
 // ✅ Real-time Socket.IO logic
 io.on('connection', (socket) => {
-    console.log('A user connected');
+    // console.log('A user connected');
   
     socket.on('sendMessage', async (data) => {
       const { senderType, senderId, receiverType, receiverId, message } = data;

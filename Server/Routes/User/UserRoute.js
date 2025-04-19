@@ -28,6 +28,8 @@ const { searchCourses } = require('../../Controllers/Course/SearchCourses');
 const { submitReview } = require('../../Controllers/Course/SubmitReview');
 const { getReviewsData } = require('../../Controllers/Course/getReviews');
 const { AddInterview } = require('../../Controllers/Interview/AddInterview');
+const { getCompanyMessageSummaries } = require('../../Controllers/Messages/CompanyMessages');
+const { getMessagesBetweenUserAndCompany } = require('../../Controllers/Messages/ComapnyUserMessages');
 
 //Route to add User
 Router.post('/signup',UserSignup)
@@ -118,7 +120,10 @@ Router.get('/reviews/:id',getReviewsData)
 
 Router.post('/interview/:id',AddInterview)
 
-
+//Messages
+Router.get('/companyMessageData/:userId' , getCompanyMessageSummaries)
+//Message between company and user 
+Router.get('/UserCompanyMessage/:userId/:companyId' , getMessagesBetweenUserAndCompany)
 //Checkout
 Router.post("/checkout", async (req, res) => {
     try {
