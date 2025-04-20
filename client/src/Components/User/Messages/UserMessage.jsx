@@ -2,32 +2,64 @@ import { useEffect, useRef, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import io from "socket.io-client";
 import { useUserStore } from "../../../Store/UserStore";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getMessageOfCompanyAndUser } from "./MessageApi";
 const socket = io("http://localhost:8000");
-const UserMessage = ({ receiverId, receiverType = "company" }) => {
+const UserMessage = ({ receiverId , receiverType = "company" }) => {
   const { user} = useUserStore();
+  const {id} = useParams()
+  receiverId = id
   const senderId = user._id;
   const senderType = "user";
 
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
-
-  useEffect(() => {
+  //Api Calling for getting all the resumes 
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["messages",user._id],
+    queryFn: () => getMessageOfCompanyAndUser({id:user._id , companyId: id}),
+  });
+  if(isLoading) {
+    <h1>Loading....</h1>
+  }
+  if(error) {
+    <h2>error</h2>
+  }
+const messageData = data
+console.log('Message data is ',messageData)
+useEffect(() => {
     const handleReceiveMessage = (msg) => {
       const isRelevant =
         (msg.senderId === senderId && msg.receiverId === receiverId) ||
         (msg.senderId === receiverId && msg.receiverId === senderId);
-
+  
       if (isRelevant) {
-        setMessages((prev) => [...prev, msg]);
+        setMessages((prev) => {
+          const updated = [...prev, msg];
+          return updated.sort(
+            (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+          );
+        });
       }
     };
-
+  
     socket.on("receiveMessage", handleReceiveMessage);
-
+  
     return () => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
   }, [senderId, receiverId]);
+  
+
+  useEffect(() => {
+  if (messageData && Array.isArray(messageData)) {
+    const sorted = [...messageData].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+    setMessages(sorted);
+  }
+}, [messageData]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

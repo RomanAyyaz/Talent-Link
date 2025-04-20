@@ -10,6 +10,7 @@ import MainApplied from "./AppliedJobs/MainApplied";
 import MainShortlist from "./ShortlistJobs.jsx/MainShortlist";
 import Pipeline from "./HiringPipeline/Pipeline";
 import UserMessage from "../Messages/UserMessage";
+import ChatInterface from "../Messages/ChatInterface";
 
 function UserDashboard() {
   return (
@@ -25,7 +26,8 @@ function UserDashboard() {
           <Route path="myResume" element = {<MyResume/>}/>
           <Route path="appliedJobs" element = {<MainApplied/>}/>
           <Route path="shortListJobs" element = {<MainShortlist/>}/>
-          <Route path="message" element = { <UserMessage/>}/>
+          <Route path="message" element = { <ChatInterface/>}/>
+          <Route path="userMessage/:id" element = { <UserMessage/>}/>
           <Route path="pipeline/:jobId" element = {<Pipeline/>}/>
           </Routes>
         </div>

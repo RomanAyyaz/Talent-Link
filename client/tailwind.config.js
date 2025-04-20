@@ -29,7 +29,8 @@ module.exports = {
         FeatureSection:"#F27A5B",
         bgcompanyProfile:"#F2F1F2",
         bgJobMainPage:"#F1F1F1",
-        bgFoot:'#F0F0F0'
+        bgFoot:'#F0F0F0',
+        dark:'#212130'
       }
     },
   },

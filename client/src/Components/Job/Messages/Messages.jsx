@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import io from "socket.io-client";
 import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
+import { useQuery } from "@tanstack/react-query";
+import { getMessageOfCompanyAndUser } from "../../User/Messages/MessageApi";
 const socket = io("http://localhost:8000");
 
 
@@ -11,8 +13,18 @@ const Messages = ({ receiverId, receiverType = "user" }) => {
   const senderType = "company";
 
   const [messages, setMessages] = useState([]);
-  const messagesEndRef = useRef(null);
-
+  const messagesEndRef = useRef(null); 
+      const { data, isLoading, error } = useQuery({
+          queryKey: ["messages",receiverId],
+          queryFn: () => getMessageOfCompanyAndUser({id:receiverId , companyId: companyId}),
+        });
+        if(isLoading) {
+          <h1>Loading....</h1>
+        }
+        if(error) {
+          <h2>error</h2>
+        }
+    const messageData = data || []
   useEffect(() => {
     const handleReceiveMessage = (msg) => {
       const isRelevant =
@@ -23,6 +35,7 @@ const Messages = ({ receiverId, receiverType = "user" }) => {
         setMessages((prev) => [...prev, msg]);
       }
     };
+    
 
     socket.on("receiveMessage", handleReceiveMessage);
 
@@ -30,7 +43,12 @@ const Messages = ({ receiverId, receiverType = "user" }) => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
   }, [senderId, receiverId]);
-
+ useEffect(() => {
+    if (messageData && Array.isArray(messageData)) {
+      setMessages(messageData); // set initial messages from DB
+    }
+  }, [messageData]);
+  
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
