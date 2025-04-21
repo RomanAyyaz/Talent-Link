@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 import { useDarkModeStore } from '../../Store/DarkModeStore';
 
 export default function Sidebar() {
-  const { mode, setMode } = useDarkModeStore();
+  const { mode} = useDarkModeStore();
   const [isExpanded, setIsExpanded] = useState(true);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
