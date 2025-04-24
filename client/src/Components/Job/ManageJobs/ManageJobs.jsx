@@ -8,10 +8,12 @@ import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router-dom"
 import CandidateList from "../CandidateList/CandidateList"
 import TopQuizPerformer from "../../QuizTest/TopQuizPerformer"
+import { useDarkModeStore } from "../../../Store/DarkModeStore"
 
 function ManageJobs() {
   const { id } = useParams()
   const [activeView, setActiveView] = useState("candidates") // "candidates" or "performers"
+  const { mode } = useDarkModeStore();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["jobs", id],
@@ -28,7 +30,7 @@ function ManageJobs() {
   }
 
   return (
-    <div className="bg-bgcompanyProfile container mx-auto px-3 md:px-8 border">
+    <div className={` ${mode === 'light' ?  'bg-bgcompanyProfile' :"bg-darkk"} container mx-auto px-3 md:px-8 border`}>
       <Header />
 
       <div className="mt-8">

@@ -77,7 +77,7 @@ export default function Sidebar() {
                 <div className=''>
                   <button
                     onClick={() => handleExpandClick(index)}
-                    className={`flex items-center gap-4 ${mode ==='light'?"text-gray-600 hover:bg-indigo-50":"text-white"} rounded-lg p-2 group w-full `}
+                    className={`flex items-center gap-4 ${mode ==='light'?"text-gray-600 hover:bg-indigo-50":"text-white  hover:text-indigo-600"} rounded-lg p-2 group w-full `}
                     aria-expanded={expandedIndex === index}
                     aria-controls={`${item.name}-submenu`}
                   >
@@ -98,13 +98,13 @@ export default function Sidebar() {
                   </button>
                   <ul 
                     id={`${item.name}-submenu`}
-                    className={`mt-2 ml-6 space-y-2 ${!isExpanded && 'hidden'} ${expandedIndex === index ? '' : 'hidden'}`}
+                    className={`mt-2 ml-6 space-y-2  ${!isExpanded && 'hidden'} ${expandedIndex === index ? '' : 'hidden'}`}
                   >
                     {item.subItems.map((subItem, subIndex) => (
                       <li key={subIndex}>
                         <Link 
                           to={subItem.to}
-                          className="flex items-center text-gray-600 hover:text-indigo-600 text-sm"
+                          className={`flex items-center ${mode === 'dark'?'text-white' :''}   text-gray-600 hover:text-indigo-600 text-sm`}
                         >
                           {subItem.name}
                         </Link>

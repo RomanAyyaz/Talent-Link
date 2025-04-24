@@ -1,26 +1,39 @@
-import React from 'react';
+import React from "react";
+import { useDarkModeStore } from "../../../Store/DarkModeStore";
 
 const CourseDetails = ({ courseData }) => {
-    console.log('data',courseData)
+  const { mode } = useDarkModeStore();
+
+  /* ── dark-mode helpers ───────────────────────────── */
+  const cardBg   = mode === "dark" ? "bg-dark"     : "bg-white";
+  const textHead = mode === "dark" ? "text-white"  : "text-gray-800";
+  const textSub  = mode === "dark" ? "text-gray-400" : "text-gray-600";
+  const textMain = mode === "dark" ? "text-white"  : "font-medium";
+  /* ───────────────────────────────────────────────── */
+
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6">
-      <h2 className="text-2xl font-semibold mb-4">Course Details</h2>
+    <div className={`${cardBg} shadow-lg rounded-lg p-6`}>
+      <h2 className={`text-2xl font-semibold mb-4 ${textHead}`}>Course Details</h2>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <p className="text-gray-600">Course Name</p>
-          <p className="font-medium">{courseData.title}</p>
+          <p className={textSub}>Course Name</p>
+          <p className={textMain}>{courseData.title}</p>
         </div>
+
         <div>
-          <p className="text-gray-600">Instructor</p>
-          <p className="font-medium">{courseData.instructor}</p>
+          <p className={textSub}>Instructor</p>
+          <p className={textMain}>{courseData.instructor}</p>
         </div>
+
         <div>
-          <p className="text-gray-600">Total Lectures</p>
-          <p className="font-medium">{courseData.duration}</p>
+          <p className={textSub}>Total Lectures</p>
+          <p className={textMain}>{courseData.totalLectures || courseData.duration}</p>
         </div>
+
         <div>
-          <p className="text-gray-600">Duration</p>
-          <p className="font-medium">{courseData.duration}</p>
+          <p className={textSub}>Duration</p>
+          <p className={textMain}>{courseData.duration}</p>
         </div>
       </div>
     </div>
@@ -28,4 +41,3 @@ const CourseDetails = ({ courseData }) => {
 };
 
 export default CourseDetails;
-

@@ -1,10 +1,12 @@
 import React from 'react';
 import { FaGreaterThan } from 'react-icons/fa';
 import {Link} from 'react-router-dom'
+import { useDarkModeStore } from '../../../Store/DarkModeStore';
 const Header = () => {
+   const { mode } = useDarkModeStore();
   return (
     <header>
-     <div className= 'bg-bgwhite w-full text-start my-3 md:my-6 rounded-md px-3 md:px-8 py-4 md:py-3 md:flex md:items-center justify-between'>
+     <div className= {`bg-bgwhite ${mode=== 'light'? 'bg-bgwhite ' : 'bg-dark'} w-full text-start my-3 md:my-6 rounded-md px-3 md:px-8 py-4 md:py-3 md:flex md:items-center justify-between`}>
         <h1 className='text-lg text-InstructorPrimary font-bold'>Manage Job</h1>
         <div>
           <p className='inline-block text-sm text-neutral-500'>Job</p> 

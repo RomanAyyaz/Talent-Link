@@ -5,8 +5,10 @@ import { getCandidatesApi } from "../JobApis";
 import { useParams } from "react-router-dom";
 import Candidate from "./Candidate";
 import { useState } from "react";
+import {useDarkModeStore} from '../../../Store/DarkModeStore'
 export default function CandidateList() {
   const { id } = useParams();
+  const { mode } = useDarkModeStore();
   //State to show the Data 
   const [candidateStatus , setCandidateStatus] = useState('total')
   //Api Calling for getting The data of the specific job
@@ -30,18 +32,18 @@ export default function CandidateList() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 bg-white rounded-xl p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4 md:mb-0">
+      <div className={`flex flex-col md:flex-row md:items-center justify-between mb-8 ${mode === 'light' ? "bg-white" : "bg-dark"}  rounded-xl p-6 shadow-sm`}>
+        <h1 className={`text-2xl font-bold  ${mode === 'light' ? 'text-gray-900' :'text-white'} mb-4 md:mb-0`}>
           Candidate List
         </h1>
-        <div className="flex flex-wrap gap-4 text-base">
+        <div className={`flex flex-wrap gap-4 text-base ${mode === 'light'?'':'text-white'}`}>
           <button className="font-semibold" onClick={()=>{
             setCandidateStatus('total')
           }}  >Total: {candidatesData.length}</button>
-          <button className="text-gray-500" onClick={()=>{
+          <button className={` ${mode === 'light'?'text-gray-500':'text-white'}`} onClick={()=>{
             setCandidateStatus('shortlisted')
           }}  >ShortListed: {shortlistedCandidateData.length}</button>
-          <button className="text-gray-500" onClick={()=>{
+          <button className={` ${mode === 'light'?'text-gray-500':'text-white'}`} onClick={()=>{
             setCandidateStatus('rejected')
           }} >Rejected: {rejectedCandidateData.length}</button>
         </div>

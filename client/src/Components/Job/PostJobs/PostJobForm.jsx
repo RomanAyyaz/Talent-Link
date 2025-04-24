@@ -1,45 +1,77 @@
 import React from "react";
 import { FaGreaterThan } from "react-icons/fa";
 import { Formik, Field, Form } from "formik";
-import {useMutation} from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query";
 import { postJobApi } from "../JobApis";
 import { useCompanyIdStore } from "../../../Store/CompanyIdStore";
+import { useDarkModeStore } from "../../../Store/DarkModeStore";
+
 function PostJobForm() {
-  const{companyId,setCompanyId} = useCompanyIdStore();
+  const { companyId } = useCompanyIdStore();
+  const { mode } = useDarkModeStore();
+
   const initialValues = {
     companyName: "",
     jobTitle: "",
     jobDescription: "",
     workingSchedule: "",
     workingDays: "",
-    minSalary:"",
-    maxSalary:"",
-    experience:"",
-    qualification:"",
-    location:"",
-    employmentType:"",
-    postedBy:companyId
+    minSalary: "",
+    maxSalary: "",
+    experience: "",
+    qualification: "",
+    location: "",
+    employmentType: "",
+    postedBy: companyId,
   };
-  //Api calling for posting jobs 
-  let addJobMutation = useMutation({
+
+  // ── API call
+  const addJobMutation = useMutation({
     mutationFn: postJobApi,
-    onSuccess:()=>{
-      console.log('Job posted Successfully')
-    },
-    onError:()=>{
-      console.log('Some error in posting job')
-    }
-  })
+    onSuccess: () => console.log("Job posted Successfully"),
+    onError: () => console.log("Some error in posting job"),
+  });
+
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm(true);
     addJobMutation.mutate(values);
-    console.log(values); 
+    console.log(values);
   };
 
+  /* ── Dark-mode helpers ─────────────────────────────────────────────── */
+  const inputClass = `
+    border p-2 w-full rounded-md text-sm px-2 border-1
+    focus:border-InstructorPrimary focus:outline-none
+    ${mode === "dark" ? "bg-dark text-gray-300 border-gray-600" : ""}
+  `.trim();
+
+  const labelClass = `
+    text-start text-sm font-medium mt-3
+    ${mode === "dark" ? "text-white" : ""}
+  `.trim();
+
+  const headerCardClass = `
+    ${mode === "light" ? "bg-bgwhite" : "bg-dark"}
+    w-full text-start my-3 md:my-6 rounded-md px-3 md:px-8 py-4 md:py-3
+    md:flex md:items-center justify-between
+  `.trim();
+
+  const formCardClass = `
+    ${mode === "light" ? "bg-white" : "bg-dark"}
+    w-full text-start px-3 md:px-8 rounded-md mt-6 py-4
+  `.trim();
+  /* ──────────────────────────────────────────────────────────────────── */
+
   return (
-    <div className="w-full px-3 md:px-7 bg-bgcompanyProfile border">
-      <div className="bg-bgwhite w-full text-start my-3 md:my-6 rounded-md px-3 md:px-8 py-4 md:py-3 md:flex md:items-center justify-between">
+    <div
+      className={`
+        w-full px-3 md:px-7 border
+        ${mode === "light" ? "bg-bgcompanyProfile" : "bg-darkk"}
+      `}
+    >
+      {/* breadcrumb / title */}
+      <div className={headerCardClass}>
         <h1 className="text-lg text-InstructorPrimary font-bold">Post Job</h1>
         <div>
           <p className="inline-block text-sm text-neutral-500">Jobs</p>
@@ -51,57 +83,58 @@ function PostJobForm() {
           </p>
         </div>
       </div>
+
       {/* Post Job Form */}
-      <div className="bg-white w-full text-start px-3 md:px-8 rounded-md mt-6 py-4">
-        <h1 className="text-lg text-black font-medium">Post Job</h1>
+      <div className={formCardClass}>
+        <h1
+          className={`text-lg font-medium ${
+            mode === "dark" ? "text-white" : "text-black"
+          }`}
+        >
+          Post Job
+        </h1>
         <div className="border-b-2 bg-gray-400 mt-4"></div>
+
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
           {(formik) => (
             <Form className="flex flex-col py-3 md:flex-row md:flex-wrap">
               {/* Company Name */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="companyName"
-                >
+                <label className={labelClass} htmlFor="companyName">
                   Company Name
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="companyName"
                     type="text"
                     placeholder="Company Name"
                   />
                 </div>
               </div>
-              {/* Job title */}
+
+              {/* Job Title */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3 md:w-full"
-                  htmlFor="jobTitle"
-                >
+                <label className={labelClass} htmlFor="jobTitle">
                   Job Title
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="jobTitle"
                     type="text"
                     placeholder="Job Title"
                   />
                 </div>
               </div>
-              {/* Job description */}
-              <label
-                className="text-start text-sm font-medium mt-3"
-                htmlFor="jobDescription"
-              >
+
+              {/* Job Description */}
+              <label className={labelClass} htmlFor="jobDescription">
                 Job Description
               </label>
               <div className="text-start w-full mt-2">
                 <Field
-                  className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                  className={inputClass}
                   name="jobDescription"
                   as="textarea"
                   rows="3"
@@ -109,114 +142,98 @@ function PostJobForm() {
                   placeholder="Job Description"
                 />
               </div>
-              {/* Working schedule */}
+
+              {/* Working Schedule */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="workingSchedule"
-                >
+                <label className={labelClass} htmlFor="workingSchedule">
                   Working Schedule
                 </label>
-                <div className="text-start w-full mt-2">
+                <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full md:w-11/12 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="workingSchedule"
                     as="select"
-                    placeholder="workingSchedule"
                   >
-                    <option value="Day Shift" label="Day Shift" />
-                    <option value="Night Shift" label="Night Shift" />
+                    <option value="Day Shift">Day Shift</option>
+                    <option value="Night Shift">Night Shift</option>
                   </Field>
                 </div>
               </div>
 
-              {/* Working days */}
+              {/* Working Days */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="workingDays"
-                >
+                <label className={labelClass} htmlFor="workingDays">
                   Working Days
                 </label>
-                <div className="text-start w-full mt-2">
+                <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full md:w-11/12 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="workingDays"
                     as="select"
-                    placeholder="Working Days"
                   >
-                    <option value="Mon to Fri" label="Mon to Fri" />
-                    <option value="Sun to thrus" label=" Sun to thrus" />
-                    <option value="Tues to Sat" label=" Tues to Sat" />
+                    <option value="Mon to Fri">Mon to Fri</option>
+                    <option value="Sun to thrus">Sun to thrus</option>
+                    <option value="Tues to Sat">Tues to Sat</option>
                   </Field>
                 </div>
               </div>
-              {/*Location*/}
+
+              {/* Location */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="Location"
-                >
+                <label className={labelClass} htmlFor="location">
                   Location
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="location"
                     type="text"
                     placeholder="Location"
                   />
                 </div>
               </div>
-              {/* Employment type */}
+
+              {/* Employment Type */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="employmentTyye"
-                >
+                <label className={labelClass} htmlFor="employmentType">
                   Employment Type
                 </label>
-                <div className="text-start w-full mt-2">
+                <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full md:w-11/12 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="employmentType"
                     as="select"
-                    placeholder="Employment Type"
                   >
-                    <option value="Full Time" label="Full Time" />
-                    <option value="Part Time" label=" Part Time" />
-                    <option value="Internship" label=" Internship" />
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Internship">Internship</option>
                   </Field>
                 </div>
               </div>
-              {/* Salary Min */}
+
+              {/* Minimum Salary */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="minSalary"
-                >
+                <label className={labelClass} htmlFor="minSalary">
                   Minimum Salary
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="minSalary"
                     type="text"
                     placeholder="Minimum Salary"
                   />
                 </div>
               </div>
-              {/* Salary Max*/}
+
+              {/* Maximum Salary */}
               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3 md:w-full"
-                  htmlFor="maxSalary"
-                >
+                <label className={labelClass} htmlFor="maxSalary">
                   Maximum Salary
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="maxSalary"
                     type="text"
                     placeholder="Maximum Salary"
@@ -224,17 +241,14 @@ function PostJobForm() {
                 </div>
               </div>
 
-               {/* Experience */}
-               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="experience"
-                >
-                  Experience 
+              {/* Experience */}
+              <div className="w-full md:w-1/2 mt-2">
+                <label className={labelClass} htmlFor="experience">
+                  Experience
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="experience"
                     type="text"
                     placeholder="Experience"
@@ -242,17 +256,14 @@ function PostJobForm() {
                 </div>
               </div>
 
-               {/* Qualifications */}
-               <div className="w-full md:w-1/2 mt-2">
-                <label
-                  className="text-start text-sm font-medium mt-3"
-                  htmlFor="qualification"
-                >
+              {/* Qualification */}
+              <div className="w-full md:w-1/2 mt-2">
+                <label className={labelClass} htmlFor="qualification">
                   Qualification
                 </label>
                 <div className="text-start w-full mt-2 md:w-11/12">
                   <Field
-                    className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                    className={inputClass}
                     name="qualification"
                     type="text"
                     placeholder="Qualification"
@@ -260,7 +271,7 @@ function PostJobForm() {
                 </div>
               </div>
 
-              {/* Submit button */}
+              {/* Submit */}
               <div className="mt-3 flex w-full md:w-1/2 md:mt-4">
                 <button
                   className="bg-InstructorPrimary px-5 py-2 rounded-md duration-300 text-white hover:bg-buttonHover"

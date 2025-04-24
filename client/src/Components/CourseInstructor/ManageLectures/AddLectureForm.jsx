@@ -4,12 +4,16 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addLectureApi } from "../CourseApis";
 import { useParams } from "react-router-dom";
+import { useDarkModeStore } from "../../../Store/DarkModeStore";
 
 const AddLectureForm = () => {
   const queryClient = useQueryClient();
-  //Course Id
+  const { mode } = useDarkModeStore();
+
+  // Course Id
   const { id } = useParams();
-  //Formik Structure
+
+  // ── Formik structure ───────────────────────────────
   const initialValues = {
     title: "",
     description: "",
@@ -20,46 +24,42 @@ const AddLectureForm = () => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     description: Yup.string().required("Description is required"),
-    // video: Yup.mixed()
-    //   .required("Video is required")
-    //   .test(
-    //     "fileFormat",
-    //     "Unsupported Format",
-    //     (value) =>
-    //       value && ["video/mp4", "video/webm", "video/ogg"].includes(value.type)
-    //   ),
+    // video validation omitted
   });
 
-  //Api calling
+  // ── mutation ───────────────────────────────────────
   const addLectureMutation = useMutation({
     mutationFn: addLectureApi,
     onSuccess: () => {
       queryClient.invalidateQueries("courses");
       console.log("Lecture Added Successfully");
     },
-    onError: () => {
-      console.log("Some error in adding the Lectures");
-    },
+    onError: () => console.log("Some error in adding the Lectures"),
   });
 
-  const onSubmit = (values, onSubmitProps) => {
-    const { title, description, video, quiz } = values;
-    console.log("quiz values are", values);
-    // Create a FormData object
+  const onSubmit = (values, helpers) => {
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("video", video);
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("video", values.video);
     formData.append("quiz", JSON.stringify(values.quiz));
-    addLectureMutation.mutate({ values: formData, id: id });
-    // Reset the form
-    onSubmitProps.setSubmitting(false);
-    onSubmitProps.resetForm(true);
-    console.log(values);
+    addLectureMutation.mutate({ values: formData, id });
+    helpers.setSubmitting(false);
+    helpers.resetForm();
   };
+
+  /* ── dark-mode helpers ───────────────────────────── */
+  const cardBg   = mode === "dark" ? "bg-dark"     : "bg-white";
+  const textMain = mode === "dark" ? "text-white"  : "text-gray-700";
+  const textHead = mode === "dark" ? "text-white"  : "text-gray-800";
+  const borderIn = mode === "dark" ? "border-gray-600" : "border-1";
+  const inputBg  = mode === "dark" ? "bg-dark text-gray-300 border-gray-600" : "";
+  /* ──────────────────────────────────────────────── */
+
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6">
-      <h2 className="text-2xl font-semibold mb-4">Add New Lecture</h2>
+    <div className={`${cardBg} shadow-lg rounded-lg p-6`}>
+      <h2 className={`text-2xl font-semibold mb-4 ${textHead}`}>Add New Lecture</h2>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -67,31 +67,23 @@ const AddLectureForm = () => {
       >
         {({ setFieldValue, errors, touched, values }) => (
           <Form className="space-y-4">
+            {/* Title */}
             <div>
-              <label
-                htmlFor="title"
-                className="block text-gray-700 font-medium mb-2"
-              >
+              <label htmlFor="title" className={`block font-medium mb-2 ${textMain}`}>
                 Lecture Title
               </label>
               <Field
                 type="text"
                 id="title"
                 name="title"
-                className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                className={`border p-2 w-full rounded-md text-sm px-2 focus:border-InstructorPrimary focus:outline-none ${borderIn} ${inputBg}`}
               />
-              <ErrorMessage
-                name="title"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
+              <ErrorMessage name="title" component="div" className="text-red-500 text-sm mt-1" />
             </div>
 
+            {/* Description */}
             <div>
-              <label
-                htmlFor="description"
-                className="block text-gray-700 font-medium mb-2"
-              >
+              <label htmlFor="description" className={`block font-medium mb-2 ${textMain}`}>
                 Lecture Description
               </label>
               <Field
@@ -99,20 +91,14 @@ const AddLectureForm = () => {
                 id="description"
                 name="description"
                 rows={4}
-                className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                className={`border p-2 w-full rounded-md text-sm px-2 focus:border-InstructorPrimary focus:outline-none ${borderIn} ${inputBg}`}
               />
-              <ErrorMessage
-                name="description"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
+              <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
             </div>
 
+            {/* Video upload */}
             <div>
-              <label
-                htmlFor="video"
-                className="block text-gray-700 font-medium mb-2"
-              >
+              <label htmlFor="video" className={`block font-medium mb-2 ${textMain}`}>
                 Upload Lecture Video
               </label>
               <input
@@ -120,66 +106,63 @@ const AddLectureForm = () => {
                 id="video"
                 name="video"
                 accept="video/*"
-                onChange={(event) => {
-                  setFieldValue("video", event.currentTarget.files[0]);
-                }}
-                className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                onChange={(e) => setFieldValue("video", e.currentTarget.files[0])}
+                className={`border p-2 w-full rounded-md text-sm px-2 focus:border-InstructorPrimary focus:outline-none ${borderIn} ${inputBg}`}
               />
               {errors.video && touched.video && (
                 <div className="text-red-500 text-sm mt-1">{errors.video}</div>
               )}
             </div>
+
+            {/* Quiz header */}
             <div>
-              <h1 className="font-bold text-lg">Add Quiz for this Lecture</h1>
+              <h1 className={`font-bold text-lg ${textHead}`}>Add Quiz for this Lecture</h1>
             </div>
 
+            {/* Quiz FieldArray */}
             <FieldArray name="quiz">
               {({ remove, push }) => (
                 <div>
                   {values.quiz.length === 0 ? (
-                    <>
-                      <button
-                        type="button"
-                        className=" bg-green-500 px-2 py-1 rounded-md text-white mt-2"
-                        onClick={() =>
-                          push({ question: "", answer: ["", "", "", ""] })
-                        }
-                      >
-                        Add Question
-                      </button>
-                    </>
+                    <button
+                      type="button"
+                      className="bg-green-500 px-2 py-1 rounded-md text-white mt-2"
+                      onClick={() => push({ question: "", answer: ["", "", "", ""] })}
+                    >
+                      Add Question
+                    </button>
                   ) : (
                     <>
-                      {values.quiz.map((q, index) => (
-                        <div key={index}>
+                      {values.quiz.map((q, idx) => (
+                        <div key={idx}>
                           <label
-                            htmlFor={`quiz.${index}.question`}
-                            className="block text-gray-700 font-medium mb-2"
+                            htmlFor={`quiz.${idx}.question`}
+                            className={`block font-medium mb-2 ${textMain}`}
                           >
-                            Question {index + 1}
+                            Question {idx + 1}
                           </label>
                           <Field
-                            name={`quiz.${index}.question`}
+                            name={`quiz.${idx}.question`}
                             placeholder="Enter the question"
-                            className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                            className={`border p-2 w-full rounded-md text-sm px-2 focus:border-InstructorPrimary focus:outline-none ${borderIn} ${inputBg}`}
                           />
 
-                          {/* Answer array */}
-                          <FieldArray name={`quiz.${index}.answer`}>
-                            {({ remove: removeAnswer, push: pushAnswer }) => (
-                              <div className=" my-2">
-                                {q.answer.map((_, answerIndex) => (
-                                  <div key={answerIndex} className="my-1.5">
+                          {/* Answers */}
+                          <FieldArray name={`quiz.${idx}.answer`}>
+                            {({ remove: remAns, push: addAns }) => (
+                              <div className="my-2">
+                                {q.answer.map((_, aIdx) => (
+                                  <div key={aIdx} className="my-1.5">
                                     <Field
-                                      name={`quiz.${index}.answer.${answerIndex}`}
-                                      placeholder={`Answer ${answerIndex + 1}`}
-                                      className="border p-2 w-2/5 rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                                      name={`quiz.${idx}.answer.${aIdx}`}
+                                      placeholder={`Answer ${aIdx + 1}`}
+                                      className={`border p-2 w-2/5 rounded-md text-sm px-2 focus:border-InstructorPrimary focus:outline-none ${borderIn} ${inputBg}`}
                                     />
                                     <button
                                       type="button"
-                                      onClick={() => removeAnswer(answerIndex)}
+                                      onClick={() => remAns(aIdx)}
                                       disabled={q.answer.length <= 1}
-                                      className=" bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
+                                      className="bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
                                     >
                                       Remove
                                     </button>
@@ -187,7 +170,7 @@ const AddLectureForm = () => {
                                 ))}
                                 <button
                                   type="button"
-                                  onClick={() => pushAnswer("")}
+                                  onClick={() => addAns("")}
                                   className="bg-green-500 px-2 py-1 rounded-md text-white mt-1"
                                 >
                                   Add Answer
@@ -197,21 +180,21 @@ const AddLectureForm = () => {
                           </FieldArray>
 
                           <label
-                            htmlFor={`quiz.${index}.correctAnswer`}
-                            className="block text-gray-700 font-medium mb-2"
+                            htmlFor={`quiz.${idx}.correctAnswer`}
+                            className={`block font-medium mb-2 ${textMain}`}
                           >
-                            Correct Answer {index + 1}
+                            Correct Answer {idx + 1}
                           </label>
                           <Field
-                            name={`quiz.${index}.correctAnswer`}
+                            name={`quiz.${idx}.correctAnswer`}
                             placeholder="Enter the correct answer"
-                            className="border p-2 w-full rounded-md text-sm px-2 border-1 focus:border-InstructorPrimary focus:outline-none"
+                            className={`border p-2 w-full rounded-md text-sm px-2 focus:border-InstructorPrimary focus:outline-none ${borderIn} ${inputBg}`}
                           />
 
                           <button
                             type="button"
-                            className=" mt-2 bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
-                            onClick={() => remove(index)}
+                            className="mt-2 bg-red-500 ml-2 text-white px-2 py-1 rounded-md"
+                            onClick={() => remove(idx)}
                           >
                             Remove Question
                           </button>
@@ -219,10 +202,8 @@ const AddLectureForm = () => {
                       ))}
                       <button
                         type="button"
-                        className=" bg-green-500 px-2 py-1 rounded-md text-white mt-2"
-                        onClick={() =>
-                          push({ question: "", answer: ["", "", "", ""] })
-                        }
+                        className="bg-green-500 px-2 py-1 rounded-md text-white mt-2"
+                        onClick={() => push({ question: "", answer: ["", "", "", ""] })}
                       >
                         Add Question
                       </button>
@@ -232,6 +213,7 @@ const AddLectureForm = () => {
               )}
             </FieldArray>
 
+            {/* Submit */}
             <button
               type="submit"
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
