@@ -121,5 +121,64 @@ JWT_SECRET=your_jwt_secret
 # frontend/.env
 REACT_APP_API_URL=http://localhost:5000/graphql
 
+### Running the App
+
+```bash
+# Start backend server
+cd backend
+npm run server
+
+# In a new terminal, start frontend
+cd frontend
+npm run client
+
+---
+
+## 📋 Usage
+
+1. **Sign Up** as a student or company recruiter.  
+2. **Complete your profile** (students upload resume, companies add logo).  
+3. **Explore features**—students search jobs & courses; companies post jobs & review candidates.  
+4. **Engage** in chats, mock interviews, and get notified in real time.
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="docs/screenshots/dashboard-student.png" alt="Student Dashboard" width="300" />
+  <img src="docs/screenshots/dashboard-company.png" alt="Company Dashboard" width="300" />
+</div>
+
+> More screenshots coming soon!
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository  
+2. Create a feature branch (`git checkout -b feature/YourFeature`)  
+3. Commit your changes (`git commit -m 'Add YourFeature'`)  
+4. Push to the branch (`git push origin feature/YourFeature`)  
+5. Open a Pull Request  
+
+Please follow the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+---
+
+## 📬 Contact
+
+**Roman Ayyaz**  
+- Email: [romanayaz7@gmail.com](mailto:romanayaz7@gmail.com)  
+- LinkedIn: [linkedin.com/in/romanayaz](https://www.linkedin.com/in/romanayaz)  
+- GitHub: [github.com/RomanAyyaz](https://github.com/RomanAyyaz)
+
+Feel free to reach out with questions, feedback, or collaboration ideas!
 
 
