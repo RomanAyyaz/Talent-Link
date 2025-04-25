@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/MERN-Stack-blue" alt="MERN Stack Badge" />
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License Badge" />
-  <img src="https://img.shields.io/badge/Version-1.0.0-orange" alt="Version Badge" />
+    <img src="https://img.shields.io/badge/MERN-Stack-blue" alt="MERN Stack Badge" />
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="License Badge" />
+    <img src="https://img.shields.io/badge/Version-1.0.0-orange" alt="Version Badge" />
 </p>
 
 # Talent Link 🎓💼
 
-**Talent Link** is a smart, full-stack web platform built with the MERN stack that connects students with companies to streamline career development, skill matching, and recruitment. It empowers students to build professional profiles, find and apply for jobs, practice interviews, and acquire new skills—while giving companies an efficient way to source, assess, and onboard talent.
+**Talent Link** is an innovative full-stack web platform built with the MERN stack. It bridges the gap between students and companies, streamlining career development, skill matching, and recruitment. Students can build professional profiles, find jobs, practice interviews, and upskill, while companies can efficiently source, assess, and onboard talent.
 
 ---
 
@@ -16,10 +16,10 @@
 2. [Tech Stack](#-tech-stack)  
 3. [Architecture & Workflow](#-architecture--workflow)  
 4. [Getting Started](#-getting-started)  
-   - [Prerequisites](#prerequisites)  
-   - [Installation](#installation)  
-   - [Environment Variables](#environment-variables)  
-   - [Running the App](#running-the-app)  
+     - [Prerequisites](#prerequisites)  
+     - [Installation](#installation)  
+     - [Environment Variables](#environment-variables)  
+     - [Running the App](#running-the-app)  
 5. [Usage](#-usage)  
 6. [Screenshots](#-screenshots)  
 7. [Contributing](#-contributing)  
@@ -31,40 +31,25 @@
 ## 🚀 Features
 
 ### For Students 🎓
-- **Profile Management**  
-  Create and update personal, educational, and professional details.
-- **CV Builder**  
-  Generate and download polished, ATS-friendly resumes.
-- **Job Finder**  
-  Browse and filter job listings tailored to your skills and interests.
-- **Mock Interviews**  
-  Practice with AI-powered simulations or schedule live sessions.
-- **Skill Assessments**  
-  Self-evaluate your strengths and receive detailed feedback.
-- **Course Recommendations**  
-  Get personalized learning paths to close skill gaps.
+- **Profile Management**: Create and update personal, educational, and professional details.
+- **CV Builder**: Generate and download polished, ATS-friendly resumes.
+- **Job Finder**: Browse and filter job listings tailored to your skills and interests.
+- **Mock Interviews**: Practice with AI-powered simulations or schedule live sessions.
+- **Skill Assessments**: Self-evaluate your strengths and receive detailed feedback.
+- **Course Recommendations**: Get personalized learning paths to close skill gaps.
 
 ### For Companies 🏢
-- **Company Dashboard**  
-  Manage your organization’s profile and branding.
-- **Job Posting**  
-  Create, edit, and archive job openings.
-- **Interview Scheduling**  
-  Coordinate and track candidate interviews.
-- **Skill Matching Algorithm**  
-  Auto-match candidates based on skill-to-requirement fit.
-- **Applicant Tracking**  
-  Move candidates through stages: Applied → Interview → Offer.
-- **Internal Training Portal**  
-  Launch custom training courses and monitor employee progress.
+- **Company Dashboard**: Manage your organization’s profile and branding.
+- **Job Posting**: Create, edit, and archive job openings.
+- **Interview Scheduling**: Coordinate and track candidate interviews.
+- **Skill Matching Algorithm**: Auto-match candidates based on skill-to-requirement fit.
+- **Applicant Tracking**: Move candidates through stages: Applied → Interview → Offer.
+- **Internal Training Portal**: Launch custom training courses and monitor employee progress.
 
 ### General 🌐
-- **Real-Time Notifications**  
-  Stay updated on applications, messages, and interview invites.
-- **Unified Dashboard**  
-  Gain insights through charts and key metrics.
-- **In-App Chat**  
-  Chat directly with students or recruiters in a secure workspace.
+- **Real-Time Notifications**: Stay updated on applications, messages, and interview invites.
+- **Unified Dashboard**: Gain insights through charts and key metrics.
+- **In-App Chat**: Chat directly with students or recruiters in a secure workspace.
 
 ---
 
@@ -107,19 +92,27 @@ cd talent-link
 # 2. Install dependencies
 cd backend && npm install
 cd ../frontend && npm install
+```
 
-Environment Variables
-Create a .env in both backend/ and frontend/ directories:
-# backend/.env
+### Environment Variables
+
+Create a `.env` file in both `backend/` and `frontend/` directories:
+
+**backend/.env**
+```env
 PORT=5000
 MONGO_URI=your_mongo_connection_string
 JWT_SECRET=your_jwt_secret
+```
 
-# frontend/.env
+**frontend/.env**
+```env
 REACT_APP_API_URL=http://localhost:5000/graphql
+```
 
-Running the App
+### Running the App
 
+```bash
 # Start backend server
 cd backend
 npm run server
@@ -127,43 +120,53 @@ npm run server
 # In a new terminal, start frontend
 cd frontend
 npm run client
+```
 
-📋 Usage
-Sign Up as a student or company recruiter.
+---
 
-Complete your profile (students upload resume, companies add logo).
+## 📋 Usage
 
-Explore features—students search jobs & courses; companies post jobs & review candidates.
+1. Sign up as a student or company recruiter.  
+2. Complete your profile (students upload resumes, companies add logos).  
+3. Explore features—students search jobs & courses; companies post jobs & review candidates.  
+4. Engage in chats, mock interviews, and get notified in real time.
 
-Engage in chats, mock interviews, and get notified in real time.
+---
 
-📸 Screenshots
-<div align="center"> <img src="docs/screenshots/dashboard-student.png" alt="Student Dashboard" width="300" /> <img src="docs/screenshots/dashboard-company.png" alt="Company Dashboard" width="300" /> </div>
-More screenshots coming soon!
+## 📸 Screenshots
 
-🤝 Contributing
-Fork the repository
+<div align="center">
+    <img src="docs/screenshots/dashboard-student.png" alt="Student Dashboard" width="300" />
+    <img src="docs/screenshots/dashboard-company.png" alt="Company Dashboard" width="300" />
+</div>
 
-Create a feature branch (git checkout -b feature/YourFeature)
+*More screenshots coming soon!*
 
-Commit your changes (git commit -m 'Add YourFeature')
+---
 
-Push to the branch (git push origin feature/YourFeature)
+## 🤝 Contributing
 
-Open a Pull Request
+1. Fork the repository.  
+2. Create a feature branch: `git checkout -b feature/YourFeature`.  
+3. Commit your changes: `git commit -m 'Add YourFeature'`.  
+4. Push to the branch: `git push origin feature/YourFeature`.  
+5. Open a Pull Request.  
 
-Please follow the Contributor Covenant code of conduct.
+Please follow the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
 
-📄 License
-This project is licensed under the MIT License. See LICENSE for details.
+---
 
-📬 Contact
-Roman Ayyaz
+## 📄 License
 
-Email: romanayaz7@gmail.com
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-LinkedIn: linkedin.com/in/romanayaz
+---
 
-GitHub: github.com/RomanAyyaz
+## 📬 Contact
+
+- **Roman Ayyaz**  
+    - Email: [romanayaz7@gmail.com](mailto:romanayaz7@gmail.com)  
+    - LinkedIn: [linkedin.com/in/romanayaz](https://linkedin.com/in/romanayaz)  
+    - GitHub: [github.com/RomanAyyaz](https://github.com/RomanAyyaz)  
 
 Feel free to reach out with questions, feedback, or collaboration ideas!
