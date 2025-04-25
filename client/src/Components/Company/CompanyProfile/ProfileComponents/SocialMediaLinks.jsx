@@ -5,15 +5,15 @@ import { useCompanyIdStore } from '../../../../Store/CompanyIdStore';
 import { addSocialMediaLinksApi } from '../CompanyProfileApis/CompanyProfileApis';
 import { useDarkModeStore } from '../../../../Store/DarkModeStore';
 
-function SocialMediaLinks() {
+function SocialMediaLinks({company}) {
   const { companyId } = useCompanyIdStore();
   const { mode } = useDarkModeStore();
 
   const initialValues = {
-    facebook: '',
-    instagram: '',
-    twitter: '',
-    websiteUrl: ''
+    facebook: company.socialMediaLinks.facebook || '',
+    instagram: company.socialMediaLinks.instagram || '',
+    twitter: company.socialMediaLinks.twitter || '',
+    websiteUrl: company.socialMediaLinks.websiteUrl || ''
   };
 
   const socialMediaLinksMutation = useMutation({

@@ -10,9 +10,9 @@ function CompanyRepresentatives({ company }) {
   const { mode } = useDarkModeStore();
 
   const initialValues = {
-    name: '',
-    email: '',
-    role: ''
+    name: company.reprsentative[0].name ||'',
+    email: company.reprsentative[0].email || '',
+    role: company.reprsentative[0].role || ''
   };
 
   const companyRepresentativesMutation = useMutation({

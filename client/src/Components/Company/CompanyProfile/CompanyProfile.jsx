@@ -9,7 +9,7 @@ import { useDarkModeStore } from '../../../Store/DarkModeStore'
 
 function CompanyProfile() {
   //Importing the company data 
-   const { company} = useCompanyStore()
+    const { company} = useCompanyStore()
     const { mode, setMode } = useDarkModeStore();
   return (
     <div className={`border ${mode === 'light'?"bg-bgcompanyProfile ":"bg-darkk"}`}>

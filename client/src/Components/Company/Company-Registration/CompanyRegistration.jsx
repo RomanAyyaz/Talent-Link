@@ -49,6 +49,7 @@ function CompanyRegistration() {
       navigate("/dashboardCompany/dashboard")
       setCompanyId(data.companyData._id)
       setCompany(data.companyData)
+      console.log('The real data will be ' , data.companyData)
       toast.success("Logged in Successfully", {
         position: "top-center",
         autoClose: 3000,

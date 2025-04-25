@@ -51,8 +51,7 @@ export default function Sidebar() {
       subItems: [
         { name: "Post Job", to: "/dashboardCompany/postJob" },
         { name: "My Job", to: "/dashboardCompany/myJob" },
-        { name: "Edit Courses", to: "#" },
-        { name: "About Courses", to: "#" },
+        { name: "About Job", to: "#" },
       ],
     },
     {
@@ -61,7 +60,6 @@ export default function Sidebar() {
       subItems: [
         { name: "All Courses", to: "/dashboardCompany/all-courses" },
         { name: "Add Courses", to: "/dashboardCompany/add-course" },
-        { name: "Edit Courses", to: "#" },
         { name: "About Courses", to: "#" },
       ],
     },

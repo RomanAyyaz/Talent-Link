@@ -8,7 +8,7 @@ import { useDarkModeStore } from '../../../../Store/DarkModeStore';
 function BusinessOverview({ company }) {
   const { companyId } = useCompanyIdStore();
   const { mode } = useDarkModeStore();
-
+  console.log('The data is' , company)
   const initialValues = {
     mission: company.mission || '',
     vision: company.vision || '',
