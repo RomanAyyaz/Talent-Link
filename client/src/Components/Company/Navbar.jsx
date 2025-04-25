@@ -23,6 +23,7 @@ function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const { company } = useCompanyStore();
   const { companyId } = useCompanyIdStore();
+
   //Api Calling for getting all the resumes
   const { data, isLoading, error } = useQuery({
     queryKey: ["notifications", companyId],
@@ -34,9 +35,10 @@ function Navbar() {
   if (error) {
     <h2>error</h2>;
   }
-  const Notifications = data?.notifications;
+  const Notifications = data?.notifications || [];
   console.log(Notifications);
 
+  /*  ─────────── dummy notifications list (unchanged) ─────────── */
   const notifications = [
     {
       id: 1,
@@ -117,12 +119,24 @@ function Navbar() {
     }
   };
 
+  /*  ─────────── dark-mode helper classes (styling ONLY) ─────────── */
+  const outerBg     = mode === "light" ? "bg-bgwhite" : "bg-dark text-white";
+  const bellBg      = mode === "light" ? "bg-indigo-100" : "bg-indigo-900";
+  const bellIconCol = mode === "light" ? "text-indigo-500" : "text-indigo-300";
+  const dropdownBg  = mode === "light"
+    ? "bg-bgwhite text-neutral-500"
+    : "bg-dark text-gray-300";
+  const itemHover   = mode === "light" ? "hover:bg-gray-50" : "hover:bg-gray-700";
+  const borderCol   = mode === "light" ? "border-gray-100" : "border-gray-700";
+
+  /*  ─────────── render ─────────── */
   return (
     <>
-      <div className={`${mode === 'light'  ? 'bg-bgwhite    w-full h-12 md:h-14 flex items-center justify-between px-3 lg:px-8 shadow-sm dark:bg-gray-800 dark:text-white' : 'bg-dark w-full h-12 md:h-14 flex items-center justify-between px-3 lg:px-8 shadow-sm text-white' }`}>
+      <div className={`${outerBg} w-full h-12 md:h-14 flex items-center justify-between px-3 lg:px-8 shadow-sm`}>
         <div>
-          <h1 className="font-extrabold">{company.companyName}</h1>
+          <h1 className="font-extrabold ml-12 md:ml-0">{company.companyName}</h1>
         </div>
+
         <div className="flex items-center">
           {/* Dark Mode Toggle */}
           <div className="relative mr-4">
@@ -133,11 +147,7 @@ function Navbar() {
               onClick={() => {
                 mode === "light" ? setMode("dark") : setMode("light");
               }}
-              title={
-                mode === "dark"
-                  ? "Switch to Light Mode"
-                  : "Switch to Dark Mode"
-              }
+              title={mode === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {mode === "dark" ? (
                 <FaSun className="text-yellow-400" />
@@ -155,26 +165,26 @@ function Navbar() {
               if (showProfile) setShowProfile(false);
             }}
           >
-            <div className="bg-indigo-100 p-2 rounded-full cursor-pointer dark:bg-indigo-900">
-              <FaBell className="text-indigo-500 dark:text-indigo-300" />
+            <div className={`${bellBg} p-2 rounded-full cursor-pointer`}>
+              <FaBell className={bellIconCol} />
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                5
+                {Notifications.length}
               </span>
             </div>
 
             {/* Notifications Dropdown */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2.5 bg-bgwhite w-80 rounded-lg py-2 text-neutral-500 text-sm shadow-lg z-10 dark:bg-gray-800 dark:text-gray-300">
+              <div className={`absolute right-0 mt-2.5 w-80 rounded-lg py-2 shadow-lg z-10 ${dropdownBg}`}>
                 {Notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className="flex items-center py-3 px-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 dark:hover:bg-gray-700 dark:border-gray-700"
+                    className={`flex items-center py-3 px-4 cursor-pointer border-b ${borderCol} ${itemHover}`}
                   >
                     <div className="mr-3">
-                      {getNotificationIcon(notifications[0].icon)}
+                      {getNotificationIcon(notification.icon || notifications[0].icon)}
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-700 dark:text-gray-300">
+                      <p className={`${mode === "light" ? "text-gray-700" : "text-gray-300"}`}>
                         <span className="font-medium">{notification.user}</span>{" "}
                         {notification.message}
                       </p>
@@ -205,18 +215,18 @@ function Navbar() {
               className="w-10 h-10 rounded-full cursor-pointer"
             />
             {showProfile && (
-              <div className="absolute duration-1000 z-50 right-0 mt-2.5 bg-bgwhite h-28 w-40 rounded-lg py-2 text-neutral-500 text-sm shadow-lg dark:bg-gray-800 dark:text-gray-300">
+              <div className={`absolute duration-1000 z-50 right-0 mt-2.5 h-28 w-40 rounded-lg py-2 shadow-lg ${dropdownBg}`}>
                 <Link to={"/dashboardCompany/viewProfile"}>
-                  <div className="flex items-center py-1.5 cursor-pointer hover:bg-gray-100 hover:text-InstructorPrimary w-full px-5 dark:hover:bg-gray-700">
+                  <div className={`flex items-center py-1.5 cursor-pointer w-full px-5 ${itemHover}`}>
                     <FaRegUser />
                     <h1 className="mx-2.5">Profile</h1>
                   </div>
                 </Link>
-                <div className="flex items-center py-1.5 cursor-pointer hover:bg-gray-100 hover:text-InstructorPrimary w-full px-5 dark:hover:bg-gray-700">
+                <div className={`flex items-center py-1.5 cursor-pointer w-full px-5 ${itemHover}`}>
                   <FaRegEnvelope />
                   <h1 className="mx-2.5">Inbox</h1>
                 </div>
-                <div className="flex items-center py-1.5 cursor-pointer hover:bg-gray-100 hover:text-InstructorPrimary w-full px-5 dark:hover:bg-gray-700">
+                <div className={`flex items-center py-1.5 cursor-pointer w-full px-5 ${itemHover}`}>
                   <FaRegArrowAltCircleLeft />
                   <h1 className="mx-2.5">Logout</h1>
                 </div>

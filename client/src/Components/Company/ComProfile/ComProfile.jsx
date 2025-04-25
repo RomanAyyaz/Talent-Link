@@ -18,8 +18,11 @@ import {
   Check,
 } from "lucide-react";
 import { useCompanyStore } from "../../../Store/CompanyStore";
+import { useDarkModeStore } from "../../../Store/DarkModeStore";
+
 export default function CompanyProfile() {
   const { company, setCompany } = useCompanyStore()
+  const { mode } = useDarkModeStore();
   const [formData, setFormData] = useState({
     email: "",
     message: "",
@@ -52,12 +55,11 @@ export default function CompanyProfile() {
     }
   };
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className={`${mode === 'light' ? 'bg-gray-50' : 'bg-darkk'} min-h-screen`}>
       <div className="container mx-auto py-8 px-4 max-w-7xl">
         {/* Company Header */}
-        <div className="bg-white rounded-lg shadow-md mb-8 overflow-hidden">
+        <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg shadow-md mb-8 overflow-hidden`}>
           {/* Banner Image */}
-
           <div className="relative h-48 w-full bg-gradient-to-r from-green-600 to-green-400">
             <div className="absolute inset-0 opacity-10">
               <div className="grid grid-cols-10 h-full">
@@ -73,15 +75,17 @@ export default function CompanyProfile() {
 
           <div className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center relative">
             {/* Company Logo */}
-            <div className="bg-white rounded-xl shadow-md w-32 h-32 flex items-center justify-center border-4 border-white absolute top-0 transform -translate-y-1/2 left-8">
-            <img  src={`http://localhost:8000${company.companyLogo}`}
-              alt="No Logo uploaded" />
+            <div className={`${mode === 'light' ? 'bg-white' : 'bg-darkk'} rounded-xl shadow-md w-32 h-32 flex items-center justify-center border-4 border-white absolute top-0 transform -translate-y-1/2 left-8`}>
+              <img
+                src={`http://localhost:8000${company.companyLogo}`}
+                alt="No Logo uploaded"
+              />
             </div>
 
             {/* Company Info */}
             <div className="mt-16 md:mt-0 md:ml-36">
               <div className="flex flex-col md:flex-row md:items-center gap-3">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                <h1 className={`text-3xl md:text-4xl font-bold ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   {company.companyName}
                 </h1>
                 <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded w-fit">
@@ -89,7 +93,7 @@ export default function CompanyProfile() {
                 </span>
               </div>
 
-              <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 text-gray-500 mt-2">
+              <div className={`flex flex-col md:flex-row md:items-center gap-3 md:gap-6 mt-2 ${mode === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                 <span className="font-medium">Freelancing Platform</span>
                 <div className="flex items-center">
                   <MapPin className="h-4 w-4 mr-1 text-green-500" />
@@ -116,16 +120,16 @@ export default function CompanyProfile() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* About Company Section */}
           <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white rounded-lg shadow-md">
+            <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg shadow-md`}>
               <div className="p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                <h2 className={`text-2xl font-bold mb-4 flex items-center ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   About Company
-                  <span className="ml-3 bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                  <span className={`${mode === 'light' ? 'bg-gray-100 text-gray-800' : 'bg-darkk text-gray-300'} ml-3 text-xs font-medium px-2.5 py-0.5 rounded`}>
                     Est. 1999
                   </span>
                 </h2>
                 <div className="prose prose-gray max-w-none">
-                  <p className="text-gray-600 leading-relaxed mb-6">
+                  <p className={`${mode === 'light' ? 'text-gray-600' : 'text-gray-400'} leading-relaxed mb-6`}>
                     Upwork began over two decades ago by pioneering a better way
                     of working, helping businesses find more flexibility and
                     connecting talent with more opportunities. Our mission to
@@ -136,17 +140,17 @@ export default function CompanyProfile() {
                     to accomplish incredible things.
                   </p>
 
-                  <p className="text-gray-600 leading-relaxed mb-6">
+                  <p className={`${mode === 'light' ? 'text-gray-600' : 'text-gray-400'} leading-relaxed mb-6`}>
                     Like for so many, Upwork has had a big impact on my life. I
                     first came to this company on the product team and over the
                     years have understood what makes this platform really work:
                     the relationships.
                   </p>
 
-                  <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">
+                  <h3 className={`text-xl font-bold mt-8 mb-4 ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                     We see what you do
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className={`${mode === 'light' ? 'text-gray-600' : 'text-gray-400'} leading-relaxed`}>
                     I have personally seen the passion and commitment that every
                     user puts into their work here. Whether it's a quick
                     powerpoint presentation or a multi-year development project
@@ -156,15 +160,13 @@ export default function CompanyProfile() {
                 </div>
               </div>
             </div>
-
-            {/* Office Gallery Section */}
           </div>
 
           {/* Job Overview Section */}
           <div>
-            <div className="bg-white rounded-lg shadow-md">
+            <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg shadow-md`}>
               <div className="p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className={`text-2xl font-bold mb-6 ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   Company Overview
                 </h2>
 
@@ -174,8 +176,8 @@ export default function CompanyProfile() {
                       <Calendar className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-500 text-sm">Founded in</span>
-                      <p className="text-gray-900 font-medium">10 July, 1999</p>
+                      <span className={`${mode === 'light' ? 'text-gray-500' : 'text-gray-400'} text-sm`}>Founded in</span>
+                      <p className={`font-medium ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>10 July, 1999</p>
                     </div>
                   </div>
 
@@ -184,8 +186,8 @@ export default function CompanyProfile() {
                       <Users className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-500 text-sm">Team Size</span>
-                      <p className="text-gray-900 font-medium">
+                      <span className={`${mode === 'light' ? 'text-gray-500' : 'text-gray-400'} text-sm`}>Team Size</span>
+                      <p className={`font-medium ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                         1000+ Employees
                       </p>
                     </div>
@@ -196,8 +198,8 @@ export default function CompanyProfile() {
                       <DollarSign className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-500 text-sm">Revenue</span>
-                      <p className="text-gray-900 font-medium">$500M+ (2023)</p>
+                      <span className={`${mode === 'light' ? 'text-gray-500' : 'text-gray-400'} text-sm`}>Revenue</span>
+                      <p className={`font-medium ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>$500M+ (2023)</p>
                     </div>
                   </div>
 
@@ -206,10 +208,10 @@ export default function CompanyProfile() {
                       <MapPin className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-500 text-sm">
+                      <span className={`${mode === 'light' ? 'text-gray-500' : 'text-gray-400'} text-sm`}>
                         Headquarters
                       </span>
-                      <p className="text-gray-900 font-medium">New York, USA</p>
+                      <p className={`font-medium ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>New York, USA</p>
                     </div>
                   </div>
 
@@ -218,8 +220,8 @@ export default function CompanyProfile() {
                       <Briefcase className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-500 text-sm">Industry</span>
-                      <p className="text-gray-900 font-medium">
+                      <span className={`${mode === 'light' ? 'text-gray-500' : 'text-gray-400'} text-sm`}>Industry</span>
+                      <p className={`font-medium ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                         Freelancing Platform
                       </p>
                     </div>
@@ -230,10 +232,10 @@ export default function CompanyProfile() {
                       <Building className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-500 text-sm">
+                      <span className={`${mode === 'light' ? 'text-gray-500' : 'text-gray-400'} text-sm`}>
                         Global Offices
                       </span>
-                      <p className="text-gray-900 font-medium">10+ Locations</p>
+                      <p className={`font-medium ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>10+ Locations</p>
                     </div>
                   </div>
                 </div>
@@ -246,14 +248,14 @@ export default function CompanyProfile() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Team Section */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md">
+            <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg shadow-md`}>
               <div className="p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className={`text-2xl font-bold mb-6 ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   Leadership Team
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Team Member 1 */}
-                  <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 group">
+                  <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg overflow-hidden shadow-sm border ${mode === 'light' ? 'border-gray-100' : 'border-gray-700'} group`}>
                     <div className="relative aspect-square">
                       <img
                         src="https://html.themewant.com/jobpath/template/assets/img/team/1.webp?height=400&width=400"
@@ -262,7 +264,7 @@ export default function CompanyProfile() {
                       />
                     </div>
                     <div className="p-4 text-center">
-                      <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className={`text-xl font-bold ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                         Al Amin Bali
                       </h3>
                       <p className="text-green-600 font-medium mb-3">
@@ -292,7 +294,7 @@ export default function CompanyProfile() {
                   </div>
 
                   {/* Team Member 2 */}
-                  <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 group">
+                  <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg overflow-hidden shadow-sm border ${mode === 'light' ? 'border-gray-100' : 'border-gray-700'} group`}>
                     <div className="relative aspect-square">
                       <img
                         src="https://html.themewant.com/jobpath/template/assets/img/team/2.webp?height=400&width=400"
@@ -301,7 +303,7 @@ export default function CompanyProfile() {
                       />
                     </div>
                     <div className="p-4 text-center">
-                      <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className={`text-xl font-bold ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                         Jonathon Doe
                       </h3>
                       <p className="text-green-600 font-medium mb-3">
@@ -331,7 +333,7 @@ export default function CompanyProfile() {
                   </div>
 
                   {/* Team Member 3 */}
-                  <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 group">
+                  <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg overflow-hidden shadow-sm border ${mode === 'light' ? 'border-gray-100' : 'border-gray-700'} group`}>
                     <div className="relative aspect-square">
                       <img
                         src="
@@ -341,7 +343,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                       />
                     </div>
                     <div className="p-4 text-center">
-                      <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className={`text-xl font-bold ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                         Emma Elizabeth
                       </h3>
                       <p className="text-green-600 font-medium mb-3">
@@ -376,9 +378,9 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
 
           {/* Contact Form */}
           <div>
-            <div className="bg-white rounded-lg shadow-md">
+            <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg shadow-md`}>
               <div className="p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className={`text-2xl font-bold mb-6 ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   Contact Us
                 </h2>
 
@@ -387,10 +389,10 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                     <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
                       <Check className="h-6 w-6 text-green-600" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    <h3 className={`text-lg font-medium mb-2 ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
                       Message Sent!
                     </h3>
-                    <p className="text-gray-600">
+                    <p className={`${mode === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                       Thank you for reaching out. We'll get back to you shortly.
                     </p>
                     <button
@@ -405,7 +407,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-gray-700 mb-1"
+                        className={`block text-sm font-medium mb-1 ${mode === 'light' ? 'text-gray-700' : 'text-gray-300'}`}
                       >
                         Your Email
                       </label>
@@ -418,7 +420,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="Enter your email"
-                          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                          className={`w-full pl-10 pr-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent ${mode === 'light' ? 'border border-gray-300 bg-white text-gray-900' : 'border border-gray-600 bg-darkk text-white'}`}
                           required
                         />
                       </div>
@@ -427,7 +429,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                     <div>
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700 mb-1"
+                        className={`block text-sm font-medium mb-1 ${mode === 'light' ? 'text-gray-700' : 'text-gray-300'}`}
                       >
                         Phone
                       </label>
@@ -437,7 +439,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                           id="phone"
                           type="text"
                           value="(+88)154-678789"
-                          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-500"
+                          className={`w-full pl-10 pr-4 py-2 rounded-md ${mode === 'light' ? 'border border-gray-300 bg-gray-50 text-gray-500' : 'border border-gray-600 bg-darkk text-gray-400'}`}
                           readOnly
                         />
                       </div>
@@ -446,7 +448,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                     <div>
                       <label
                         htmlFor="message"
-                        className="block text-sm font-medium text-gray-700 mb-1"
+                        className={`block text-sm font-medium mb-1 ${mode === 'light' ? 'text-gray-700' : 'text-gray-300'}`}
                       >
                         Your Message
                       </label>
@@ -459,7 +461,7 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
                           onChange={handleChange}
                           placeholder="Write your message here..."
                           rows={5}
-                          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                          className={`w-full pl-10 pr-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none ${mode === 'light' ? 'border border-gray-300 bg-white text-gray-900' : 'border border-gray-600 bg-darkk text-white'}`}
                           required
                         ></textarea>
                       </div>
@@ -479,9 +481,9 @@ https://html.themewant.com/jobpath/template/assets/img/team/3.webp?height=400&wi
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md mt-2">
+        <div className={`${mode === 'light' ? 'bg-white' : 'bg-dark'} rounded-lg shadow-md mt-2`}>
           <div className="p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <h2 className={`text-2xl font-bold mb-6 ${mode === 'light' ? 'text-gray-900' : 'text-white'}`}>
               Our Office Gallery
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
