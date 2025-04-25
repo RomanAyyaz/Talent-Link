@@ -70,13 +70,13 @@
 
 ## 🛠 Tech Stack
 
-| Layer             | Technologies                                  |
-| ----------------- | --------------------------------------------- |
-| **Frontend**      | React.js • Tailwind CSS • Formik • React Query |
-| **Backend**       | Node.js • Express.js • GraphQL (Apollo Server) |
-| **Database**      | MongoDB (Mongoose)                            |
-| **Authentication**| JSON Web Tokens (JWT)                         |
-| **Version Control**| Git & GitHub                                |
+| Layer               | Technologies                                   |
+| ------------------- | ---------------------------------------------- |
+| **Frontend**        | React.js • Tailwind CSS • Formik • React Query |
+| **Backend**         | Node.js • Express.js • GraphQL (Apollo Server) |
+| **Database**        | MongoDB (Mongoose)                             |
+| **Authentication**  | JSON Web Tokens (JWT)                          |
+| **Version Control** | Git & GitHub                                   |
 
 ---
 
@@ -104,15 +104,12 @@
 git clone https://github.com/yourusername/talent-link.git
 cd talent-link
 
-# 2. Install dependencies for backend & frontend
+# 2. Install dependencies
 cd backend && npm install
 cd ../frontend && npm install
 
-### Environment Variables
-
-Create a `.env` in both `backend/` and `frontend/` directories:
-
-```env
+Environment Variables
+Create a .env in both backend/ and frontend/ directories:
 # backend/.env
 PORT=5000
 MONGO_URI=your_mongo_connection_string
@@ -121,9 +118,8 @@ JWT_SECRET=your_jwt_secret
 # frontend/.env
 REACT_APP_API_URL=http://localhost:5000/graphql
 
-### Running the App
+Running the App
 
-```bash
 # Start backend server
 cd backend
 npm run server
@@ -132,53 +128,42 @@ npm run server
 cd frontend
 npm run client
 
----
+📋 Usage
+Sign Up as a student or company recruiter.
 
-## 📋 Usage
+Complete your profile (students upload resume, companies add logo).
 
-1. **Sign Up** as a student or company recruiter.  
-2. **Complete your profile** (students upload resume, companies add logo).  
-3. **Explore features**—students search jobs & courses; companies post jobs & review candidates.  
-4. **Engage** in chats, mock interviews, and get notified in real time.
+Explore features—students search jobs & courses; companies post jobs & review candidates.
 
----
+Engage in chats, mock interviews, and get notified in real time.
 
-## 📸 Screenshots
+📸 Screenshots
+<div align="center"> <img src="docs/screenshots/dashboard-student.png" alt="Student Dashboard" width="300" /> <img src="docs/screenshots/dashboard-company.png" alt="Company Dashboard" width="300" /> </div>
+More screenshots coming soon!
 
-<div align="center">
-  <img src="docs/screenshots/dashboard-student.png" alt="Student Dashboard" width="300" />
-  <img src="docs/screenshots/dashboard-company.png" alt="Company Dashboard" width="300" />
-</div>
+🤝 Contributing
+Fork the repository
 
-> More screenshots coming soon!
+Create a feature branch (git checkout -b feature/YourFeature)
 
----
+Commit your changes (git commit -m 'Add YourFeature')
 
-## 🤝 Contributing
+Push to the branch (git push origin feature/YourFeature)
 
-1. Fork the repository  
-2. Create a feature branch (`git checkout -b feature/YourFeature`)  
-3. Commit your changes (`git commit -m 'Add YourFeature'`)  
-4. Push to the branch (`git push origin feature/YourFeature`)  
-5. Open a Pull Request  
+Open a Pull Request
 
-Please follow the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
+Please follow the Contributor Covenant code of conduct.
 
----
+📄 License
+This project is licensed under the MIT License. See LICENSE for details.
 
-## 📄 License
+📬 Contact
+Roman Ayyaz
 
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+Email: romanayaz7@gmail.com
 
----
+LinkedIn: linkedin.com/in/romanayaz
 
-## 📬 Contact
-
-**Roman Ayyaz**  
-- Email: [romanayaz7@gmail.com](mailto:romanayaz7@gmail.com)  
-- LinkedIn: [linkedin.com/in/romanayaz](https://www.linkedin.com/in/romanayaz)  
-- GitHub: [github.com/RomanAyyaz](https://github.com/RomanAyyaz)
+GitHub: github.com/RomanAyyaz
 
 Feel free to reach out with questions, feedback, or collaboration ideas!
-
-
