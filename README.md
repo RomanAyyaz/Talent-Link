@@ -108,3 +108,18 @@ cd talent-link
 cd backend && npm install
 cd ../frontend && npm install
 
+### Environment Variables
+
+Create a `.env` in both `backend/` and `frontend/` directories:
+
+```env
+# backend/.env
+PORT=5000
+MONGO_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
+
+# frontend/.env
+REACT_APP_API_URL=http://localhost:5000/graphql
+
+
+
