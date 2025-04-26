@@ -26,19 +26,13 @@ export default function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
-  // Check if the screen is mobile size
+ 
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
-    // Initial check
     checkIfMobile()
-
-    // Add event listener for window resize
     window.addEventListener("resize", checkIfMobile)
-
-    // Cleanup
     return () => window.removeEventListener("resize", checkIfMobile)
   }, [])
 
@@ -93,7 +87,6 @@ export default function Sidebar() {
     </button>
   )
 
-  // Render the sidebar content
   const SidebarContent = () => (
     <div className="pt-3">
       <p
@@ -114,7 +107,7 @@ export default function Sidebar() {
                   aria-expanded={expandedIndex === index}
                   aria-controls={`${item.name}-submenu`}
                 >
-                  <item.icon className="w-5 h-5 shrink-0" />
+                  <item.icon className="w-5 h-5 shrink-0 my-1 " />
                   <span className={`duration-300 flex-1 text-left ${!isExpanded && !isMobile && "hidden"}`}>
                     {item.name}
                   </span>
@@ -157,11 +150,11 @@ export default function Sidebar() {
             ) : item.to ? (
               <Link
                 to={item.to}
-                className={`flex items-center gap-4 rounded-lg p-2 group
+                className={`flex items-center gap-4 rounded-lg p-2 group 
                     ${mode === "light" ? "text-gray-600 hover:bg-indigo-50" : "text-white hover:text-indigo-600"}`}
                 onClick={isMobile ? toggleMobileMenu : undefined}
               >
-                <item.icon className="w-5 h-5 shrink-0" />
+                <item.icon className="w-5 h-5 shrink-0 my-1" />
                 <span className={`duration-300 ${!isExpanded && !isMobile && "hidden"}`}>{item.name}</span>
                 {!isExpanded && !isMobile && (
                   <div
@@ -231,7 +224,6 @@ export default function Sidebar() {
     )
   }
 
-  // For desktop/tablet: render the original sidebar with collapse functionality
   return (
     <div
       className={`${mode === "light" ? "bg-bgsidebar" : "bg-dark"} h-screen p-4 

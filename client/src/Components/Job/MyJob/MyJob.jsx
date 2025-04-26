@@ -9,6 +9,7 @@ import { useDarkModeStore } from '../../../Store/DarkModeStore';
 function MyJob() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All Category');
+  const [searchTerm, setSearchTerm] = useState('');
   const { mode } = useDarkModeStore();
 
   const categories = [
@@ -30,6 +31,13 @@ function MyJob() {
   if (error)    return <div>Error in loading jobs data</div>;
 
   const jobData = data ? data.jobData : [];
+
+  // filter by jobTitle
+  const filteredJobs = jobData.filter(job =>
+    job.jobTitle
+      .toLowerCase()
+      .includes(searchTerm.trim().toLowerCase())
+  );                                                             
 
   /* ── Dark-mode helpers ─────────────────────────────────────────────── */
   const outerClass = `
@@ -96,6 +104,8 @@ function MyJob() {
               type="text"
               placeholder="Find Top Employer"
               className={searchInputClass}
+              value={searchTerm}                           // <-- added
+              onChange={e => setSearchTerm(e.target.value)}// <-- added
             />
           </div>
 
@@ -136,8 +146,10 @@ function MyJob() {
 
       {/* job list */}
       <div>
-        {jobData &&
-          jobData.map((job, index) => <MyJobList job={job} key={index} />)}
+        {filteredJobs &&                             
+          filteredJobs.map((job, index) => (
+            <MyJobList job={job} key={index} />
+          ))}
       </div>
     </div>
   );
