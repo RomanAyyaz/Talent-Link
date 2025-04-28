@@ -21,6 +21,8 @@ import ContactPage from './Components/User/Contact/ContactPage';
 import ProfileComponent from './Components/User/UserProfile/ProfileComponent';
 import Quiz from './Components/QuizTest/Quiz';
 import TakeQuiz from './Components/User/UserDashboard/TakeQuiz/TakeQuiz';
+import CoLandingPage from './Components/User/JobCopilot/CoLandingPage';
+import JobPref from './Components/User/JobCopilot/JobPref';
 
 function App() {
   return (
@@ -61,7 +63,13 @@ function App() {
           <Route path='/contact' element = {<ContactPage/>}/> 
           {/* Quiz  */}
           <Route path='/quiz/:id' element = {<Quiz/> }/>
+          
           <Route path = '/takeQuiz/:id' element = {<TakeQuiz/>} />
+
+          {/* Job copilot */}
+          <Route path='/jobCopilot' element = {<CoLandingPage/>}/>
+          <Route path='/jobCopilot/jobPref' element = {<JobPref/>}/>
+
         </Routes>
       </BrowserRouter>
 

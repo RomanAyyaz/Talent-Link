@@ -79,7 +79,11 @@ const UserSchema = new mongoose.Schema({
         type:String,
     },
     //User portfolio
-    projects: [projectSchema]
+    projects: [projectSchema],
+
+    //Co Pilot Fields
+    isCopilotActive:     { type: Boolean, default: false },
+    copilotSince:        { type: Date },
     
 },{timestamps:true})
 

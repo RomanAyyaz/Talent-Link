@@ -9,6 +9,8 @@ const Message = require('./Models/MessageSchema/MessageSchema');
 // Initialize
 require('./Database/db');
 require('./Listeners/userListeners');
+require('./Workers/cronWatcher');
+
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -32,12 +34,15 @@ const CourseRoute = require('./Routes/Course/Course');
 const JobRoute = require('./Routes/Job/Job');
 const QuizRoute = require('./Routes/Quiz/Quiz');
 const CompanyRoutes = require('./Routes/Company/CompanyRoutes');
+const CopilotRoute = require('./Routes/JobCopilot/JobCopilot');
+
 
 app.use('/user', UserRoute);
 app.use('/course', CourseRoute);
 app.use('/company', CompanyRoutes);
 app.use('/job', JobRoute);
 app.use('/quiz', QuizRoute);
+app.use('/jobCopilot',CopilotRoute)
 
 // ✅ Real-time Socket.IO logic
 io.on('connection', (socket) => {
