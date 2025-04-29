@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getDataOfJobApi, hasUserAppliedApi } from "../JobApis";
 import { useUserStore } from "../../../../Store/UserStore";
+import JobHeader from "../../JobCopilot/JobHeader";
 function Main() {
   let { user } = useUserStore();
   let { id } = useParams();
@@ -83,7 +84,7 @@ function Main() {
   return (
     <div>
       <JobMain />
-      <div className="border md:px-10 md:flex">
+      <div className="md:px-10 md:flex">
         {/* Left Section */}
         <div className="py-5 md:py-14 md:w-3/5">
           <JobDetails />
@@ -260,6 +261,10 @@ function Main() {
       {/* Links */}
       {/* <OtherLinks /> */}
       {/* Footer */}
+      
+      <div className="md:px-10">
+      {<JobHeader/>}  
+      </div>
       <Fotter />
       <JobApplicationModal
         isOpen={isModalOpen}
