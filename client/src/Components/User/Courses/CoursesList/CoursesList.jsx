@@ -7,7 +7,7 @@ export default function CourseList({courseData}) {
     <article className="my-3 w-full px-8 py-10 md:px-12  mx-auto bg-white rounded-lg  overflow-hidden flex flex-col md:flex-row">
       <div className="md:w-1/4">
         <img
-          src={`http://localhost:8000${courseData.imageUrl}`}
+          src={`http://localhost:8000/public${courseData.imageUrl}`}
           alt="White Nike sneaker on asphalt"
           className="w-full h-full object-cover rounded-md"
         />

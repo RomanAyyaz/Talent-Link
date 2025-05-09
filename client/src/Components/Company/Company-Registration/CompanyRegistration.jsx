@@ -127,8 +127,8 @@ function CompanyRegistration() {
   return (
     <>
       {Account === "signin" ? (
-        <div className="min-h-screen flex justify-center items-center bg-bgSignin">
-          <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4 md:py-8 rounded-md bg-bgwhite">
+        <div className="min-h-screen flex justify-center items-center">
+          <div className="w-[450px] mx-3 py-4 md:py-8">
             <h1 className="text-2xl  font-extrabold">Talent-Link</h1>
             <p className="my-2 font-semibold">Sign in your account </p>
             <Formik
@@ -256,8 +256,8 @@ function CompanyRegistration() {
           </div>
         </div>
       ) : (
-        <div className="min-h-screen flex justify-center items-center bg-bgSignin">
-          <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4 rounded-md bg-bgwhite">
+        <div className="min-h-screen flex justify-center items-center">
+          <div className="w-[450px]  mx-3 py-4">
             <h1 className="text-2xl font-extrabold ">Talent-Link</h1>
             <p className="my-2 font-semibold">Register your company account </p>
             <Formik

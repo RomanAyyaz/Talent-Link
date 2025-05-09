@@ -28,7 +28,7 @@ const CandidateCard = ({ candidate }) => {
         {/* left chunk */}
         <div className="flex gap-5">
           <img
-            src={`http://localhost:8000${candidate.userId.imageUrl}`}
+            src={`http://localhost:8000/public${candidate.userId.imageUrl}`}
             alt={candidate.userId.fullname}
             className="w-[120px] h-[120px] rounded-lg object-cover"
           />

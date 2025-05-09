@@ -19,7 +19,7 @@ const UserDropdown = ({ isOpen, setIsOpen , user }) => (
       className="flex items-center focus:outline-none"
     >
       <img
-       src={`http://localhost:8000${user.imageUrl}`}
+       src={`http://localhost:8000/public${user.imageUrl}`}
         alt="User"
         className="h-10 w-10 rounded-full"
       />
@@ -38,7 +38,7 @@ export default function TextNavbar() {
    const { user} = useUserStore();
   const [isOpen, setIsOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-
+  console.log(user.imageUrl)
   const navigation = [
     { name: 'HOME',to: '/landingpage'  },
     { name: 'NEWS',to: '/landingpage'  },

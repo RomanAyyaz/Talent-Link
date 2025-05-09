@@ -210,7 +210,7 @@ function Navbar() {
             }}
           >
             <img
-              src={`http://localhost:8000${company.companyLogo}`}
+              src={`http://localhost:8000/public${company.companyLogo}`}
               alt="No Logo uploaded"
               className="w-10 h-10 rounded-full cursor-pointer"
             />

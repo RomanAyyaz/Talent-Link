@@ -3,7 +3,8 @@ import { Link } from "react-router-dom"
 
 const AppliedJobs = ({jobData}) => {
   return (
-  
+  // <>hello
+  // </>
     <div className="max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
       <h2 className="text-2xl font-bold text-gray-900 mb-4">{jobData.jobId.jobTitle}</h2>
 

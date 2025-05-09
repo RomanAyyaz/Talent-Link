@@ -1,82 +1,84 @@
-import React, { useState } from "react";
-import { Field, Form, Formik } from "formik";
-import { SignupApi, SigninApi, OtpVerificationApi } from "./LoginApis";
-import { useMutation } from "@tanstack/react-query";
-import * as yup from "yup";
-import { useUserStore } from "../../../Store/UserStore";
-import { Link, useNavigate } from "react-router-dom";
-import { toast, Bounce } from "react-toastify";
+"use client"
+
+import { useState } from "react"
+import { Field, Form, Formik } from "formik"
+import { SignupApi, SigninApi, OtpVerificationApi } from "./LoginApis"
+import { useMutation } from "@tanstack/react-query"
+import * as yup from "yup"
+import { useUserStore } from "../../../Store/UserStore"
+import { Link, useNavigate } from "react-router-dom"
+import { toast, Bounce } from "react-toastify"
 function Login() {
   //Navigation
-  let navigate = useNavigate();
+  const navigate = useNavigate()
 
   //Importing User states from userStore to set user
-  const { user, setUser } = useUserStore();
+  const { user, setUser } = useUserStore()
 
   //State for setting the Account type
-  let [Account, SetAccount] = useState("signin");
+  const [Account, SetAccount] = useState("signin")
 
   //State for Setting email
-  let [Email, setEmail] = useState();
+  const [Email, setEmail] = useState()
 
   //Otp values
-  let [value1, setValue1] = useState();
-  let [value2, setValue2] = useState();
-  let [value3, setValue3] = useState();
-  let [value4, setValue4] = useState();
+  const [value1, setValue1] = useState()
+  const [value2, setValue2] = useState()
+  const [value3, setValue3] = useState()
+  const [value4, setValue4] = useState()
 
   //Storing User entered Otp
-  let UserOtp = Number(`${value1}${value2}${value3}${value4}`);
+  const UserOtp = Number(`${value1}${value2}${value3}${value4}`)
 
   //Formik Structure for Signin
-  let initialValuesSignin = {
+  const initialValuesSignin = {
     email: "",
     password: "",
-  };
+  }
 
-  let validationSchemaSignin = yup.object({
+  const validationSchemaSignin = yup.object({
     email: yup.string().email().required("Email Required"),
     password: yup.string().required("Password Required"),
-  });
+  })
 
   //Api Calling for Signin
-  let SigninMutation = useMutation({
+  const SigninMutation = useMutation({
     mutationFn: SigninApi,
     onSuccess: (data) => {
-      setUser(data.userData);
-      navigate("/landingPage");
+      setUser(data.userData)
+      navigate("/landingPage")
       toast.success("User Logged in Successfully", {
         position: "top-center",
         autoClose: 3000,
         transition: Bounce,
-      });
-      console.log("User Signed in Successfully");
+      })
+      console.log("User Signed in Successfully")
     },
     onError: (error) => {
-      const errorMessage = error.message || "An unknown error occurred";
+      const errorMessage = error.message || "An unknown error occurred"
       toast.error(errorMessage, {
         position: "top-center",
         autoClose: 3000,
         transition: Bounce,
-      });
-      console.log("Some Error in Signing", error.message);
+      })
+      console.log("Some Error in Signing", error.message)
     },
-  });
-  
-  let onSubmitSignin = (values, onSubmitProps) => {
-    onSubmitProps.setSubmitting(false);
-    onSubmitProps.resetForm();
-    SigninMutation.mutate(values);
-  };
+  })
+
+  const onSubmitSignin = (values, onSubmitProps) => {
+    onSubmitProps.setSubmitting(false)
+    onSubmitProps.resetForm()
+    SigninMutation.mutate(values)
+  }
 
   //Formik Structure for Signup
-  let initialValuesSignup = {
+  const initialValuesSignup = {
     fullname: "",
     email: "",
     password: "",
     confirmpassword: "",
-  };
-  let validationSchemaSignup = yup.object({
+  }
+  const validationSchemaSignup = yup.object({
     fullname: yup.string().required("Required"),
     email: yup.string().email().required("Required"),
     password: yup.string().required("Required"),
@@ -84,47 +86,47 @@ function Login() {
       .string()
       .required("Required")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
-  });
+  })
 
   //Api Calling for Signup
-  let SignUpMutation = useMutation({
+  const SignUpMutation = useMutation({
     mutationFn: SignupApi,
     onSuccess: () => {
-      console.log("User Signed up Successfully");
-      SetAccount("otp");
+      console.log("User Signed up Successfully")
+      SetAccount("otp")
     },
     onError: () => {
-      console.log("Some error in User Signup");
+      console.log("Some error in User Signup")
     },
-  });
-  let onSubmitSignup = (values, onSubmitProps) => {
-    onSubmitProps.setSubmitting(false);
-    onSubmitProps.resetForm();
-    SignUpMutation.mutate(values);
-    setEmail(values.email);
-  };
+  })
+  const onSubmitSignup = (values, onSubmitProps) => {
+    onSubmitProps.setSubmitting(false)
+    onSubmitProps.resetForm()
+    SignUpMutation.mutate(values)
+    setEmail(values.email)
+  }
 
   //Api Calling for Otp
-  let UserData = {
+  const UserData = {
     otp: UserOtp,
     email: Email,
-  };
-  let OtpVerificationMutations = useMutation({
+  }
+  const OtpVerificationMutations = useMutation({
     mutationFn: OtpVerificationApi,
     onSuccess: () => {
-      SetAccount("signin");
-      console.log("otp Verificated");
+      SetAccount("signin")
+      console.log("otp Verificated")
     },
     onError: () => {
-      console.log("Some error in otp verification");
+      console.log("Some error in otp verification")
     },
-  });
+  })
 
   return (
     <>
       {Account === "signin" ? (
-        <div className="min-h-screen flex justify-center items-center bg-bgSignin">
-          <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4 md:py-8 rounded-md bg-bgwhite">
+        <div className="min-h-screen flex justify-center items-center">
+          <div className="w-[450px]  mx-3 py-4 md:py-8 ">
             <h1 className="text-2xl  font-extrabold">Talent-Link</h1>
             <p className="my-2 font-semibold">Sign in your account </p>
             <Formik
@@ -136,10 +138,7 @@ function Login() {
               {(formik) => {
                 return (
                   <Form className="flex justify-start flex-col px-3 py-6 lg:px-6">
-                    <label
-                      className="text-start font-medium text-sm"
-                      htmlFor="email"
-                    >
+                    <label className="text-start font-medium text-sm" htmlFor="email">
                       Email
                     </label>
                     <div className="text-start w-full mt-2">
@@ -151,10 +150,7 @@ function Login() {
                       />
                       {/* <ErrorMessage name="email" component="div" className="text-red-500 text-sm text-start" /> */}
                     </div>
-                    <label
-                      className="text-start font-medium text-sm mt-3"
-                      htmlFor="password"
-                    >
+                    <label className="text-start font-medium text-sm mt-3" htmlFor="password">
                       Password
                     </label>
                     <div className="text-start w-full mt-2">
@@ -183,14 +179,14 @@ function Login() {
                       <span
                         className="hover:cursor-pointer text-primary font-normal text-InstructorPrimary"
                         onClick={() => {
-                          SetAccount("signup");
+                          SetAccount("signup")
                         }}
                       >
                         Sign Up
                       </span>
                     </p>
                   </Form>
-                );
+                )
               }}
             </Formik>
           </div>
@@ -199,14 +195,12 @@ function Login() {
         <div className="flex items-center justify-center w-full h-screen">
           <div className="py-10 px-5 md:py-20 md:px-36 bg-bgwhite shadow-2xl">
             <h1 className="text-2xl font-bold">Verify</h1>
-            <p className="mt-2 text-sm text-neutral-400">
-              Your Code was sent to you via email
-            </p>
+            <p className="mt-2 text-sm text-neutral-400">Your Code was sent to you via email</p>
             <div className="my-4">
               <input
                 type="number"
                 onChange={(e) => {
-                  setValue1(e.target.value);
+                  setValue1(e.target.value)
                 }}
                 name=""
                 id=""
@@ -215,7 +209,7 @@ function Login() {
               <input
                 type="number"
                 onChange={(e) => {
-                  setValue2(e.target.value);
+                  setValue2(e.target.value)
                 }}
                 name=""
                 id=""
@@ -224,7 +218,7 @@ function Login() {
               <input
                 type="number"
                 onChange={(e) => {
-                  setValue3(e.target.value);
+                  setValue3(e.target.value)
                 }}
                 name=""
                 id=""
@@ -233,7 +227,7 @@ function Login() {
               <input
                 type="number"
                 onChange={(e) => {
-                  setValue4(e.target.value);
+                  setValue4(e.target.value)
                 }}
                 name=""
                 id=""
@@ -244,7 +238,7 @@ function Login() {
               className="bg-blue-600 text-white px-4 py-3 rounded-md"
               type="submit"
               onClick={() => {
-                OtpVerificationMutations.mutate(UserData);
+                OtpVerificationMutations.mutate(UserData)
               }}
             >
               Verify
@@ -252,8 +246,8 @@ function Login() {
           </div>
         </div>
       ) : (
-        <div className="min-h-screen flex justify-center items-center bg-bgSignin">
-          <div className="w-[450px] before:lg:shadow-4xl shadow-2xl mx-3 py-4 rounded-md bg-bgwhite">
+        <div className="min-h-screen flex justify-center items-center">
+          <div className="w-[450px]  mx-3 py-4 rounded-md">
             <h1 className="text-2xl font-extrabold tracking-widest">Talent-Link</h1>
             <p className="my-2 font-semibold">Sign up your account </p>
             <Formik
@@ -265,10 +259,7 @@ function Login() {
               {(formik) => {
                 return (
                   <Form className="flex justify-start flex-col px-3 py-6 lg:px-6">
-                    <label
-                      className="text-start font-medium text-sm"
-                      htmlFor="fullname"
-                    >
+                    <label className="text-start font-medium text-sm" htmlFor="fullname">
                       Full Name
                     </label>
                     <div className="text-start w-full mt-2">
@@ -285,10 +276,7 @@ function Login() {
                       /> */}
                     </div>
 
-                    <label
-                      className="text-start font-medium text-sm mt-3"
-                      htmlFor="email"
-                    >
+                    <label className="text-start font-medium text-sm mt-3" htmlFor="email">
                       Email
                     </label>
                     <div className="text-start w-full mt-2">
@@ -305,10 +293,7 @@ function Login() {
                       /> */}
                     </div>
 
-                    <label
-                      className="text-start font-medium text-sm mt-3"
-                      htmlFor="password"
-                    >
+                    <label className="text-start font-medium text-sm mt-3" htmlFor="password">
                       Password
                     </label>
                     <div className="text-start w-full mt-2">
@@ -325,10 +310,7 @@ function Login() {
                       /> */}
                     </div>
 
-                    <label
-                      className="text-start font-medium text-sm mt-3"
-                      htmlFor="confirmpassword"
-                    >
+                    <label className="text-start font-medium text-sm mt-3" htmlFor="confirmpassword">
                       Confirm Password
                     </label>
                     <div className="text-start w-full mt-2">
@@ -345,8 +327,6 @@ function Login() {
                       /> */}
                     </div>
 
-                    
-
                     <button
                       className="text-white rounded-md mt-5 bg-InstructorPrimary w-full p-2 hover:bg-buttonHover duration-300"
                       type="submit"
@@ -360,7 +340,7 @@ function Login() {
                       <span
                         className="hover:cursor-pointer text-primary font-normal text-InstructorPrimary"
                         onClick={() => {
-                          SetAccount("signin");
+                          SetAccount("signin")
                         }}
                       >
                         Login
@@ -368,14 +348,14 @@ function Login() {
                       here
                     </p>
                   </Form>
-                );
+                )
               }}
             </Formik>
           </div>
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default Login;
+export default Login

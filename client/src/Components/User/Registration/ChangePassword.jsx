@@ -103,7 +103,7 @@ function ChangePassword() {
     {visibility === 'email'?
     <div className="flex justify-center items-center w-full h-screen bg-gray-100">
     <div className="py-12 px-6 flex flex-col text-start bg-white rounded-lg shadow-lg lg:w-1/3 w-full">
-      <h1 className="font-bold text-3xl text-center mb-6 text-gray-800 tracking-widest">EDUMIN</h1>
+      <h1 className="font-bold text-3xl text-center mb-6 text-gray-800 tracking-widest">Talent Link</h1>
       <p className="text-neutral-500 text-sm mb-6 text-center lg:text-left">
         Enter the email address associated with your account, and we will send you an OTP to change your password.
       </p>

@@ -1,6 +1,5 @@
 import './App.css';
 import LandingPage from './Components/User/LandingPage/LandingPage';
-import Login from './Components/User/Registration/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -23,6 +22,9 @@ import Quiz from './Components/QuizTest/Quiz';
 import TakeQuiz from './Components/User/UserDashboard/TakeQuiz/TakeQuiz';
 import CoLandingPage from './Components/User/JobCopilot/CoLandingPage';
 import JobPref from './Components/User/JobCopilot/JobPref';
+import Home from './Components/User/Home';
+import DeveloperReg from './Components/User/Registration/DeveloperReg';
+import CompanyReg from './Components/Company/Company-Registration/CompanyReg';
 
 function App() {
   return (
@@ -33,7 +35,8 @@ function App() {
           {/* User Routes */}
           <Route path='/userProfile' element = {<ProfileComponent/>}/>
           {/* Registration routes */}
-          <Route path='/' element={<Login />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/developerLogin' element={<DeveloperReg />} />
           <Route path='/changePassword' element={<ChangePassword />} />
           <Route path='/landingPage' element={<LandingPage />} />
           <Route path='/userDashboard/*' element={<UserDashboard/>}/>
@@ -53,7 +56,7 @@ function App() {
           <Route path='/jobs/details/:id' element={<Main/>}/>
 
           {/* Company Routes */}
-          <Route path='/registerCompany' element={<CompanyRegistration />} />
+          <Route path='/companyLogin' element={<CompanyReg />} />
           <Route path='/dashboardCompany/*' element={<CompanyDashboard />} />
 
           {/* Interview route */}

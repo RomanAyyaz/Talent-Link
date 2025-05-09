@@ -38,7 +38,7 @@ export default function AllCoursesList({ courses }) {
       {/* image */}
       <div className="relative h-56">
         <img
-          src={`http://localhost:8000${courses.imageUrl}`}
+          src={`http://localhost:8000/public${courses.imageUrl}`}
           alt={courses.title}
           className="w-full h-full object-cover"
         />

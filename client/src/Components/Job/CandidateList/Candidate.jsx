@@ -56,7 +56,7 @@ function Candidate({ candidateData }) {
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
         {/* Profile Image */}
         <img
-          src={`http://localhost:8000${candidateData.userId.imageUrl}`}
+          src={`http://localhost:8000/public${candidateData.userId.imageUrl}`}
           alt="Profile"
           className="w-20 h-20 rounded-lg object-cover"
         />
