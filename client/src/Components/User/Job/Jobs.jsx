@@ -77,10 +77,10 @@ export default function Jobs() {
   };
 
   // Get an array of selected job types
-  const selectedJobTypes = Object.keys(jobType).filter((key) => jobType[key]);
+  const selectedJobTypes = Object.keys(jobType)?.filter((key) => jobType[key]);
 
   // Filter jobs based on job title, experience, and job type
-  const filteredJobs = jobData.filter((job) => {
+  const filteredJobs = jobData?.filter((job) => {
     const matchesTitle = job.jobTitle
       .toLowerCase()
       .includes(searchTitle.toLowerCase());
@@ -312,9 +312,6 @@ export default function Jobs() {
         </div>
 
       </div>
-      {/* <div className="mt-3">
-        <OtherLinks />
-      </div> */}
 
       <div className="">
         <Fotter />

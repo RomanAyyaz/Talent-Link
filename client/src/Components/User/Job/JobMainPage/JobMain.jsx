@@ -2,8 +2,8 @@ import React from "react";
 import { MapPin, Briefcase, Clock, DollarSign } from "lucide-react";
 //import Navbar from "../../LandingPage/Navbar/Navbar";
 import Navbar from "../../Navbar";
-
-export default function JobMain() {
+import { formatDistanceToNow } from "date-fns";
+export default function JobMain({ job }) {
   return (
     <>
       <Navbar />
@@ -26,26 +26,35 @@ export default function JobMain() {
             <div className="flex-1">
               {/* Title */}
               <h2 className="text-2xl md:text-4xl font-normal text-white mb-4">
-                Senior UI Designer, Apple
+                {job?.jobTitle}
               </h2>
 
               {/* Job Details */}
               <div className="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-6 mb-6">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-HeroButtonOne" />
-                  <span className=" text-white">Newyork, USA</span>
+                  <span className=" text-white">{job?.location || 'No Location'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-5 h-5 text-HeroButtonOne" />
-                  <span className=" text-white">Full Time</span>
+                  <span className=" text-white">
+                    {job?.employmentType || "Not given"}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-HeroButtonOne" />
-                  <span className=" text-white">1 Years Ago</span>
+                  <span className="text-white">
+                    {job?.createdAt
+                      ? formatDistanceToNow(new Date(job.createdAt), {
+                          addSuffix: true,
+                        }).replace(/about |over |almost /g, "")
+                      : ""}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <DollarSign className="w-5 h-5 text-HeroButtonOne" />
-                  <span className=" text-white">$1000 - $2000 Monthly</span>
+                  {/* <span className=" text-white">$1000 - $2000 Monthly</span> */}
+                  <span className=" text-white">${job?.salaryMin} - ${job?.salaryMax} Monthly</span>
                 </div>
               </div>
 

@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function AllJobslist({ job }) {
+  console.log('janu',job)
   return (
     <Link to={`/jobs/details/${job._id}`}>
       <div className="w-full rounded-md border border-grey-300 bg-white p-6 shadow-sm text-start">
@@ -38,7 +39,7 @@ export default function AllJobslist({ job }) {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span className="text-sm">Newyork, USA</span>
+            <span className="text-sm">{job?.location}</span>
           </div>
           <div className="flex items-center gap-2">
             <svg
@@ -54,7 +55,7 @@ export default function AllJobslist({ job }) {
                 d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
               />
             </svg>
-            <span className="text-sm">Full Time</span>
+            <span className="text-sm">{job?.employmentType || 'No data'}</span>
           </div>
         </div>
 
@@ -65,8 +66,7 @@ export default function AllJobslist({ job }) {
 
         {/* Description */}
         <p className="mb-6 text-gray-600">
-          Consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio
-          officiis odit mollitia eum ipsum.
+          {job?.jobDescription  || 'No description given by company'}
         </p>
 
         {/* Tags */}

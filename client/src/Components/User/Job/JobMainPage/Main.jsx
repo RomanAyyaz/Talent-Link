@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import JobMain from "./JobMain";
 import JobDetails from "./JobDetails";
+import { formatDistanceToNow } from "date-fns";
 import {
   Calendar,
   Users,
@@ -32,6 +33,7 @@ function Main() {
     queryKey: ["jobs"],
     queryFn: () => hasUserAppliedApi({ userId: user._id, jobId: id }),
   });
+  //Specific job data
   const tabs = [
     { id: "description", label: "Job Description", isActive: false },
     { id: "responsibilities", label: "Responsibilities", isActive: false },
@@ -43,7 +45,11 @@ function Main() {
     {
       icon: <Calendar className="w-5 h-5 text-green-500" />,
       label: "Date Posted",
-      value: "10, July, 2023",
+      value: jobData?.data.createdAt
+                            ? formatDistanceToNow(new Date(jobData?.data.createdAt), {
+                                addSuffix: true,
+                              }).replace(/about |over |almost /g, "")
+                            : ""
     },
     {
       icon: <Users className="w-5 h-5 text-green-500" />,
@@ -53,12 +59,12 @@ function Main() {
     {
       icon: <Clock className="w-5 h-5 text-green-500" />,
       label: "Experience",
-      value: "5 Years",
+      value: jobData?.data.experience || 'Not given',
     },
     {
       icon: <Wallet className="w-5 h-5 text-green-500" />,
       label: "Offered Salary",
-      value: "$2000-$3000",
+      value: `${jobData?.data.salaryMin} - ${jobData?.data.salaryMax}`,
     },
     {
       icon: <CalendarClock className="w-5 h-5 text-green-500" />,
@@ -68,12 +74,12 @@ function Main() {
     {
       icon: <GraduationCap className="w-5 h-5 text-green-500" />,
       label: "Qualification",
-      value: "Bachelor Degree",
+      value: jobData?.data.qualification,
     },
     {
       icon: <MapPin className="w-5 h-5 text-green-500" />,
       label: "Location",
-      value: "New York, USA",
+      value: jobData?.data.location || 'Not given',
     },
   ];
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -81,9 +87,10 @@ function Main() {
     <div>Data loading</div>;
   }
   const companyId = jobData?.data?.postedBy
+  console.log('Testing one',jobData)
   return (
     <div>
-      <JobMain />
+      <JobMain job = {jobData?.data} />
       <div className="md:px-10 md:flex">
         {/* Left Section */}
         <div className="py-5 md:py-14 md:w-3/5">
@@ -258,9 +265,7 @@ function Main() {
           </div>
         </div>
       </div>
-      {/* Links */}
-      {/* <OtherLinks /> */}
-      {/* Footer */}
+     
       
       <div className="md:px-10">
       {<JobHeader/>}  

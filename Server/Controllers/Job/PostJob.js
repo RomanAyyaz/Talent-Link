@@ -6,7 +6,8 @@ const nodemailer = require('nodemailer');
 const postJob = async (req, res) => {
     let {
         jobTitle, jobDescription, workingSchedule, workingDays,
-        salaryMin, salaryMax, experience, qualification,
+        minSalary: salaryMin,   
+        maxSalary: salaryMax,  experience, qualification,
         employmentType, location , postedBy
     } = req.body;
     console.log(req.body)

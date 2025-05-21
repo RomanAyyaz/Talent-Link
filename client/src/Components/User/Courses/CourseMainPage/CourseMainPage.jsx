@@ -218,7 +218,7 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
           courseData.bought ===  false ?  <div className="absolute top-40 right-4 w-80 h-80 bg-white rounded-lg shadow-lg">
           <div>
             <img
-              src={`http://localhost:8000${courseData.imageUrl}`}
+              src={`http://localhost:8000/public${courseData.imageUrl}`}
               className="w-full h-48"
               alt=""
             />
@@ -323,9 +323,9 @@ https://secure.gravatar.com/avatar/ff7411aa595f41253c93a296342c5d9d?s=250&d=mm&r
       </div>
       <CourseReviews/></> : null
       }
-      <div className="mt-3">
+      {/* <div className="mt-3">
         <OtherLinks />
-      </div>
+      </div> */}
       <div className="">
         <Fotter />
       </div>

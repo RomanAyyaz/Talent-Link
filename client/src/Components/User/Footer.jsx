@@ -9,13 +9,7 @@ function Footer() {
         <div className="text-start">
           <h3 className="text-white text-xl font-medium mb-6">Products</h3>
           <ul className="space-y-4">
-            <li><a href="#" className="hover:text-green-500 transition-colors">Screen</a></li>
-            <li><a href="#" className="hover:text-green-500 transition-colors">Interview</a></li>
-            <li><a href="#" className="hover:text-green-500 transition-colors">Engage</a></li>
-            <li><a href="#" className="hover:text-green-500 transition-colors">SkillUp</a></li>
-            <li><a href="#" className="hover:text-green-500 transition-colors">Certified assessments</a></li>
-            <li><a href="#" className="hover:text-green-500 transition-colors">Plagiarism detection</a></li>
-            <li><a href="#" className="hover:text-green-500 transition-colors">Real-world questions</a></li>
+           
           </ul>
         </div>
 
@@ -34,12 +28,7 @@ function Footer() {
         <div className="text-start" >
           <h3 className="text-white text-xl font-medium mb-6">Resources</h3>
           <ul className="space-y-4">
-            <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Customer stories</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Roles directory</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Partners</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">What's new</a></li>
+            
           </ul>
         </div>
 
@@ -47,10 +36,7 @@ function Footer() {
         <div className="text-start">
           <h3 className="text-white text-xl font-medium mb-6">About us</h3>
           <ul className="space-y-4">
-            <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Newsroom</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Trust</a></li>
+            
           </ul>
         </div>
 
@@ -58,11 +44,7 @@ function Footer() {
         <div className="text-start">
           <h3 className="text-white text-xl font-medium mb-6">Get started</h3>
           <ul className="space-y-4">
-            <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Free Trial</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Request a demo</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Product support</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">For developers</a></li>
+            
           </ul>
         </div>
       </div>

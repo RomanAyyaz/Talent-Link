@@ -6,12 +6,12 @@ const AppliedJobs = ({jobData}) => {
   // <>hello
   // </>
     <div className="max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">{jobData.jobId.jobTitle}</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">{jobData?.jobId?.jobTitle}</h2>
 
       <div className="flex flex-wrap gap-6 mb-6">
         <div className="flex items-center text-gray-500">
           <MapPin className="w-5 h-5 mr-2" />
-          <span>{jobData.jobId.location}</span>
+          <span>{jobData?.jobId?.location}</span>
         </div>
 
         <div className="flex items-center text-gray-500">
@@ -35,7 +35,7 @@ const AppliedJobs = ({jobData}) => {
         <button className="p-3 text-gray-700 bg-white border border-gray-200 rounded-md hover:bg-gray-50">
           <Edit className="w-5 h-5" />
         </button>
-        <Link to={`/UserDashboard/pipeline/${jobData.jobId._id}`}> 
+        <Link to={`/UserDashboard/pipeline/${jobData?.jobId?._id}`}> 
         <button className="p-3 text-gray-700 bg-white border border-gray-200 rounded-md hover:bg-gray-50">
           <Eye className="w-5 h-5" />
         </button>

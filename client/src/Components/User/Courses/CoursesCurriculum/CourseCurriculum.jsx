@@ -188,7 +188,7 @@ export default function CourseCurriculum({bought}) {
                 <p className="mb-4">{lecture.description}</p>
                 <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
                   <iframe
-                    src={`http://localhost:8000${lecture.videoUrl}`}
+                    src={`http://localhost:8000/public${lecture.videoUrl}`}
                     // frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

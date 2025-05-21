@@ -17,7 +17,7 @@ const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: '*', // Allow all for now (secure later)
+    origin: '*', 
   },
 });
 
